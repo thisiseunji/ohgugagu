@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.ohgu.member.vo.Member"%>
 <%
 	String contextPath = request.getContextPath();
 %>
@@ -20,14 +20,14 @@
 
 	<style>
         div{
-            /* border: 1px solid black; */
+            /*border: 1px solid black;*/
         }
-        .wrapper{
+        .menuWrapper{
             display: flex;
             height: 100px;
         }
         .menu{
-            width: 150px;
+            width: 400px;
         }
         .logo{
             width: 100%;
@@ -127,7 +127,7 @@
     </style>
 </head>
 <body>
-	<div class="wrapper">
+	<div class="menuWrapper">
         <div class="menu">
             <input type="checkbox" id="menuicon">
             <label for="menuicon">
@@ -145,12 +145,15 @@
                 </div>
             </div>
         </div>
-        <div class="logo"><a href="<%= contextPath %>"><img class="mainLogo" src="../../resources/image/logo.png"></a></div>
+        <div class="logo"><a href="<%= contextPath %>"><img class="mainLogo" src="resources/image/logo.png"></a></div>
         <div class="login">
-                <div><a href="<%= contextPath %>/loginform.me">Login</a></div>
-                <div><a href="">Sign up</a></div>
-                <div><a href="">Search</a></div>
+        	
+	        	<div><a href="<%= contextPath %>/loginform.me">Login</a></div>
+	        	<div><a href="<%= contextPath%>/enrollForm.me">Sign up</a></div>
+	        	<div><a href="">Search</a></div>
+	        	
         </div>
     </div>
+    <hr>
 </body>
 </html>
