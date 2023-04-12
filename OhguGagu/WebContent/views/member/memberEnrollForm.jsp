@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- <%@ include file="../common/menubar.jsp" %> -->
+	<%@ include file="../common/menubar.jsp" %>
 	<br>
 	<h1 align="center">회원가입</h1>
 	<br>
@@ -35,7 +35,7 @@
 			</tr>
 			<tr>
 				<th>성별</th>
-				<td><input type="radio">남<input type="radio">여</td>
+				<td><input type="radio" name="gender">남<input type="radio" name="gender">여</td>
 			</tr>
 			<tr>
 				<th>전화번호</th>
@@ -51,6 +51,6 @@
 			</tr>
 		</table>
 	</div>
-	<!-- <%@ include file="../common/footer.jsp" %> -->
+	<%@ include file="../common/footer.jsp" %>
 </body>
 </html>
