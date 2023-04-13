@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String context_Path = request.getContextPath(); // contextPath 뽑는 변수 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,10 +24,22 @@
     .footerWrapper>div{
         margin: auto;
     }
-    .footer1{width: 40%;}
-    .footer2{width: 30%;}
-    .footer3{width: 20%;}
-    .footer4{width: 20%;}
+    .footer1{
+        width: 40%;
+        padding: 40px;
+    }
+    .footer2{
+        width: 30%;
+        padding: 40px;
+    }
+    .footer3{
+        width: 20%;
+        padding: 40px;
+    }
+    .footer4{
+        width: 20%;
+        padding: 40px;
+    }
 </style>
 </head>
 <body>
@@ -39,14 +54,18 @@
             </p>
         </div>
         <div class="footer2"> 
-            <p>
-            	<h4>고객센터</h4>
-            	<h2>1855-9234</h2>
-                * 평일 오전 9시 - 오후 6시 <br>
-                * 토요일 및 공유일 오전 9시 - 오후 5시 <br>
-                * 일요일 휴무
-            </p>
-            <a href="" class="btn btn-danger">고객센터</a>
+        	<div>
+	        	<p>
+	            	<h4>고객센터</h4>
+	            	<h2>1855-9234</h2>
+	                * 평일 오전 9시 - 오후 6시 <br>
+	                * 토요일 및 공유일 오전 9시 - 오후 5시 <br>
+	                * 일요일 휴무
+	            </p>
+        	</div>
+            <div align="center">
+           		<a href="<%= context_Path %>/customerForm.cu" class="btn btn-danger">고객센터</a>
+            </div>
         </div>
         <div class="footer3">
             <p>
