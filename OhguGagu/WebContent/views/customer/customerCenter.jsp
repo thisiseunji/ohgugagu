@@ -22,7 +22,7 @@
 </head>
 <body>
 	<header>
-		<%@ include file="../common/customerSidebar.jsp" %>
+		<!-- <%@ include file="../common/customerSidebar.jsp" %> -->
 		<%@ include file="../common/menubar.jsp" %>
 	</header>
 	<div class="outer" align="center">
