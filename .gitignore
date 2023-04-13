@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/java,windows,macos,eclipse,intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,windows,macos,eclipse,intellij
 
+# 클래스관련
+.classpath
+.project
+
 #tomcat
 /Servers/
 
