@@ -136,7 +136,7 @@
 
         if(msg != "null"){
             alert(msg);
-            <% 
+            <%
                 session.removeAttribute("alertMsg");
             %>
         }
@@ -174,6 +174,6 @@
 	        <% } %>
         </div>
     </div>
-    <hr>
+    <hr style="margin-bottom: 0px;">
 </body>
 </html>
