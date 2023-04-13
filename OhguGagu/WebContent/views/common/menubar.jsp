@@ -30,7 +30,7 @@
             height: 100px;
         }
         .menu{
-            width: 230px;
+            width:295px;
         }
         .logo{
             width: 100%;
@@ -144,21 +144,7 @@
 
 	<div class="menuWrapper">
         <div class="menu">
-            <input type="checkbox" id="menuicon">
-            <label for="menuicon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-            <div class="sidebar">
-                <div>
-                    <div>카테고리</div>
-                    <a href="">전체상품</a><br>
-                    <a href="">할인상품</a><br>
-                    <a href="">침대</a><a href="">책상</a><a href="">의자</a><br>
-                    <a href="">소파</a><a href="">선반</a><a href="">진열장</a>
-                </div>
-            </div>
+            
         </div>
         <div class="logo"><a href="<%= contextPath %>"><img class="mainLogo" src="resources/image/logo.png"></a></div>
         <div>
