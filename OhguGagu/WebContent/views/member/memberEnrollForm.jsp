@@ -24,15 +24,15 @@
 		<br>
 		<h1 align="center">회원가입</h1>
 		<br>
-		<form id="enroll-form" action="" method="post">
+		<form id="enroll-form" action="<%= contextPath %>/insert.me" method="post">
 			<table>
 				<tr>
 					<th>*아이디</th>
-					<td><input type="text" name="userId" required></td>
+					<td><input type="text" name="memberId" required></td>
 				</tr>
 				<tr>
 					<th>*비밀번호</th>
-					<td><input type="password" name="userPwd" required></td>
+					<td><input type="password" name="memberPwd" required></td>
 				</tr>
 				<tr>
 					<th>*비밀번호 확인</th>
@@ -40,7 +40,7 @@
 				</tr>
 				<tr>
 					<th>*이름</th>
-					<td><input type="text" name="userName" required></td>
+					<td><input type="text" name="memberName" required></td>
 				</tr>
 				<tr>
 					<th>*이메일</th>
@@ -52,7 +52,7 @@
 				</tr>
 				<tr>
 					<th>전화번호</th>
-					<td><input type="password" name="userPwd" required></td>
+					<td><input type="text" name="phone" required></td>
 				</tr>
 				<tr>
 					<th>*주소</th>
