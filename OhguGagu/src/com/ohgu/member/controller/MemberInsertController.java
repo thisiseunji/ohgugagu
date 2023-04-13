@@ -41,8 +41,6 @@ public class MemberInsertController extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String gender = request.getParameter("gender");
 		String bDate = request.getParameter("bDate");
-		
-		System.out.println(gender);
 
 		Member m = new Member(memberId, memberPwd, memberName, email, phone, gender, bDate);
 		
