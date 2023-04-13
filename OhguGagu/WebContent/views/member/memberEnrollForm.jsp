@@ -73,7 +73,7 @@
 				</tr>
 				<tr>
 					<th>*이메일</th>
-					<td><input type="text" name="email" required></td>
+					<td><input type="email" name="email" required></td>
 					<td></td>
 				</tr>
 				<tr>
@@ -83,7 +83,7 @@
 				</tr>
 				<tr>
 					<th>전화번호</th>
-					<td><input type="text" name="phone" required></td>
+					<td><input type="text" name="phone"></td>
 					<td></td>
 				</tr>
 				<tr>

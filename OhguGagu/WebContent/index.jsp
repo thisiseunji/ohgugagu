@@ -30,6 +30,7 @@
 <body>
 	<div id="wrap">
 		<header>
+			<%@ include file="views/common/mainSidebar.jsp" %>
 			<%@ include file="views/common/menubar.jsp" %>
 		</header>
 		<section>

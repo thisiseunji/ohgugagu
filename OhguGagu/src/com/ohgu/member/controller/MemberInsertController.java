@@ -41,17 +41,14 @@ public class MemberInsertController extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String gender = request.getParameter("gender");
 		String bDate = request.getParameter("bDate");
-		
-		System.out.println(gender);
 
 		Member m = new Member(memberId, memberPwd, memberName, email, phone, gender, bDate);
 		
 		int result = new MemberService().insertMember(m);
 		
 		if(result>0) {
-			HttpSession session = request.getSession();
-			session.setAttribute("alertMsg", "회원가입 완료");
-			response.sendRedirect(request.getContextPath());
+			request.setAttribute("alertMsg", "회원가입 완료");
+			request.getRequestDispatcher("/views/member/joinSuccesPage.jsp").forward(request, response);
 		}else {
 			request.setAttribute("alertMsg", "회원가입 실패");
 			request.getRequestDispatcher("/views/member/memberEnrollForm.jsp").forward(request, response);
