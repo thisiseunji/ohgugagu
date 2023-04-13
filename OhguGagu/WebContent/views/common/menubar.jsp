@@ -1,8 +1,10 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.ohgu.member.vo.Member"%>
+    pageEncoding="UTF-8" import="com.ohgu.member.model.vo.Member"%>
 <%
-	String contextPath = request.getContextPath();
+	String contextPath = request.getContextPath(); // contextPath 뽑는 변수 
+	String alertMsg = (String)session.getAttribute("alertMsg"); // 일회성 알람메세지 변수
+	Member loginUser = (Member)session.getAttribute("loginUser"); // 로그인한 회원의 객체 
 %>
 <!DOCTYPE html>
 <html>
@@ -128,6 +130,18 @@
     </style>
 </head>
 <body>
+
+	<script>
+        let msg = "<%= alertMsg %>";
+
+        if(msg != "null"){
+            alert(msg);
+            <% 
+                session.removeAttribute("alertMsg");
+            %>
+        }
+    </script>
+
 	<div class="menuWrapper">
         <div class="menu">
             <input type="checkbox" id="menuicon">
@@ -148,11 +162,16 @@
         </div>
         <div class="logo"><a href="<%= contextPath %>"><img class="mainLogo" src="resources/image/logo.png"></a></div>
         <div class="login">
-        	
+        	<% if(loginUser == null){ %>
 	        	<div><a href="<%= contextPath %>/loginform.me">Login</a></div>
 	        	<div><a href="<%= contextPath%>/enrollForm.me">Sign up</a></div>
 	        	<div><a href="">Search</a></div>
-	        	
+	        <% } else{ %>	
+	        	<div><a href="<%= contextPath %>/myPage.me">MyPage</a></div>
+	        	<div><a href="<%= contextPath %>/logout.me">logout</a></div>
+	        	<div><a href="<%= contextPath%>/">Cart</a></div>
+	        	<div><a href="">Search</a></div>
+	        <% } %>
         </div>
     </div>
     <hr>
