@@ -8,4 +8,16 @@
 		AND MEMBER_PWD = ?
 		AND IS_DELETED = 'N'
 	</entry>
+	
+	<entry key="insertMember">
+		INSERT INTO TB_MEMBER(MEMBER_NO
+                    , MEMBER_ID
+                    , MEMBER_PWD
+                    , MEMBER_NAME
+                    , EMAIL
+                    , GENDER
+                    , PHONE
+                    , BIRTH_DATE)
+		VALUES (SEQ_MEM.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)
+	</entry>
 </properties>

@@ -30,14 +30,14 @@
             height: 100px;
         }
         .menu{
-            width: 400px;
+            width: 230px;
         }
         .logo{
             width: 100%;
             text-align: center;
         }
         .login{
-            width: 400px;
+            width: 230px;
             display: flex;
             justify-content: flex-end;
             padding-top: 20px;
@@ -161,16 +161,24 @@
             </div>
         </div>
         <div class="logo"><a href="<%= contextPath %>"><img class="mainLogo" src="resources/image/logo.png"></a></div>
-        <div class="login">
+        <div>
         	<% if(loginUser == null){ %>
-	        	<div><a href="<%= contextPath %>/loginform.me">Login</a></div>
-	        	<div><a href="<%= contextPath%>/enrollForm.me">Sign up</a></div>
-	        	<div><a href="">Search</a></div>
+        		<!-- 로그인 전 -->
+        		<div class="login">
+        			<div><a href="<%= contextPath %>/loginform.me">Login</a></div>
+		        	<div><a href="<%= contextPath%>/enrollForm.me">Sign up</a></div>
+		        	<div><a href="">Search</a></div>
+        		</div>
 	        <% } else{ %>	
-	        	<div><a href="<%= contextPath %>/myPage.me">MyPage</a></div>
-	        	<div><a href="<%= contextPath %>/logout.me">logout</a></div>
-	        	<div><a href="<%= contextPath%>/">Cart</a></div>
-	        	<div><a href="">Search</a></div>
+	        	<!-- 로그인 후 -->
+	        	<br>
+	        	<div><b><%= loginUser.getMemberName() %>님</b> 환영합니다.</div>
+                <div class="login">
+                    <div><a href="<%= contextPath %>/myPage.me">MyPage</a></div>
+                    <div><a href="<%= contextPath %>/logout.me">logout</a></div>
+                    <div><a href="<%= contextPath%>/">Cart</a></div>
+                    <div><a href="">Search</a></div>
+                </div>
 	        <% } %>
         </div>
     </div>

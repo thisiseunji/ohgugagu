@@ -1,11 +1,16 @@
 package com.ohgu.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.ohgu.member.model.service.MemberService;
+import com.ohgu.member.model.vo.Member;
 
 /**
  * Servlet implementation class MemberInsertController
@@ -27,7 +32,28 @@ public class MemberInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
+		
 		String memberId = request.getParameter("memberId");
+		String memberPwd = request.getParameter("memberPwd");
+		String memberName = request.getParameter("memberName");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+		String gender = request.getParameter("gender");
+		String bDate = request.getParameter("bDate");
+
+		Member m = new Member(memberId, memberPwd, memberName, email, phone, gender, bDate);
+		
+		int result = new MemberService().insertMember(m);
+		
+		if(result>0) {
+			HttpSession session = request.getSession();
+			session.setAttribute("alertMsg", "회원가입 완료");
+			response.sendRedirect(request.getContextPath());
+		}else {
+			request.setAttribute("alertMsg", "회원가입 실패");
+			request.getRequestDispatcher("/views/member/memberEnrollForm.jsp").forward(request, response);
+		}
 		
 	}
 

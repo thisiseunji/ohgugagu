@@ -47,10 +47,11 @@ public class MemberDao {
 				loginUser = new Member(rset.getInt("MEMBER_NO")
 									 , rset.getString("MEMBER_ID")
 									 , rset.getString("MEMBER_PWD")
+									 , rset.getString("MEMBER_NAME")
 									 , rset.getString("EMAIL")
 									 , rset.getString("GENDER")
 									 , rset.getString("PHONE")
-									 , rset.getDate("BIRTH_DATE")
+									 , rset.getString("BIRTH_DATE")
 									 , rset.getInt("POINT")
 									 , rset.getDate("CREATED_AT")
 									 , rset.getString("IS_DELETED")
@@ -64,6 +65,32 @@ public class MemberDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return loginUser;
+	}
+	
+	
+	public int insertMember(Connection conn, Member m) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getMemberId());
+			pstmt.setString(2, m.getMemberPwd());
+			pstmt.setString(3, m.getMemberName());
+			pstmt.setString(4, m.getEmail());
+			pstmt.setString(5, m.getGender());
+			pstmt.setString(6, m.getPhone());
+			pstmt.setString(7, m.getbDate());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
 	}
 
 }
