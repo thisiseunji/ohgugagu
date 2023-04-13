@@ -23,7 +23,7 @@
 
 	<style>
         div{
-            /* border: 1px solid black; */
+            /*border: 1px solid black;*/
         }
         .menuWrapper{
             display: flex;
@@ -136,7 +136,7 @@
 
         if(msg != "null"){
             alert(msg);
-            <%
+            <% 
                 session.removeAttribute("alertMsg");
             %>
         }
@@ -182,6 +182,6 @@
 	        <% } %>
         </div>
     </div>
-    <hr style="margin-bottom: 0px;">
+    <hr>
 </body>
 </html>
