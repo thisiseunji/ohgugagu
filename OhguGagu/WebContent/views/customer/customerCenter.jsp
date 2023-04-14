@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <style>
 	header{
-		z-index: 1;
+		z-index: 2;
 	}
 	.qbox{
 		border: 1px solid black;
@@ -19,7 +19,7 @@
 		margin-left: 300px;
 	}
 	footer{
-		z-index: 2;
+		z-index: 3;
 	}
 </style>
 </head>
