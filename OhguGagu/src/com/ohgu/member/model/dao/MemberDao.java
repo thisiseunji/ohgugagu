@@ -35,13 +35,19 @@ public class MemberDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("loginMember");
+		System.out.println(sql);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m.getMemberId());
 			pstmt.setString(2, m.getMemberPwd());
 			
+			System.out.println(m.getMemberId());
+			System.out.println(m.getMemberPwd());
+			
 			rset = pstmt.executeQuery();
+			
+			//System.out.println(rset.next());
 			
 			if(rset.next()) {
 				loginUser = new Member(rset.getInt("MEMBER_NO")
@@ -58,6 +64,7 @@ public class MemberDao {
 									 , rset.getInt("TOTAL_PAYMENT")
 									 , rset.getString("SOCIAL_PLATFORM"));
 			}
+			System.out.println(loginUser);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
