@@ -27,7 +27,8 @@
         }
         .menuWrapper{
             display: flex;
-            height: 100%;
+            height: 100px;
+            border-bottom: 1px solid lightgray;
         }
         .menu{
             width:295px;
@@ -113,20 +114,6 @@
             z-index: 2;
             left: 300px;
         }
-        .sidebar>div{
-            margin-left: 20px;
-            margin-top: 100px;
-        }
-        .sidebar>div>div{
-            font-size: 40px;
-
-        }
-        .sidebar>div>a{
-            color: black;
-            text-decoration: none;
-            font-size: large;
-            margin: 20px;
-        }
     </style>
 </head>
 <body>
@@ -168,6 +155,5 @@
 	        <% } %>
         </div>
     </div>
-    <hr style="margin:0px">
 </body>
 </html>
