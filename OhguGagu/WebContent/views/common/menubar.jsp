@@ -23,21 +23,21 @@
 
 	<style>
         div{
-            /* border: 1px solid black; */
+            /*border: 1px solid black;*/
         }
         .menuWrapper{
             display: flex;
             height: 100px;
         }
         .menu{
-            width: 400px;
+            width:295px;
         }
         .logo{
             width: 100%;
             text-align: center;
         }
         .login{
-            width: 400px;
+            width: 230px;
             display: flex;
             justify-content: flex-end;
             padding-top: 20px;
@@ -136,7 +136,7 @@
 
         if(msg != "null"){
             alert(msg);
-            <%
+            <% 
                 session.removeAttribute("alertMsg");
             %>
         }
@@ -144,36 +144,30 @@
 
 	<div class="menuWrapper">
         <div class="menu">
-            <input type="checkbox" id="menuicon">
-            <label for="menuicon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-            <div class="sidebar">
-                <div>
-                    <div>카테고리</div>
-                    <a href="">전체상품</a><br>
-                    <a href="">할인상품</a><br>
-                    <a href="">침대</a><a href="">책상</a><a href="">의자</a><br>
-                    <a href="">소파</a><a href="">선반</a><a href="">진열장</a>
-                </div>
-            </div>
+            
         </div>
         <div class="logo"><a href="<%= contextPath %>"><img class="mainLogo" src="resources/image/logo.png"></a></div>
-        <div class="login">
+        <div>
         	<% if(loginUser == null){ %>
-	        	<div><a href="<%= contextPath %>/loginform.me">Login</a></div>
-	        	<div><a href="<%= contextPath%>/enrollForm.me">Sign up</a></div>
-	        	<div><a href="">Search</a></div>
+        		<!-- 로그인 전 -->
+        		<div class="login">
+        			<div><a href="<%= contextPath %>/loginform.me">Login</a></div>
+		        	<div><a href="<%= contextPath%>/enrollForm.me">Sign up</a></div>
+		        	<div><a href="">Search</a></div>
+        		</div>
 	        <% } else{ %>	
-	        	<div><a href="<%= contextPath %>/myPage.me">MyPage</a></div>
-	        	<div><a href="<%= contextPath %>/logout.me">logout</a></div>
-	        	<div><a href="<%= contextPath%>/">Cart</a></div>
-	        	<div><a href="">Search</a></div>
+	        	<!-- 로그인 후 -->
+	        	<br>
+	        	<div><b><%= loginUser.getMemberName() %>님</b> 환영합니다.</div>
+                <div class="login">
+                    <div><a href="<%= contextPath %>/myPage.me">MyPage</a></div>
+                    <div><a href="<%= contextPath %>/logout.me">logout</a></div>
+                    <div><a href="<%= contextPath%>/">Cart</a></div>
+                    <div><a href="">Search</a></div>
+                </div>
 	        <% } %>
         </div>
     </div>
-    <hr style="margin-bottom: 0px;">
+    <hr>
 </body>
 </html>
