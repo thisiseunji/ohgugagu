@@ -38,6 +38,16 @@
 		position: relative;
 		width: 100%
 	}
+	header {
+		position: fixed;
+		top : 0;
+		left: 0;
+		right : 0;
+		/* 메뉴바 침범하지 않기위함 */
+		z-index:2;
+		margin-bottom: 0px;
+		background-color: white;
+	}
 	footer{
 		width: 100%;
 		height: 110px;
@@ -49,6 +59,12 @@
 		padding-bottom: 110px;
 		height: 1000px;
 		width:1000px;
+	}
+	body {
+		padding-top: 150px;
+		position: relative;
+		/* 메뉴바 침범하지 않기위함 */
+		z-index:1;
 	}
 	html, body{
 		margin: 0;

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>오구가구>회원가입</title>
 <style>
 	.outer{
 		width: 1000px;

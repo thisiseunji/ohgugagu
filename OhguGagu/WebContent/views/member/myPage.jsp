@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>오구가구>고객센터</title>
+<title>오구가구>마이페이지</title>
 <style>
 	.outer{
 		position: relative;
@@ -20,11 +20,10 @@
 <body>
 	<div class="outer">
 		<header>
-			
+			<%@ include file="../common/myPageSidebar.jsp" %>
 			<%@ include file="../common/menubar.jsp" %>
 		</header>
 		<div class="mainview" align="center">
-			<%@ include file="../common/customerSidebar.jsp" %>
 			<div class="qbox" align="left">
 				<h3><b>무엇을 도와드릴까요?</b></h3>
 			</div>
