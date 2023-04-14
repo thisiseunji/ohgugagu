@@ -27,7 +27,7 @@
         }
         .menuWrapper{
             display: flex;
-            height: 100px;
+            height: 100%;
         }
         .menu{
             width:295px;
@@ -168,6 +168,6 @@
 	        <% } %>
         </div>
     </div>
-    <hr>
+    <hr style="margin:0px">
 </body>
 </html>

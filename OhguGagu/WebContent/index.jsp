@@ -9,30 +9,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-<!-- Basic stylesheet -->
-<link rel="stylesheet" href="/css/owl.carousel.css">
- 
-<!-- Default Theme -->
-<link rel="stylesheet" href="/css/owl.theme.css">
-
-<!-- You can use latest version of jQuery  -->
-<script src="/js/jquery-1.9.1.min.js"></script>
-
-<!-- Include js plugin -->
-<script src="/js/owl.carousel.js"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.green.css" integrity="sha512-riTSV+/RKaiReucjeDW+Id3WlRLVZlTKAJJOHejihLiYHdGaHV7lxWaCfAvUR0ErLYvxTePZpuKZbrTbwpyG9w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.green.min.css" integrity="sha512-C8Movfk6DU/H5PzarG0+Dv9MA9IZzvmQpO/3cIlGIflmtY3vIud07myMu4M/NTPJl8jmZtt/4mC9bAioMZBBdA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
- 
 <meta charset="UTF-8">
 <title>오구가구</title>
 <style>
+
+	/* 
+		index.html blocker : 
+		1. 할인 슬라이드를 제외한 모든 요소가 너무 크다 -> 현재가 100이라면 약 80% 정도으 사이즈로 변경이 필요하다.
+		2. 할인 슬라이드는 너무 작다 => 보통 전체 화면의 가로 기준 너비가 100이라면 얘는 약 60 정도 된는 것 같다. 
+		3. 화면이 아래로 스크롤 될 때, 첫번째 슬라이드 위의 글씨가 타이틀 로고를 침범한다. z index나 position 적용해봤지만 뭘 잘못했는지 적용 안된다. 
+		.. 혹시 위 문제들에 대한 해결책을 알고있거나 시도하며 궁금한 점이 있다면 김은지에게 말해주세요!
+	*/
 	#wrap{
 		min-height: 100vh;
 		position: relative;
@@ -69,7 +56,7 @@
 	}
 
 	body {
-		padding-top: 150px;
+		padding-top: 100px;
 		position: relative;
 		/* 메뉴바 침범하지 않기위함 */
 		z-index:1;
@@ -83,11 +70,15 @@
 		bottom: 0;
 		margin : 0px;
 	}
-	
+
 	/* 1번 슬라이드 내부 사진 */
 	.carousel-inner>.carousel-item>img {
-		max-height:1200px; 
-		/* 사진이 찌그러짐 - 높이가 비슷한 사진을 가져올 것 */
+		height:800px; 
+		/* 사진이 찌그러짐... 개큼*/
+	}
+
+	.product-detail {
+		z-index:1;
 	}
 
 	.ohgu_tit_box {
@@ -133,12 +124,11 @@
 		margin-top: 30px;
 	}
 
-
 	/* 오구 세일 박스 */
 	.ohgu_wrap {
 		box-sizing: border-box;
 		padding: 120px 10px 10px 20px;
-		/* 패딩값을 모두에게 다 줘야하지않을까? */
+		/* 패딩값을 모두에게 다 줘야하는건가..?*/
 	}
 
 	.ohgu_sale_box {
@@ -155,7 +145,7 @@
 		object-fit: contain;
 		/* border: 1px solid black; */
 	}
-	/* 추천 상품 하나 */
+	/* 추천 상품 하나 하나 */
 	.ohgu_sale_prod {
 		width:400px;
 		font-weight: 400;
@@ -180,7 +170,7 @@
 		color: #a80c0c;
 	}
 
-	/* 베너, 비디오 이미지 */
+	/* 베너 이미지 */
 	#advertisement-banner {
         width: 100%;
         height: 400px;
@@ -196,33 +186,76 @@
 
 	/* 비디오 화면 */
 	#video-screen {
-		/* text-align: center; */
-		width: auto;
-		height: 1000px;
-
-		margin: 50px auto;
+		text-align: center;
+		width: 96%;
+		height: 800px;
+		margin: 100px auto;
+		margin-bottom: 200px;
 	}
 
 	/* 할인 상품 슬라이드  */
-	#owl-demo .item{
-		background: #42bdc2;
-		padding: 30px 0px;
-		margin: 10px;
-		color: #FFF;
-		-webkit-border-radius: 3px;
-		-moz-border-radius: 3px;
-		border-radius: 3px;
-		text-align: center;
+	
+
+	@media (max-width: 767px) {
+		.carousel-inner .carousel-item > div {
+			display: none;
+		}
+		.carousel-inner .carousel-item > div:first-child {
+			display: block;
+		}
+	}
+
+	.carousel-inner .carousel-item.active,
+	.carousel-inner .carousel-item-next,
+	.carousel-inner .carousel-item-prev {
+		display: flex;
+	}
+
+	/* medium and up screens */
+	@media (min-width: 768px) {
+		
+		.carousel-inner .carousel-item-end.active,
+		.carousel-inner .carousel-item-next {
+		transform: translateX(25%);
+		}
+		
+		.carousel-inner .carousel-item-start.active, 
+		.carousel-inner .carousel-item-prev {
+		transform: translateX(-25%);
+		}
+	}
+
+	.carousel-inner .carousel-item-end,
+	.carousel-inner .carousel-item-start { 
+	transform: translateX(0);
+	}
+
+	#sale_box {
+		width: 1800px !important;
+		padding: 0px;
+	}
+
+	.sale_image {
+		width: 300;
+		height: 400;
+	}
+
+	.card {
+		width: 250px;
+		height: 250px;
+	}
+
+	#recipeCarousel {
+		width: 2000px
 	}
 
 </style>
 </head>
 
 <body>
-
-	
 	<div id="wrap">
 		<header>
+			<%@ include file="views/common/mainSidebar.jsp" %>
 			<%@ include file="views/common/menubar.jsp" %>
 		</header>
 			<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -234,21 +267,21 @@
 				<div class="carousel-inner">
 				  <div class="carousel-item active">
 					<img src="https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="...">
-					<div class="carousel-caption d-none d-md-block">
+					<div class="carousel-caption d-none d-md-block product-detail">
 					  <h5>First slide label</h5>
 					  <p>Some representative placeholder content for the first slide.</p>
 					</div>
 				  </div>
 				  <div class="carousel-item">
 					<img src="https://images.pexels.com/photos/245208/pexels-photo-245208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="...">
-					<div class="carousel-caption d-none d-md-block">
+					<div class="carousel-caption d-none d-md-block product-detail">
 					  <h5>Second slide label</h5>
 					  <p>Some representative placeholder content for the second slide.</p>
 					</div>
 				  </div>
 				  <div class="carousel-item">
 					<img src="https://images.pexels.com/photos/1866149/pexels-photo-1866149.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="...">
-					<div class="carousel-caption d-none d-md-block">
+					<div class="carousel-caption d-none d-md-block product-detail">
 					  <h5>Third slide label</h5>
 					  <p>Some representative placeholder content for the third slide.</p>
 					</div>
@@ -324,44 +357,102 @@
 				  </div>
 	
 
-				<!-- 오구 할인 아닌 할인상품 목록 -->
-
-				<div id="owl-demo" class="owl-carousel owl-theme">
-          
-					<div class="item"><h1>1</h1></div>
-					<div class="item"><h1>2</h1></div>
-					<div class="item"><h1>3</h1></div>
-					<div class="item"><h1>4</h1></div>
-					<div class="item"><h1>5</h1></div>
-					<div class="item"><h1>6</h1></div>
-					<div class="item"><h1>7</h1></div>
-					<div class="item"><h1>8</h1></div>
-					<div class="item"><h1>9</h1></div>
-					<div class="item"><h1>10</h1></div>
-					<div class="item"><h1>11</h1></div>
-					<div class="item"><h1>12</h1></div>
-				   
+				  <!-- 오구 할인 아닌 할인상품 목록 -->
+				  <div class="container text-center my-5 w-100" id="sale_box">
+					<h2 class="font-weight-light">할인 가구 오마카세</h2>
+					<div class="row mx-auto my-auto justify-content-center">
+						<div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+							<div class="carousel-inner" role="listbox">
+								<div class="carousel-item active crouser-item-sale">
+									<div class="col-md-3">
+										<div class="card sale_card">
+											<div class="card-img">
+												<img src="https://cdn.allets.com/550/2021/02/02/550_668602_1612248978.webp" class="img-fluid sale_image">
+											</div>
+											<div class="card-img-overlay">Slide 1</div>
+										</div>
+									</div>
+								</div>
+								<div class="carousel-item crouser-item-sale">
+									<div class="col-md-3">
+										<div class="card">
+											<div class="card-img">
+												<img src="https://cdn.allets.com/550/2021/02/01/550_668630_1612177001.webp" class="img-fluid sale_image">
+											</div>
+											<div class="card-img-overlay">Slide 2</div>
+										</div>
+									</div>
+								</div>
+								<div class="carousel-item crouser-item-sale">
+									<div class="col-md-3">
+										<div class="card">
+											<div class="card-img">
+												<img src="https://cdn.imweb.me/thumbnail/20210414/6b9fefa15f0ff.jpg" class="img-fluid sale_image">
+											</div>
+											<div class="card-img-overlay">Slide 3</div>
+										</div>
+									</div>
+								</div>
+								<div class="carousel-item crouser-item-sale">
+									<div class="col-md-3">
+										<div class="card">
+											<div class="card-img">
+												<img src="https://cdn.imweb.me/thumbnail/20210414/af1e7e56d73b2.jpg" class="img-fluid sale_image">
+											</div>
+											<div class="card-img-overlay">Slide 4</div>
+										</div>
+									</div>
+								</div>
+								<div class="carousel-item crouser-item-sale">
+									<div class="col-md-3">
+										<div class="card">
+											<div class="card-img">
+												<img src="https://cdn.imweb.me/thumbnail/20210414/7a970c77ba697.jpg" class="img-fluid sale_image">
+											</div>
+											<div class="card-img-overlay">Slide 5</div>
+										</div>
+									</div>
+								</div>
+								<div class="carousel-item crouser-item-sale">
+									<div class="col-md-3">
+										<div class="card">
+											<div class="card-img">
+												<img src="https://cdn.designhouse.co.kr/cms/img/2019/04/M.1556602968.3368.7.jpg" class="img-fluid sale_image">
+											</div>
+											<div class="card-img-overlay">Slide 6</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							</a>
+							<a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							</a>
+						</div>
+					</div>
+					<h5 class="mt-2 fw-light">advances one slide at a time</h5>
 				</div>
 
 				<script>
-					$('.owl-carousel').owlCarousel({
-						loop:true,
-						margin:10,
-						nav:true,
-						responsive:{
-							0:{
-								items:1
-							},
-							600:{
-								items:3
-							},
-							1000:{
-								items:5
-							}
-						}
-					})
-				</script>
+					let items = document.querySelectorAll('.crouser-item-sale')
 
+					items.forEach((el) => {
+						const minPerSlide = 4
+						let next = el.nextElementSibling
+						for (var i=1; i<minPerSlide; i++) {
+							if (!next) {
+								// wrap carousel by using first child
+								next = items[0]
+							}
+							let cloneChild = next.cloneNode(true)
+							el.appendChild(cloneChild.children[0])
+							next = next.nextElementSibling
+						}
+					});
+				</script>
+				
 				  <!-- 비디오 -->
 				  <div id="video-screen">
 					<div class="ohgu_tit_box video_tit_box">
@@ -369,8 +460,6 @@
 					</div>
 					<iframe class="text-center" width="100%" height="100%" src="https://www.youtube.com/embed/KT8FfeDr77Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 				  </div>
-			  
-	
 			  </div>
 
 		<footer>
@@ -381,9 +470,5 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js" integrity="sha512-gY25nC63ddE0LcLPhxUJGFxa2GoIyA5FLym4UJqHDEMHjp8RET6Zn/SHo1sltt3WuVtqfyxECP38/daUc/WVEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 </body>
 </html>
