@@ -6,21 +6,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	
-    div[class="side"]{
+    div[class=side]{
     	width: 200px;
 	    height: 100%;
-	    background: lightgray;
-	    position: fixed;
-	    top: 0;
-	    left: 0px;
+	    background: white;
+		border-right: 1px solid lightgray;
     }
    	.side>div{
     	margin-left: 20px;
-    	margin-top: 150px;
+    	margin-top: 10px;
    	}
     .side>div>div{
     	font-size: 40px;
+    	margin-bottom: 20px;
 	}
     .side>div>a{
     	color: black;
@@ -36,9 +34,9 @@
 <body>
     <div class="side">
 	    <div>
-		    <div>쇼핑정보</div>
-		    <a href="">공지사항</a><br>
-		    <a href="">1:1 문의</a><br>
+		    <div>고객센터</div>
+		    <a href="">공지사항</a><br><br>
+		    <a href="">1:1 문의</a><br><br>
 			<a href="">FAQ</a><br>
 	    </div>
     </div>
