@@ -17,13 +17,12 @@
     	margin-top: 10px;
    	}
     .side>div>div{
-    	font-size: 40px;
+    	font-size: 25px;
     	margin-bottom: 20px;
 	}
     .side>div>a{
     	color: black;
     	text-decoration: none;
-    	font-size: large;
     	margin: 20px;
     }
 	.side>div>a:hover{
@@ -34,10 +33,24 @@
 <body>
     <div class="side">
 	    <div>
-		    <div>고객센터</div>
-		    <a href="">공지사항</a><br><br>
+		    <div><b>쇼핑정보</b></div>
+		    <a href="">주문목록/배송조회</a><br><br>
+		    <a href="">장바구니</a><br><br>
+			<a href="">찜리스트</a><br>
+	    </div>
+	    <div>
+		    <div><b>고객센터</b></div>
 		    <a href="">1:1 문의</a><br><br>
-			<a href="">FAQ</a><br>
+	    </div>
+	    <div>
+		    <div><b>회원정보</b></div>
+		    <a href="">회원정보 변경</a><br><br>
+		    <a href="">회원탈퇴</a><br><br>
+			<a href="">배송지 관리</a><br>
+	    </div>
+	    <div>
+		    <div><b>나의 활동 정보</b></div>
+		    <a href="">나의 상품 리뷰</a>
 	    </div>
     </div>
 </body>
