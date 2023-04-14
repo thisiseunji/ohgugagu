@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	header{
+		z-index: 1;
+	}
 	.qbox{
 		border: 1px solid black;
 		width: 800px;
@@ -16,13 +19,13 @@
 		margin-left: 300px;
 	}
 	footer{
-
+		z-index: 2;
 	}
 </style>
 </head>
 <body>
 	<header>
-		<!-- <%@ include file="../common/customerSidebar.jsp" %> -->
+		<%@ include file="../common/customerSidebar.jsp" %>
 		<%@ include file="../common/menubar.jsp" %>
 	</header>
 	<div class="outer" align="center">
