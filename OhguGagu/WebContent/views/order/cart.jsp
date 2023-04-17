@@ -45,16 +45,6 @@
 		text-align: center; 
 	}
 
-    .tr1td>div {
-        font-size: 15px;
-        padding-top:10px;
-        margin-bottom: 11px;
-    }
-
-    #name {
-        font-size: 35px;
-        letter-spacing: 1px;
-    }
     .thic_black {
         font-weight: 800;
         font-size: 25px;
@@ -92,6 +82,20 @@
         margin: 5px 0px;
         padding-left: 0px;
     }
+
+    .button {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .button * {
+        border: none;
+        border-radius: 3px;
+        background-color: rgb(167,0,0);
+        color:white;
+        width: 150px;
+        height: 35px;
+    }
 </style>
 </head>
 <body>	
@@ -124,14 +128,15 @@
                                     <td rowspan="2"><input type="checkbox" name="cart_check_all" id="cart_check"></td>
                                     <td rowspan="2" align="right" style="width:160px"><img id="thumbnail_img" src="https://colimg2.godohosting.com//goods/21/05/19/1000006431/1000006431_detail_092.jpg" alt="탁자"></td>
                                     <td align="left" style="padding-left:5px; vertical-align:bottom;">접이식 탁자</td>
-                                    <td rowspan="2">1개</td>
+                                    <td style="vertical-align:bottom;"><input style="width:25px; vertical-align:bottom;" type="text" value=1 maxlength="2"> 개</td>
                                     <td rowspan="2">120,000원</td>
                                     <td style="vertical-align:bottom; color: rgb(167,0,0)"><b>-20,000원</b></td>
                                     <td rowspan="2">100,000원</td>
                                 </tr>
                                 <tr>
                                     <td align="left" style="padding-left:5px; vertical-align:top;">검정</td>
-                                    <td style="vertical-align:top; font-size: 12px; " rowspan="2">적립 : 1080원</td>
+                                    <td><button onclick="" type="submit" style="vertical-align:top; background-color:#ccc; border:none; font-size: 12px; border-radius: 3px;">수량변경</button></td>
+                                    <td style="vertical-align:top; font-size: 12px; " rowspan="2"><b>적립 : 1080원</b></td>
                                 </tr> 
                             </tbody>
                         </table>
@@ -144,13 +149,17 @@
                             <td rowspan=2 class="thic_black">+</td>
                             <td class="small_black" ><b>배송비</b></td>
                             <td rowspan=2 class="thic_black">=</td>
-                            <td rowspan=2 class="thic_red" >17,7000</td>
+                            <td rowspan=2><b class="thic_red">177,000</b><b style="font-size: 15px;">원</b></td>
                         </tr>
                         <tr>
                             <td>157,000원</td>
                             <td>20,000원</td>
                         </tr>
                     </table>
+                </div>
+                <div class="button">
+                    <button style="margin-right:5px;">계속 쇼핑하기</button>
+                    <button style="margin-left:5px;" type="submit">선택상품 주문하기</button>
                 </div>
             </div>
         </div>
