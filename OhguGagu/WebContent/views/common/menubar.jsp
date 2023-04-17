@@ -133,7 +133,7 @@
         <div class="menu">
             
         </div>
-        <div class="logo"><a href="<%= contextPath %>"><img class="mainLogo" src="resources/image/logo.png"></a></div>
+        <div class="logo"><a href="<%= contextPath %>"><img class="mainLogo" src="<%= contextPath %>/resources/image/logo.png"></a></div>
         <div>
         	<% if(loginUser == null){ %>
         		<!-- 로그인 전 -->
