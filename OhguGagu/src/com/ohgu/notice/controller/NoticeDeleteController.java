@@ -9,19 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ohgu.notice.model.service.NoticeService;
-import com.ohgu.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class NoticeDetailController
+ * Servlet implementation class NoticeDeleteController
  */
-@WebServlet("/detail.no")
-public class NoticeDetailController extends HttpServlet {
+@WebServlet("/delete.no")
+public class NoticeDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDetailController() {
+    public NoticeDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,11 +32,16 @@ public class NoticeDetailController extends HttpServlet {
 		
 		int noticeNo = Integer.parseInt(request.getParameter("nno"));
 		
-		Notice n = new NoticeService().selectNotice(noticeNo);
+		int result = new NoticeService().deleteNotice(noticeNo);
 		
+		if(result>0) {
+			request.getSession().setAttribute("alertMsg", "공지사항 삭제 성공");
+			response.sendRedirect(request.getContextPath() + "/list.no?currentPage=1");
+		}else {
+			request.getSession().setAttribute("alertMsg", "공지사항 삭제 실패");
+			response.sendRedirect(request.getContextPath() + "/detail.no?nno=" + noticeNo);
+		}
 		
-		request.setAttribute("n", n);
-		request.getRequestDispatcher("views/customer/noticeDetailView.jsp").forward(request, response);
 	}
 
 	/**

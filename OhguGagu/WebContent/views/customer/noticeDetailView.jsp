@@ -67,7 +67,7 @@
 					</div>
 					<hr style="margin-top: 0">
 					<div style="height: 800px; margin: 20px">
-						<p><%= n.getNoticeTitle() %></p>
+						<p><%= n.getNoticeContent() %></p>
 					</div>
 					<div align="center">
 						<a href="<%=contextPath%>/list.no?currentPage=1" class="btn btn-outline-danger">목록으로</a>

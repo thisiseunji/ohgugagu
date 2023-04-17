@@ -1,11 +1,15 @@
 package com.ohgu.notice.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ohgu.notice.model.service.NoticeService;
+import com.ohgu.notice.model.vo.Notice;
 
 /**
  * Servlet implementation class NoticeUpdateFormController
@@ -27,6 +31,11 @@ public class NoticeUpdateFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int noticeNo = Integer.parseInt(request.getParameter("nno"));
+		
+		Notice n = new NoticeService().selectNotice(noticeNo);
+		
+		request.setAttribute("n", n);
 		request.getRequestDispatcher("views/customer/noticeUpdateForm.jsp").forward(request, response);
 		
 	}

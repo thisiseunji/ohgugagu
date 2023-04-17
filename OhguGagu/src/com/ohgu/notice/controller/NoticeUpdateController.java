@@ -12,16 +12,16 @@ import com.ohgu.notice.model.service.NoticeService;
 import com.ohgu.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class NoticeDetailController
+ * Servlet implementation class NoticeUpdateController
  */
-@WebServlet("/detail.no")
-public class NoticeDetailController extends HttpServlet {
+@WebServlet("/update.no")
+public class NoticeUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDetailController() {
+    public NoticeUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +31,27 @@ public class NoticeDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
+		
 		int noticeNo = Integer.parseInt(request.getParameter("nno"));
+		String noticeTitle = request.getParameter("title");
+		String noticeContent = request.getParameter("content");
 		
-		Notice n = new NoticeService().selectNotice(noticeNo);
+		Notice n = new Notice();
+		n.setNoticeNo(noticeNo);
+		n.setNoticeTitle(noticeTitle);
+		n.setNoticeContent(noticeContent);
 		
+		int result = new NoticeService().updateNotice(n);
 		
-		request.setAttribute("n", n);
-		request.getRequestDispatcher("views/customer/noticeDetailView.jsp").forward(request, response);
+		if(result>0) {
+			request.getSession().setAttribute("alertMsg", "공지사항 수정 성공");
+			response.sendRedirect(request.getContextPath() + "/detail.no?nno=" + noticeNo);
+		}else {
+			request.getSession().setAttribute("alertMsg", "공지사항 수정 실패");
+			response.sendRedirect(request.getContextPath() + "/updateForm.no?nno=" + noticeNo);
+		}
+		
 	}
 
 	/**

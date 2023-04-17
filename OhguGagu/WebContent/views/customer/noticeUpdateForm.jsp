@@ -8,11 +8,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>오구가구>고객센터>공지사항수정</title>
+<title>오구가구>고객센터>공지사항</title>
 <Style>
 	.outer{
 		position: relative;
-		height : 1800px;
+		height : 1000px;
 	}
 	footer{
 		z-index: 1;
@@ -34,17 +34,22 @@
 	
 	.qbox {
 		padding-left: 200px;
-		height: 100%;
 		width: 100%;
 	}
-	.detailView{
+	.noticeForm{
 		width: 1000px;
 		height: 100%;
 		margin-left: 40px;
 		margin-top: 50px;
 	}
-	.detailView h2{
+	.noticeForm h2{
 		margin-bottom: 50px;
+	}
+	.noticeForm table tr, td{
+		padding: 10px;
+	}
+	form{
+		width: 600px;
 	}
 </Style>
 </head>
@@ -58,21 +63,24 @@
 				<%@ include file="../common/customerSidebar.jsp" %>
 			</div>
 			<div class="qbox">
-				<div class="detailView">
-					<h2>Notice</h2>
-					<div style="display: flex; margin: 20px">
-						<h1 style="width: 70%;">제목</h1>
-						<div style="width: 15%;">작성자 : 관리자 </div>
-						<div style="width: 15%;">작성일 : 날짜</div>
-					</div>
-					<hr style="margin-top: 0">
-					<div style="height: 800px; margin: 20px">
-						<p>내용</p>
-					</div>
-					<div align="center">
-						<a href="" class="btn btn-outline-danger">수정</a>
-						<a href="" class="btn btn-outline-danger">취소</a>
-					</div>
+				<div class="noticeForm">
+					<h2>공지사항 수정</h2>
+					<form action="<%= contextPath %>/update.no" method="post" align="center">
+						<input type="hidden" name="nno" value="<%=n.getNoticeNo()%>">
+						<table>
+							<tr>
+								<td>제목</td>
+								<td><input type="text" name="title" style="width: 500px;" value="<%=n.getNoticeTitle()%>"></td>
+							</tr>
+							<tr>
+								<td>내용</td>
+								<td><textarea name="content" cols="30" rows="10" style="resize: none; width: 500px;"><%=n.getNoticeContent() %></textarea></td>
+							</tr>
+						</table>
+						<div>
+							<button type="submit" class="btn btn-danger">수정</button>
+							<button type="button" class="btn btn-outline-danger" onclick="history.back();">취소</button>
+						</div>
 				</div>
 			</div>
 		</div>

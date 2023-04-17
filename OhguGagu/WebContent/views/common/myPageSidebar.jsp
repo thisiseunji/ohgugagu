@@ -45,7 +45,7 @@
 	    <div>
 		    <div><b>회원정보</b></div>
 		    <a href="">회원정보 변경</a><br><br>
-		    <a href="">회원탈퇴</a><br><br>
+		    <a href="<%=request.getContextPath() %>/deleteForm.me">회원탈퇴</a><br><br>
 			<a href="">배송지 관리</a><br>
 	    </div>
 	    <div>
