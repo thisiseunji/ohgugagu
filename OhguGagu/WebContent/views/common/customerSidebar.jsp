@@ -26,6 +26,10 @@
     	font-size: large;
     	margin: 20px;
     }
+	.side>div>div>a{
+		color: black;
+		text-decoration: none;
+	}
 	.side>div>a:hover{
 		color: red;
 	}
@@ -34,10 +38,10 @@
 <body>
     <div class="side">
 	    <div>
-		    <div>고객센터</div>
-		    <a href="">공지사항</a><br><br>
-		    <a href="">1:1 문의</a><br><br>
-			<a href="">FAQ</a><br>
+		    <div><a href="<%=request.getContextPath()%>/customerForm.cu">고객센터</a></div>
+		    <a href="<%=request.getContextPath()%>/list.no?currentPage=1">공지사항</a><br><br>
+		    <a href="<%=request.getContextPath()%>/list.one">1:1 문의</a><br><br>
+			<a href="<%=request.getContextPath()%>/list.fa">FAQ</a><br>
 	    </div>
     </div>
 </body>

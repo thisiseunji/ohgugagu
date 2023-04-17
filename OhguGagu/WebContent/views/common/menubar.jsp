@@ -42,6 +42,7 @@
             display: flex;
             justify-content: flex-end;
             padding-top: 20px;
+            padding-right: 15px;
         }
         .mainLogo{
             width: 150px;

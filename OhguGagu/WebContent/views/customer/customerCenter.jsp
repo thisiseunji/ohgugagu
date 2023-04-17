@@ -86,7 +86,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td><input style="width: 250px; border-radius: 30px; border: 1px solid lightgray;" type="text" value="내용을 입력해주세요"></td>
+							<td><input style="width: 250px; border-radius: 30px; border: 1px solid #ccc; color: #ccc;" type="text" value="내용을 입력해주세요"></td>
 						</tr>
 					</table>
 				</div>

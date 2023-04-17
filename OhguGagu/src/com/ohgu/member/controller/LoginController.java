@@ -43,13 +43,15 @@ public class LoginController extends HttpServlet {
 		
 		Member loginUser = new MemberService().loginMember(m);
 		
+		HttpSession session = request.getSession();
+		
+		System.out.println(loginUser);
 		if(loginUser == null) {
 			// 로그인 실패
-			request.setAttribute("alertMsg", "로그인 실패");
-			request.getRequestDispatcher("/views/member/memberLoginForm.jsp").forward(request, response);
+			session.setAttribute("alertMsg", "로그인 실패");
+			response.sendRedirect(request.getContextPath() + "/loginform.me");
 		}else {
 			// 로그인 성공 
-			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			session.setAttribute("alertMsg", "환영합니다.");
 			response.sendRedirect(request.getContextPath());
