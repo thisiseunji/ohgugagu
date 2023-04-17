@@ -23,7 +23,7 @@ public class NoticeService {
 	}
 	
 	// 공지사항 상세조회
-	public Notice selectNotie(int noticeNo) {
+	public Notice selectNotice(int noticeNo) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -52,6 +52,40 @@ public class NoticeService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		int result = new NoticeDao().insertNotice(conn, n);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	// 공지사항 수정
+	public int updateNotice(Notice n) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new NoticeDao().updateNotice(conn, n);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	// 공지사항 삭제 
+	public int deleteNotice(int noticeNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new NoticeDao().deleteNotice(conn, noticeNo);
 		
 		if(result > 0) {
 			JDBCTemplate.commit(conn);

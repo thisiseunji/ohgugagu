@@ -1,27 +1,23 @@
-package com.ohgu.notice.controller;
+package com.ohgu.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ohgu.notice.model.service.NoticeService;
-import com.ohgu.notice.model.vo.Notice;
-
 /**
- * Servlet implementation class NoticeDetailController
+ * Servlet implementation class MemberDeleteFormController
  */
-@WebServlet("/detail.no")
-public class NoticeDetailController extends HttpServlet {
+@WebServlet("/deleteForm.me")
+public class MemberDeleteFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDetailController() {
+    public MemberDeleteFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +27,8 @@ public class NoticeDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int noticeNo = Integer.parseInt(request.getParameter("nno"));
+		request.getRequestDispatcher("/views/member/memberDeleteForm.jsp").forward(request, response);
 		
-		Notice n = new NoticeService().selectNotice(noticeNo);
-		
-		
-		request.setAttribute("n", n);
-		request.getRequestDispatcher("views/customer/noticeDetailView.jsp").forward(request, response);
 	}
 
 	/**

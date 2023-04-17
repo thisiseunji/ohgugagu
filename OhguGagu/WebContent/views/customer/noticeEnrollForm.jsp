@@ -84,13 +84,5 @@
 		</footer>
 	</div>
 
-	<script>
-		$(document).ready(function(){
-			$(".noticeList tbody tr").click(function(){
-				location.href = "noticeDetail";
-			});
-		}
-	</script>
-
 </body>
 </html>
