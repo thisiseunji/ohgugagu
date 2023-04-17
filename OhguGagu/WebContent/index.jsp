@@ -3,11 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 
 <meta charset="UTF-8">
 <title>오구가구</title>
@@ -41,17 +37,6 @@
 		bottom: 0px;
 		position: relative;
 		z-index: 3;
-	}
-	section{
-		padding-bottom: 110px;
-		height: 1000px;
-		width:1000px;
-	}
-	body {
-		padding-top: 150px;
-		position: relative;
-		/* 메뉴바 침범하지 않기위함 */
-		z-index:1;
 	}
 	html, body{
 		margin: 0;
