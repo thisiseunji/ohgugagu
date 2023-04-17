@@ -3,11 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
-<title>오구가구>마이페이지</title>
+<title>오구가구>주문정보조회</title>
 <style>
 	.outer{
 		position: relative;
@@ -29,7 +26,6 @@
 	}
 
     div[class="side"]{position: absolute;}
-
     .order_info_area {
 		width: 100%;
     }
@@ -43,7 +39,6 @@
 		margin: auto;
 		margin-top: 50px;
     }
-    
     table{
 		width: 100%;
 		height: 100%;
@@ -60,30 +55,19 @@
         font-size: 35px;
         letter-spacing: 1px;
     }
-
     .thic_red {
         color: rgb(167, 0, 0);
         display: inline-block;
         font-weight: 700;
     }
-
-    .thic_black {
-        width: 61px;
-        font-size: 40px;
-        font-weight: 700;
-        font-family: "Inter", "Noto Sans KR";
-    }
-    .small_black {
-        font-size: 13px;
-    }
-
-	.latest_order_area {
+    
+	.period {
 		width: 800px;
 		margin: auto;
 	}
 
-    .latest_order_box {
-        height: 110px;
+    .period_set{
+        height: 90px;
         margin-top: 2px;
         border: none;
         border-top: 1px solid black;
@@ -91,10 +75,22 @@
         border-radius: 0px;
     }
 
+    .period_set button{
+        border: none;
+        background-color: rgb(244, 244, 244);
+        width: 50px;
+        height: 25px;
+        font-size: 13px;
+    }
+
+    .period_set button[type="submit"] {
+        border: 1px solid rgb(167, 0, 0);
+        color: rgb(167, 0, 0);
+    }
+
     .order_list_box{
         width: 800px;
         margin: auto;
-
     }
 
     .order_list thead {
@@ -109,25 +105,18 @@
         font-size: 13px;
         border-bottom: 1px solid black;
         vertical-align: center;
-    }   
-    /* 취소주문건 등*/
-    .order_count {
-        padding-left: 60px;
-        padding-right: 0px;
-        width: 150px;
     }
+
+    
 </style>
 </head>
-
 <body>	
     <div class="outer">
         <header>
 			<%@ include file="../common/menubar.jsp" %>
 		</header>
-
+        <!-- 메뉴바 부분 들어가야하고,  -->
         <div class="mainview">
-
-        
             <div class="order_info_area">
                 <div>
                     <%@ include file="../common/myPageSidebar.jsp" %>
@@ -152,47 +141,36 @@
                     </table>
                 </div>
                 <br><br>
-                <div class="latest_order_area">
-                    <b style="margin-left: 3px; font-size:20px">진행 중인 주문</b>
-                    <div style="font-size: 13px">최근 30일 내에 진행중인 주문정보입니다.</div>
-                    <div class="member_info_box latest_order_box">
+                <div class="period">
+                    <b style="margin-left: 5px; font-size:20px">주문목록 조회</b>
+                    <div class="member_info_box period_set" style="background-color:#ccc;">
                         <table>
-                            <tr >
-                                <td class="thic_black" rowspan="2">0</td>
-                                <td class="thic_black" rowspan="2">&gt</td>
-                                <td class="thic_black" rowspan="2">0</td>
-                                <td class="thic_black" rowspan="2">&gt</td>
-                                <td class="thic_black" rowspan="2">0</td>
-                                <td class="thic_black" rowspan="2">&gt</td>
-                                <td class="thic_black" rowspan="2">1</td>
-                                <td class="thic_black" rowspan="2">&gt</td>
-                                <td class="thic_black" rowspan="2">0</td>
-                                <td class="order_count">취소 주문건</td>
-                                <td>0</td>
-                            </tr>
                             <tr>
-                                <td class="order_count">교환 주문건</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td class="small_black">입금대기</td>
-                                <td></td>
-                                <td class="small_black">결제완료</td>
-                                <td></td>
-                                <td class="small_black">배송중</td>
-                                <td></td>
-                                <td class="small_black">배송완료</td>
-                                <td></td>
-                                <td class="small_black">구매확정</td>
-                                <td class="order_count">반품 주문건</td>
-                                <td>0</td>
+                                <td>  
+                                    조회기간&nbsp;&nbsp;    
+                                    <button value="오늘">오늘</button>
+                                    <button value="7일">7일</button>
+                                    <button value="15일">15일</button>
+                                    <button value="1달">1달</button>
+                                    <button value="3개월">3개월</button>
+                                    <button value="1년">1년</button>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;  
+                                </td>
+                                <td>
+                                    <input type="date" name="" id=""> - 
+                                    <input type="date" name="" id=""> &nbsp;&nbsp; 
+                                    <button type="submit">조회</button>
+                                </td>
+
                             </tr>
                         </table>
                     </div> 
                 </div>
                 <br><br>
                 <div class="order_list_box">
-                    <b style="margin-left: 5px; font-size:20px">최근 주문 정보</b>
+                    <b style="margin-left: 5px; font-size:20px">주문목록 조회 내역 총 0 건</b>
                     <div class="order_list_area">
                         <table class="order_list">
                             <thead>
@@ -207,7 +185,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        2023.04.13
+                                        2022.12.31
                                     </td>
                                     <td rowspan="2">
                                         1인용 쿠션의자 / 검정 
@@ -229,13 +207,9 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <br>
-                        <br>
-                        
                     </div> 
                 </div>
             </div>
-
         </div>
         <footer>
 			<%@ include file="../common/footer.jsp" %>
