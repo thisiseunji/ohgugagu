@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<!-- Cart 관련 쿼리  -->
+	<entry key="insertCart">
+		INSERT INTO TB_CART
+		VALUES (?, ?, ?)
+	</entry>
+</properties>
