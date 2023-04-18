@@ -8,6 +8,12 @@ public class Cart {
 	
 	public Cart() {}
 	
+	public Cart(int productNo, int memberNo) {
+		super();
+		this.productNo = productNo;
+		this.memberNo = memberNo;
+	}
+	
 	public Cart(int productNo, int memberNo, int amount) {
 		super();
 		this.productNo = productNo;

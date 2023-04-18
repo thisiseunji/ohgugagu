@@ -6,4 +6,9 @@
 		INSERT INTO TB_CART
 		VALUES (?, ?, ?)
 	</entry>
+	<entry key="deleteCart">
+		DELETE FROM TB_CART
+		WHERE MEMBER_NO = ? 
+		AND PRODUCT_NO = ? 
+	</entry>
 </properties>

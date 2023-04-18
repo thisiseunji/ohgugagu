@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.ohgu.order.model.vo.Cart;
@@ -37,6 +38,29 @@ public class CartDao {
 			
 			result = pstmt.executeUpdate();
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+	
+	// 넘어온 모든 카트 리스트의 요소를 삭제
+	public int deleteCart(Connection conn, ArrayList<Cart> cartList) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteCart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			for (Cart cart : cartList) {
+				pstmt.setInt(1, cart.getMemberNo());
+				pstmt.setInt(2, cart.getProductNo());
+				result *= pstmt.executeUpdate();
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
