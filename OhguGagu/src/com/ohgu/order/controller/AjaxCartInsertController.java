@@ -32,22 +32,23 @@ public class AjaxCartInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/* 상품 상세 페이지에서 -> 상품 no, memberId 가져오기 */
-		int productNo = Integer.parseInt(request.getParameter("productNo"));
-		
+		int result = 0;
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
 		if (loginUser == null) {
+			
 			request.getSession().setAttribute("alertMsg", "로그인 후 이용 가능한 서비스 입니다.");
-			return;
+			
+		} else {
+			
+			int productNo = Integer.parseInt(request.getParameter("productNo"));
+			Cart cart = new Cart(productNo, Integer.parseInt(loginUser.getMemberId()), Integer.parseInt(request.getParameter("amount")));
+			result = new CartService().insertCart(cart);
+			
 		}
-		
-		Cart cart = new Cart(productNo, Integer.parseInt(loginUser.getMemberId()), Integer.parseInt(request.getParameter("amount")));
-		
-		int result = new CartService().insertCart(cart);
 		
 		// 결과를 보낸다.
 		response.setContentType("text/html; charset=UTF-8");
-		
 		response.getWriter().print(result);
 		
 	}

@@ -42,4 +42,21 @@ public class CartService {
 		
 		return result;
 	}
+
+	public int updateCart(Cart cart) {
+		Connection conn = getConnection();
+		
+		int result = new CartDao().updateCart(conn, cart);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
 }

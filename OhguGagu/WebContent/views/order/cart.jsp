@@ -108,7 +108,6 @@
         <header>
 			<%@ include file="../common/menubar.jsp" %>
 		</header>
-        <!-- 메뉴바 부분 들어가야하고,  -->
         <div class="mainview">
             <div class="cart_info_area">
                 <div>
@@ -119,6 +118,7 @@
                     <div class="cart_list_area">
                         <table class="cart_list">
                             <thead>
+                            	<!-- 대체되어야 하는 부분 -->
                                 <tr>
                                     <td><input type="checkbox" name="cart_check_all" id="cart_check_all"></td>
                                     <td colspan="2">상품명/옵션</td>

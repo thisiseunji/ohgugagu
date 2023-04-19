@@ -65,5 +65,31 @@ public class CartDao {
 
 		return result;
 	}
+
+	public int updateCart(Connection conn, Cart cart) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateCart");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			// 수량이 현재 수량에 누적되도록
+			pstmt.setInt(1, cart.getMemberNo());
+			pstmt.setInt(2, cart.getProductNo());
+			pstmt.setInt(3, cart.getAmount());
+			pstmt.setInt(4, cart.getMemberNo());
+			pstmt.setInt(5, cart.getProductNo());
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
 	
 }

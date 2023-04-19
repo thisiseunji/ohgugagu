@@ -27,7 +27,7 @@ public class ProductService {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Product> list = new ProductDao().selectByProductName(conn);
+		ArrayList<Product> list = new ProductDao().selectByProductName(conn ,keyword);
 		
 		close(conn);
 		

@@ -11,4 +11,14 @@
 		WHERE MEMBER_NO = ? 
 		AND PRODUCT_NO = ? 
 	</entry>
+	<entry key="updateCart">
+		UPDATE TB_CART
+		SET AMOUNT = ( SELECT AMOUNT
+		               FROM TB_CART
+		               WHERE MEMBER_NO = ?
+		               AND PRODUCT_NO = ?
+		             ) + ?
+		WHERE MEMBER_NO = ?
+		AND PRODUCT_NO = ?
+	</entry>
 </properties>
