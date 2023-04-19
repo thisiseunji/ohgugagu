@@ -45,8 +45,8 @@ public class CartDao {
 		return result;
 	}
 	
-	// 넘어온 모든 카트 리스트의 요소를 삭제
-	public int deleteCart(Connection conn, ArrayList<Cart> cartList) {
+	// 넘어온 카트를 삭제
+	public int deleteCart(Connection conn, Cart cart) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -54,12 +54,10 @@ public class CartDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			for (Cart cart : cartList) {
-				pstmt.setInt(1, cart.getMemberNo());
-				pstmt.setInt(2, cart.getProductNo());
-				result *= pstmt.executeUpdate();
-			}
+
+			pstmt.setInt(1, cart.getMemberNo());
+			pstmt.setInt(2, cart.getProductNo());
+			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();

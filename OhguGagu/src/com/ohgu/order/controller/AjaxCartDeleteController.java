@@ -17,13 +17,13 @@ import com.ohgu.order.model.vo.Cart;
  * Servlet implementation class AjaxCartDeleteController
  */
 @WebServlet("/delete.cart")
-public class CartDeleteController extends HttpServlet {
+public class AjaxCartDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartDeleteController() {
+    public AjaxCartDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,18 +41,13 @@ public class CartDeleteController extends HttpServlet {
 		}
 		
 		int memberNo = Integer.parseInt(loginUser.getMemberId());
-		String[] productNoList = request.getParameterValues("productNoList");
+		int productNo = Integer.parseInt(request.getParameter("productNo"));
 		
 		ArrayList<Cart> cartList = new ArrayList<>(); 
 		
-		for (String productNo : productNoList) {
-			Cart cart = new Cart(Integer.parseInt(productNo), memberNo);
-			cartList.add(cart);
-		}
-		
-		int result = new CartService().deleteCart(cartList);
-		
-		// 결과를 보낸다.
+		Cart cart = new Cart(productNo, memberNo);
+
+		int result = new CartService().deleteCart(cart);
 	}
 
 	/**

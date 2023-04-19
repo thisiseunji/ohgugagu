@@ -96,6 +96,11 @@
         width: 150px;
         height: 35px;
     }
+
+    #close_icon>img {
+        width: 12px;
+        height: 12px;
+    }
 </style>
 </head>
 <body>	
@@ -121,6 +126,7 @@
                                     <td>상품금액</td>
                                     <td>할인/적립</td>
                                     <td>합계금액</td>
+                                    <td>삭제</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -132,11 +138,13 @@
                                     <td rowspan="2">120,000원</td>
                                     <td style="vertical-align:bottom; color: rgb(167,0,0)"><b>-20,000원</b></td>
                                     <td rowspan="2">100,000원</td>
+                                    <td rowspan="3"><div id="close_icon"><img src="https://static.thenounproject.com/png/102781-200.png" alt=""></div></td>
                                 </tr>
                                 <tr>
                                     <td align="left" style="padding-left:5px; vertical-align:top;">검정</td>
                                     <td><button onclick="" type="submit" style="vertical-align:top; background-color:#ccc; border:none; font-size: 12px; border-radius: 3px;">수량변경</button></td>
                                     <td style="vertical-align:top; font-size: 12px; " rowspan="2"><b>적립 : 1080원</b></td>
+
                                 </tr> 
                             </tbody>
                         </table>
@@ -167,5 +175,6 @@
 			<%@ include file="../common/footer.jsp" %>
 		</footer>
     </div>
+
 </body>
 </html>

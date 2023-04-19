@@ -26,11 +26,11 @@ public class CartService {
 	}
 
 	// 장바구니에서 상품 삭제
-	public int deleteCart(ArrayList<Cart> cartList) {
+	public int deleteCart(Cart cart) {
 		
 		Connection conn = getConnection();
 		
-		int result = new CartDao().deleteCart(conn, cartList);
+		int result = new CartDao().deleteCart(conn, cart);
 		
 		if (result > 0) {
 			commit(conn);
