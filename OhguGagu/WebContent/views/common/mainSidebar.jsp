@@ -96,7 +96,7 @@
     <div class="sidebar">
 	    <div>
 		    <div>카테고리</div>
-		    <a href="">전체상품</a><br>
+		    <a href="<%= contextPath_msb %>/list.pr">전체상품</a><br>
 		    <a href="">할인상품</a><br>
 		    <a href="">침대</a><a href="">책상</a><a href="">의자</a><br>
 		    <a href="">소파</a><a href="">선반</a><a href="">진열장</a>

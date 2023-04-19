@@ -64,6 +64,7 @@ public class ProductDao {
 		return list;
 	}
 	
+	// 상품명 검색 조회
 	public ArrayList<Product> selectByProductName(Connection conn, String keyword) {
 		
 		ArrayList<Product> list = new ArrayList();
@@ -101,6 +102,29 @@ public class ProductDao {
 		}
 		
 		return list;
+	}
+	
+	// 상품 필터링 조회(카테고리/재질/가격)
+	public ArrayList<Product> selectProductBy(Connection conn, String category, int price, String pMaterial) {
+		
+		ArrayList<Product> list = new ArrayList();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectProductBy");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, category);
+			
+			rset = pstmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
