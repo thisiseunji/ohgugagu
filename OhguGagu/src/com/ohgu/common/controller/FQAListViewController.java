@@ -1,4 +1,4 @@
-package com.ohgu.notice.controller;
+package com.ohgu.common.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class oneononeEnrollForm
+ * Servlet implementation class FQAEnrollForm
  */
-@WebServlet("/list.one")
-public class OneOnOneListViewController extends HttpServlet {
+@WebServlet("/list.fa")
+public class FQAListViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OneOnOneListViewController() {
+    public FQAListViewController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,7 @@ public class OneOnOneListViewController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("views/customer/oneOnOneList.jsp").forward(request, response);
+		request.getRequestDispatcher("views/customer/FAQList.jsp").forward(request, response);
 		
 	}
 

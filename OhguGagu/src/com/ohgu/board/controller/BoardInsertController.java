@@ -1,29 +1,27 @@
-package com.ohgu.product.controller;
+package com.ohgu.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ohgu.product.model.service.ProductService;
-import com.ohgu.product.model.vo.Product;
+import com.ohgu.board.model.service.BoardService;
+import com.ohgu.board.model.vo.Board;
 
 /**
- * Servlet implementation class ProductSearchController
+ * Servlet implementation class BoardInsertController
  */
-@WebServlet("/search.pr")
-public class ProductSearchController extends HttpServlet {
+@WebServlet("/insert.bo")
+public class BoardInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductSearchController() {
+    public BoardInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +31,27 @@ public class ProductSearchController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String keyword = request.getParameter("");
+		request.setCharacterEncoding("UTF-8");
 		
-		ArrayList<Product> list = new ProductService().selectByProductName(keyword);
-		
-		if(list.isEmpty()) {
-			request.setAttribute("errorMsg", "조회된 결과가 없습니다.");
-			
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-		}
+		int orderNo = Integer.parseInt(request.getParameter("orderNo"));
+		String boardTitle = request.getParameter("title");
+		String boardContent = request.getParameter("content");
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 
-		request.getRequestDispatcher("views/searchForm.jsp").forward(request, response);
-		                           
+		
+		Board b = new Board();
+		b.setBoardTitle(boardTitle);
+		b.setBoardContent(boardContent);
+		b.setMemberNo(memberNo);
+		b.setOrderNo(orderNo);
+		
+		int result = new BoardService().insertBoard(b);
+		
+		if(result>0) {
+			request.getSession().setAttribute("alertMsg", "1:1문의 등록 성공");
+			response.sendRedirect(request.getContextPath() + "/enrollForm.bo");
+		}
+		
 	}
 
 	/**
