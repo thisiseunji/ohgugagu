@@ -266,6 +266,7 @@
 	}
 
 </style>
+
 </head>
 
 <body>
@@ -325,7 +326,7 @@
 				</div>
 				<div class="ohgu_sale_box w-100">
 					<div class="ohgu_sale_prod">
-						<img class="ohgu_img" src="https://www.pngarts.com/files/7/Modern-Furniture-PNG-Pic.png" alt="">
+						<a href="<%=request.getContextPath()%>/detailView.pr"><img class="ohgu_img" src="https://www.pngarts.com/files/7/Modern-Furniture-PNG-Pic.png" alt=""></a>						
 						<div class="ohgu_info">
 							<span class="ohgu_prod_name">소파</span>
 							<sapn class="ohgu_orign_price">90,000 원</sapn>
