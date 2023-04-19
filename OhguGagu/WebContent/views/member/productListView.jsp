@@ -15,7 +15,7 @@
         header,footer,aside,nav,article,section,figure,main,
         img,a,table,tr,td,th,thead,tbody,tfoot,
         ul,ol,li,dl,dt,dd,address,
-        form,fieldset,legend,input,button,select,option,textarea {
+        form,fieldset,legend,input,button,select,option,textarea, .order_by {
             margin: 0; padding: 0;
             font-size: 1.0rem; font-weight: normal; font-style: normal;
             line-height: 1.0; font-family: 'Noto Sans KR' sans-serif;
@@ -33,6 +33,11 @@
 
         /* css 속성 추가한부분 - 수정하면서 완성하기 */
 
+		.outer {
+			position: relative;
+			height : 1000px;
+		}
+		
         body {
             color: #444444; 
         }
@@ -47,11 +52,12 @@
         .items { 
             width: 390.33px;
             height: 260.21px;
-            float: left;
             margin: 50px 180px 0 17px;
+            display: inline-block;
+            
         }
         .box {
-            width: 1320px;
+            width: 100%;
             margin: 0 auto; 
         }
         #content_box .box .clear {
@@ -75,9 +81,14 @@
                 <%@ include file="../common/menubar.jsp" %>
             </div>
 
-			<section id="content_box">
-		        <div class="box"> 
-                    <div class="clear"></div>    
+            <div style="margin-top: 100px; margin-left: 1200px;">
+                <input class="order_by" type="checkbox">최신순
+                <input class="order_by" type="checkbox">낮은 가격순
+            </div>
+
+		<div id="content_box">
+	        <div class="box"> 
+            	<div class="clear"></div>    
                     <ul class="items" style="margin-bottom: 100px;">
                         <li><img src="img/image1.jpg"></li>
                         <li class="a">NST IVORY</li>
@@ -142,11 +153,9 @@
                         <li class="d">리뷰 <span>2</span> 평점 · <span>4.5/5</span></li>
                     </ul>            
                 </div>
-    		</section>
-
-            </div>
+    		</div>
+        </div>
             
-
         <footer>
             <%@ include file="../common/footer.jsp" %>
         </footer>
