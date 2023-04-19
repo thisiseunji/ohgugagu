@@ -16,7 +16,7 @@ public class MemberDao {
 	private Properties prop = new Properties();
 	
 	public MemberDao() {
-		String fileName = MemberDao.class.getResource("/sql/member/member-mapper.xml").getPath();
+		String fileName = MemberDao.class.getResource("/sql/xml/member-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(fileName));
@@ -67,7 +67,7 @@ public class MemberDao {
 		return loginUser;
 	}
 	
-	
+	// 회원가입
 	public int insertMember(Connection conn, Member m) {
 		
 		int result = 0;
@@ -83,6 +83,28 @@ public class MemberDao {
 			pstmt.setString(5, m.getGender());
 			pstmt.setString(6, m.getPhone());
 			pstmt.setString(7, m.getbDate());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	// 회원탈퇴
+	public int deleteMember(Connection conn, Member m) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getMemberId());
+			pstmt.setString(2, m.getMemberPwd());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

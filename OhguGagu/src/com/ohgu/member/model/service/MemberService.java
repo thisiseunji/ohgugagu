@@ -32,5 +32,20 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	
+	// 회원탈퇴 기능
+	public int deleteMember(Member m) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new MemberDao().deleteMember(conn, m);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
 
 }

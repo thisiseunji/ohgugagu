@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String contextPath_msb = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,10 +98,10 @@
     <div class="sidebar">
 	    <div>
 		    <div>카테고리</div>
-			<a href="<%=request.getContextPath()%>/entireView.pr"">전체상품</a><br>
-			<a href="">할인상품</a><br>
-			<a href="">침대</a><a href="">책상</a><a href="">의자</a><br>
-			<a href="">소파</a><a href="">선반</a><a href="">진열장</a>
+		    <a href="<%= contextPath_msb %>/list.pr">전체상품</a><br>
+		    <a href="">할인상품</a><br>
+		    <a href="">침대</a><a href="">책상</a><a href="">의자</a><br>
+		    <a href="">소파</a><a href="">선반</a><a href="">진열장</a>
 	    </div>
     </div>
 </body>

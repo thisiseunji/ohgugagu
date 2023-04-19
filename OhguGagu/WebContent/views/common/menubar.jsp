@@ -21,6 +21,12 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+
 	<style>
         div{
             /*border: 1px solid black;*/
@@ -42,6 +48,7 @@
             display: flex;
             justify-content: flex-end;
             padding-top: 20px;
+            padding-right: 15px;
         }
         .mainLogo{
             width: 150px;
@@ -133,7 +140,7 @@
         <div class="menu">
             
         </div>
-        <div class="logo"><a href="<%= contextPath %>"><img class="mainLogo" src="resources/image/logo.png"></a></div>
+        <div class="logo"><a href="<%= contextPath %>"><img class="mainLogo" src="<%= contextPath %>/resources/image/logo.png"></a></div>
         <div>
         	<% if(loginUser == null){ %>
         		<!-- 로그인 전 -->

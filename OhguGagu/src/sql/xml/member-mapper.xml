@@ -20,4 +20,11 @@
                     , BIRTH_DATE)
 		VALUES (SEQ_MEM.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)
 	</entry>
+	
+	<entry key="deleteMember">
+		UPDATE TB_MEMBER
+		   SET IS_DELETED = 'Y'
+		 WHERE MEMBER_ID = ?
+		   AND MEMBER_PWD = ?
+	</entry>
 </properties>
