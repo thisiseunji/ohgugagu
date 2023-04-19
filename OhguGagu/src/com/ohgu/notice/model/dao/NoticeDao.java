@@ -18,7 +18,7 @@ public class NoticeDao {
 	Properties prop = new Properties();
 	
 	public NoticeDao() {
-		String filename = NoticeDao.class.getResource("/sql/member/notice-mapper.xml").getPath();
+		String filename = NoticeDao.class.getResource("/sql/xml/notice-mapper.xml").getPath();
 		try {
 			prop.loadFromXML(new FileInputStream(filename));
 		} catch (IOException e) {

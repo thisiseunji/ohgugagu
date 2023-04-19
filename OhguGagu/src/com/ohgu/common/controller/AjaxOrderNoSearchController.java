@@ -1,23 +1,29 @@
-package com.ohgu.notice.controller;
+package com.ohgu.common.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.ohgu.common.model.service.OrderService;
+import com.ohgu.common.model.vo.Order;
+
 /**
- * Servlet implementation class FQAEnrollForm
+ * Servlet implementation class AjaxOrderNoSearchController
  */
-@WebServlet("/list.fa")
-public class FQAListViewController extends HttpServlet {
+@WebServlet("/orderNoSearch.do")
+public class AjaxOrderNoSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FQAListViewController() {
+    public AjaxOrderNoSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,10 +32,15 @@ public class FQAListViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 		
-		request.getRequestDispatcher("views/customer/FAQList.jsp").forward(request, response);
+		ArrayList<Order> list = new OrderService().orderNoSearch(memberNo);
+
+		response.setContentType("application/json; charset=UTF-8"); 
 		
-	}
+		new Gson().toJson(list, response.getWriter());
+	} 
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
