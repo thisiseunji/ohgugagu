@@ -114,6 +114,7 @@
     #close_icon>img {
         width: 12px;
         height: 12px;
+        cursor:pointer;
     }
 </style>
 </head>
@@ -148,20 +149,9 @@
                         </table>
                     </div> 
                 </div>
-                <!-- ajax -->
                 <div class="total_price">
                     <table>
-                        <tr>
-                            <td class="small_black"><b>총 2개의 상품금액</b></td>
-                            <td rowspan=2 class="thic_black">+</td>
-                            <td class="small_black" ><b>배송비</b></td>
-                            <td rowspan=2 class="thic_black">=</td>
-                            <td rowspan=2><b class="thic_red">177,000</b><b style="font-size: 15px;">원</b></td>
-                        </tr>
-                        <tr>
-                            <td>157,000원</td>
-                            <td>20,000원</td>
-                        </tr>
+  						<!-- ajax -->
                     </table>
                 </div>
                 <div class="button">
@@ -202,26 +192,6 @@
                 deleteCart();
             })
 
-            // $("#cart_check_all").click(function() {
-            //     if($("#cart_check_all").is(":checked")) 
-            //         $("input[name=cart_check]").prop("checked", true);
-            //     else 
-            //         $("input[name=cart_check]").prop("checked", false);
-            // });
-
-            // $("input[name=cart_check]").click(function() {
-            //     var total = $("input[name=cart_check]").length;
-            //     var checked = $("input[name=cart_check]:checked").length;
-
-            //     if(total != checked) $("#cart_check_all").prop("checked", false);
-            //     else $("#cart_check_all").prop("checked", true); 
-            // });
-
-            // 카트 삭제
-            // $("#close_icon").click(function() {
-
-			// });
-
         });
 
         function selectCart() {
@@ -232,13 +202,13 @@
 							let result = '<tr><td style="height:50px" align="center" colspan=8>장바구니에 담긴 상품이 없습니다.<td><tr>';
 							
 							let totalPrice = 0;
-                            // 인덱스임
+
 							for(let i in list) {
                                 let price = list[i].price*list[i].amount;
                                 let discountPrice = (list[i].discountRate/100)*price;
                                 let point = (list[i].pointRate/100)*discountPrice;
 								
-                                result += '<tr>'
+                                result = '<tr>'
                                         + '<td rowspan="2"><input type="checkbox" name="cart_check" id="cart_check" checked></td>'
                                         + '<td rowspan="2" align="right" style="width:160px"><img id="thumbnail_img" src="' + list[i].fileName + '"></td>'
                                         + '<td align="left" style="padding-left:5px; vertical-align:bottom;">'+ list[i].productName +'</td>'

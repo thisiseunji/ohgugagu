@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.ohgu.product.model.vo.Product"%>
-    
 <%
 	Product p = new Product(
 			  2
@@ -281,12 +280,12 @@
 <body>
     <div class="outer">
         <header>
-            <%@ include file="../common/menubar.jsp" %>
+            <%@ include file="../common/mainSidebar.jsp" %>
         </header>
-
+        
         <div class="mainview">
             <div>
-                <%@ include file="../common/customerSidebar.jsp" %>
+                <%@ include file="../common/menubar.jsp" %>
             </div>
 
             <main id="order_wrap">
@@ -473,15 +472,13 @@
                     <!-- // 상품문의 -->
                 </div>
 
-
             </div>
-                
 
-        <footer>
-            <%@ include file="../common/footer.jsp" %>
-        </footer>
-    </div>
-	
+	        <footer>
+	            <%@ include file="../common/footer.jsp" %>
+	        </footer>
+	    </div>
+	</div>
 	<!-- 
 		cart insert/update 용 함수 작성 
 		product 정보가 변수 p에 담겨있다고 가정
@@ -530,6 +527,6 @@
 			});	
 		}
 	</script>
-</div>
+
 </body>
 </html>
