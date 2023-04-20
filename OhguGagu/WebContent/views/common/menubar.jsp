@@ -12,6 +12,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <!-- jQuery -->
@@ -28,9 +31,6 @@
 
 
 	<style>
-        div{
-            /*border: 1px solid black;*/
-        }
         .menuWrapper{
             display: flex;
             height: 100px;
@@ -154,10 +154,17 @@
 	        	<br>
 	        	<div><b><%= loginUser.getMemberName() %>님</b> 환영합니다.</div>
                 <div class="login">
-                    <div><a href="<%= contextPath %>/myPage.me">MyPage</a></div>
-                    <div><a href="<%= contextPath %>/logout.me">logout</a></div>
-                    <div><a href="<%= contextPath %>/list.cart">Cart</a></div>
-                    <div><a href="">Search</a></div>
+                	<%if(loginUser.getMemberId().equals("admin")){ %>
+                		<div><a href="<%= contextPath %>/adminPage.me">adminPage</a></div>
+                		<div><a href="<%= contextPath %>/logout.me">logout</a></div>
+                		<div style="margin-right: 30px;"><a href="">Search</a></div>
+                	<%}else{ %>
+                    	<div><a href="<%= contextPath %>/myPage.me">MyPage</a></div>
+                    	<div><a href="<%= contextPath %>/logout.me">logout</a></div>
+                    	<div><a href="<%= contextPath%>/">Cart</a></div>
+                    	<div><a href="">Search</a></div>
+                    <%} %>
+
                 </div>
 	        <% } %>
         </div>

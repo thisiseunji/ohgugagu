@@ -13,7 +13,6 @@ import com.ohgu.board.model.vo.Board;
 import com.ohgu.common.JDBCTemplate;
 import com.ohgu.common.model.vo.PageInfo;
 import com.ohgu.notice.model.dao.NoticeDao;
-import com.ohgu.notice.model.vo.Notice;
 
 public class BoardDao {
 	
@@ -40,6 +39,7 @@ Properties prop = new Properties();
 			pstmt.setString(2, b.getBoardContent());
 			pstmt.setInt(3, b.getMemberNo());
 			pstmt.setInt(4, b.getOrderNo());
+			pstmt.setInt(5, b.getProductNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -93,9 +93,10 @@ Properties prop = new Properties();
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Board(rset.getInt("ORDER_NO")
-								  , rset.getString("BOARD_TITLE")
-								  , rset.getDate("CREATED_AT")));
+				list.add(new Board(rset.getInt("BOARD_NO")
+								 , rset.getInt("ORDER_NO")
+								 , rset.getString("BOARD_TITLE")
+								 , rset.getDate("CREATED_AT")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -104,7 +105,60 @@ Properties prop = new Properties();
 			JDBCTemplate.close(pstmt);
 		}
 		return list;
+	}
+	
+	public Board selectBoard(Connection conn, int boardNo) {
+		
+		Board b = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b = new Board(rset.getInt("BOARD_NO")
+							, rset.getString("BOARD_TITLE")
+							, rset.getString("BOARD_CONTENT")
+							, rset.getDate("CREATED_AT")
+							, rset.getString("ANSWER")
+							, rset.getDate("UPDATED_AT")
+							, rset.getInt("MEMBER_NO")
+							, rset.getInt("ORDER_NO")
+							, rset.getInt("PRODUCT_NO")); 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return b;
+	}
+	
+	public int deleteBoard(Connection conn, int boardNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
 		
 	}
+	
 
 }

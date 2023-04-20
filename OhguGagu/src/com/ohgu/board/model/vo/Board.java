@@ -4,19 +4,20 @@ import java.sql.Date;
 
 public class Board {
 	
-	public int boardNo;	//	BOARD_NO	NUMBER
+	public int boardNo;			//	BOARD_NO	NUMBER
 	public String boardTitle;	//	BOARD_TITLE	VARCHAR2(200 BYTE)
 	public String boardContent;	//	BOARD_CONTENT	VARCHAR2(2000 BYTE)
-	public Date createdAt;	//	CREATED_AT	DATE
-	public String answer;	//	ANSWER	VARCHAR2(1000 BYTE)
-	public Date updatedAt;	//	UPDATED_AT	DATE
-	public int memberNo;	//	MEMBER_NO	NUMBER
-	public int orderNo;	//	ORDER_NO	NUMBER
+	public Date createdAt;		//	CREATED_AT	DATE
+	public String answer;		//	ANSWER	VARCHAR2(1000 BYTE)
+	public Date updatedAt;		//	UPDATED_AT	DATE
+	public int memberNo;		//	MEMBER_NO	NUMBER
+	public int orderNo;			//	ORDER_NO	NUMBER
+	public int productNo; 		// PRODUCT_NO	NUMBER
 	
 	public Board() {}
 
 	public Board(int boardNo, String boardTitle, String boardContent, Date createdAt, String answer, Date updatedAt,
-			int memberNo, int orderNo) {
+			int memberNo, int orderNo, int productNo) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
@@ -26,15 +27,23 @@ public class Board {
 		this.updatedAt = updatedAt;
 		this.memberNo = memberNo;
 		this.orderNo = orderNo;
+		this.productNo = productNo;
 	}
-	
-	
 
-	public Board(int orderNo, String boardTitle, Date createdAt) {
+	public Board(int boardNo, int orderNo, String boardTitle, Date createdAt) {
 		super();
+		this.boardNo = boardNo;
 		this.orderNo = orderNo;
 		this.boardTitle = boardTitle;
 		this.createdAt = createdAt;
+	}
+
+	public int getProductNo() {
+		return productNo;
+	}
+
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
 	}
 
 	public int getBoardNo() {

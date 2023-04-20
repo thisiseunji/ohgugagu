@@ -4,24 +4,38 @@
 	
 	<entry key="insertBoard">
 		INSERT INTO TB_BOARD
-		VALUES (SEQ_BD.NEXTVAL, ?, ?, SYSDATE, NULL, NULL, ?, ?)
+		VALUES (SEQ_BD.NEXTVAL, ?, ?, SYSDATE, NULL, NULL, DEFAULT, ?, ?, ?)
 	</entry>
 	
 	<entry key="selectListCount">
 		SELECT COUNT(*) COUNT
 		FROM TB_BOARD
 		WHERE MEMBER_NO = ?
+		AND STATUS = 'Y'
 	</entry>
 	
 	<entry key="selectBoardList">
 		SELECT *
 		FROM ( SELECT ROWNUM RNUM, A.*
-       		   FROM (SELECT ORDER_NO, BOARD_TITLE, CREATED_AT
+       		   FROM (SELECT BOARD_NO, ORDER_NO, BOARD_TITLE, CREATED_AT
                FROM TB_BOARD
                WHERE MEMBER_NO = ?
+               AND STATUS = 'Y'
                ORDER BY BOARD_NO DESC)A
       		 )
 		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectBoard">
+		SELECT *
+		FROM TB_BOARD
+		WHERE BOARD_NO = ?
+	</entry>
+	
+	<entry key="deleteBoard">
+		UPDATE TB_BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = ?
 	</entry>
 
 </properties>
