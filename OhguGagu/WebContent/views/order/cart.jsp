@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.ohgu.product.model.vo.Product"%>
+<%
+	Product p = new Product(
+			 2
+		     , "침대"
+		     , "흰색철제침대"
+		     , 200000
+		     , 30
+		     , "WHITE"
+		     , "100*1000*100"
+		     , "STEEL"
+		     , null
+		     , 10);
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,6 +110,12 @@
         width: 150px;
         height: 35px;
     }
+
+    #close_icon>img {
+        width: 12px;
+        height: 12px;
+        cursor:pointer;
+    }
 </style>
 </head>
 <body>	
@@ -103,7 +123,6 @@
         <header>
 			<%@ include file="../common/menubar.jsp" %>
 		</header>
-        <!-- 메뉴바 부분 들어가야하고,  -->
         <div class="mainview">
             <div class="cart_info_area">
                 <div>
@@ -115,46 +134,24 @@
                         <table class="cart_list">
                             <thead>
                                 <tr>
-                                    <td><input type="checkbox" name="cart_check_all" id="cart_check_all"></td>
+                                    <td><input type="checkbox" name="cart_check_all" id="cart_check_all" checked></td>
                                     <td colspan="2">상품명/옵션</td>
                                     <td>수량</td>
-                                    <td>상품금액</td>
+                                    <td>상품 가격</td>
                                     <td>할인/적립</td>
-                                    <td>합계금액</td>
+                                    <td>합계 금액</td>
+                                    <td><div>   </div></td>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td rowspan="2"><input type="checkbox" name="cart_check_all" id="cart_check"></td>
-                                    <td rowspan="2" align="right" style="width:160px"><img id="thumbnail_img" src="https://colimg2.godohosting.com//goods/21/05/19/1000006431/1000006431_detail_092.jpg" alt="탁자"></td>
-                                    <td align="left" style="padding-left:5px; vertical-align:bottom;">접이식 탁자</td>
-                                    <td style="vertical-align:bottom;"><input style="width:25px; vertical-align:bottom;" type="text" value=1 maxlength="2"> 개</td>
-                                    <td rowspan="2">120,000원</td>
-                                    <td style="vertical-align:bottom; color: rgb(167,0,0)"><b>-20,000원</b></td>
-                                    <td rowspan="2">100,000원</td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="padding-left:5px; vertical-align:top;">검정</td>
-                                    <td><button onclick="" type="submit" style="vertical-align:top; background-color:#ccc; border:none; font-size: 12px; border-radius: 3px;">수량변경</button></td>
-                                    <td style="vertical-align:top; font-size: 12px; " rowspan="2"><b>적립 : 1080원</b></td>
-                                </tr> 
+                            <tbody> 
+                            	<!-- ajax -->
                             </tbody>
                         </table>
                     </div> 
                 </div>
                 <div class="total_price">
                     <table>
-                        <tr>
-                            <td class="small_black"><b>총 2개의 상품금액</b></td>
-                            <td rowspan=2 class="thic_black">+</td>
-                            <td class="small_black" ><b>배송비</b></td>
-                            <td rowspan=2 class="thic_black">=</td>
-                            <td rowspan=2><b class="thic_red">177,000</b><b style="font-size: 15px;">원</b></td>
-                        </tr>
-                        <tr>
-                            <td>157,000원</td>
-                            <td>20,000원</td>
-                        </tr>
+  						<!-- ajax -->
                     </table>
                 </div>
                 <div class="button">
@@ -167,5 +164,153 @@
 			<%@ include file="../common/footer.jsp" %>
 		</footer>
     </div>
+
+    <script>
+        $(function() {
+            selectCart();
+
+            // 체크박스 선택 관련
+            $(document).on("click", "#cart_check_all", function() {
+                if($("#cart_check_all").is(":checked")) 
+                    $("input[name=cart_check]").prop("checked", true);
+                else 
+                    $("input[name=cart_check]").prop("checked", false);
+            });
+
+            $(document).on("click", "input[name=cart_check]", function() {
+                var total = $("input[name=cart_check]").length;
+                var checked = $("input[name=cart_check]:checked").length;
+
+                if(total != checked) $("#cart_check_all").prop("checked", false);
+                else $("#cart_check_all").prop("checked", true); 
+
+            });
+
+
+            // 카트 삭제
+            $(document).on("click", "#close_icon", function() {
+                deleteCart();
+            })
+
+        });
+
+        function selectCart() {
+					$.ajax({
+						url : "alist.cart",
+						type : "get",
+						success : function(list) {
+							let result = '<tr><td style="height:50px" align="center" colspan=8>장바구니에 담긴 상품이 없습니다.<td><tr>';
+							
+							let totalPrice = 0;
+
+							for(let i in list) {
+                                let price = list[i].price*list[i].amount;
+                                let discountPrice = (list[i].discountRate/100)*price;
+                                let point = (list[i].pointRate/100)*discountPrice;
+								
+                                result = '<tr>'
+                                        + '<td rowspan="2"><input type="checkbox" name="cart_check" id="cart_check" checked></td>'
+                                        + '<td rowspan="2" align="right" style="width:160px"><img id="thumbnail_img" src="' + list[i].fileName + '"></td>'
+                                        + '<td align="left" style="padding-left:5px; vertical-align:bottom;">'+ list[i].productName +'</td>'
+                                        + '<td style="vertical-align:bottom;"><input style="width:25px; vertical-align:bottom;" type="text" value='+ list[i].amount +' maxlength="2" id="amount"> 개</td>'
+                                        + '<td rowspan="2">'+ price +'원</td>'
+                                        + '<td style="vertical-align:bottom; color: rgb(167,0,0)"><b>-'+ discountPrice +'원</b></td>'
+                                        + '<td rowspan="2">'+ (price-discountPrice) +'원</td>'
+                                        // 클릭 이벤트 줘야함
+                                        + '<td rowspan="3"><div id="close_icon"><img src="https://static.thenounproject.com/png/102781-200.png" alt=""></div></td>'
+                                        + '</tr>'
+                                        + '<tr>'
+                                        + '<td align="left" style="padding-left:5px; vertical-align:top;">'+ list[i].pColor +'</td>'
+                                        // 업데이트 이벤트 줘야함
+                                        + '<td><button onclick="setAmountCart();" type="button" style="vertical-align:top; background-color:#ccc; border:none; font-size: 12px; border-radius: 3px;">수량변경</button></td>'
+                                        + '<td style="vertical-align:top; font-size: 12px;" rowspan="2"><b>적립 : '+ point +'원</b></td>'
+                                        + '</tr>';
+                               totalPrice += (price-discountPrice);
+							}
+                            
+                            let result1 = '<tr>'
+                            		   + '<td class="small_black"><b>총 0개의 상품금액</b></td>'
+                            		   + '<td rowspan=2 class="thic_black">+</td>'
+                            		   + '<td class="small_black" ><b>배송비</b></td>'
+                            		   + '<td rowspan=2 class="thic_black">=</td>'
+                            		   + '<td rowspan=2><b class="thic_red">0</b><b style="font-size: 15px;">&nbsp&nbsp원&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</b></td>'
+									   + '</tr>'
+									   + '<tr>'
+									   + '<td>0 원</td>'
+									   + '<td>0 원</td>'
+									   + '</tr>';
+							if (list.length > 0) { //반환된 객체가 있을 때,
+								
+								let deliveryFee = 5000;
+							
+								if(totalPrice >= 100000) {
+									deliveryFee = totalPrice*0.1;
+								}
+								
+								result1 = '<tr>'
+	                         		   + '<td class="small_black"><b>총 '+list.length+'개의 상품금액</b></td>'
+	                        		   + '<td rowspan=2 class="thic_black">+</td>'
+	                        		   + '<td class="small_black" ><b>배송비</b></td>'
+	                        		   + '<td rowspan=2 class="thic_black">=</td>'
+	                        		   + '<td rowspan=2><b class="thic_red">'+ (totalPrice + deliveryFee) +'</b><b style="font-size: 15px;">원</b></td>'
+									   + '</tr>'
+									   + '<tr>'
+									   + '<td>'+ totalPrice +' 원</td>'
+									   + '<td>'+ deliveryFee +' 원</td>'
+									   + '</tr>';
+							}				
+	                            
+						$(".cart_list tbody").html(result);
+						$(".total_price>table").html(result1);
+						},
+						
+						error : function() {
+							console.log("댓글리스트 조회용 ajax 통신 실패!");
+						}
+					});
+            }
+
+            function setAmountCart() {
+                $.ajax({
+                    url : "setAmount.cart",
+                    type : "post",
+                    data : {
+                        amount : $("#amount").val(),
+                        productNo : <%=p.getProductNo()%>
+                    },
+                    success : function(result) {
+                        if(result > 0) { // 수량 업데이트 성공
+                            selectCart();
+                        } else { // 수량 업데이트 실패
+                            alert("수량 변경 실패");
+                        }
+                    },
+                    error : function() {
+                        console.log("장바구니 update ajax 통신 실패");
+                    }
+                });
+            }
+
+            function deleteCart() {
+                $.ajax({
+                    url : "delete.cart",
+                    type : "post",
+                    data : {
+                        amount : $("#amount").val(),
+                        productNo : <%= p.getProductNo() %>
+                    },
+                    success : function(result) {
+                        if(result > 0) { // 삭제 성공
+                            selectCart();
+                        } else { 
+                            alert("삭제 실패");
+                        }
+                    },
+                    error : function() {
+                        console.log("장바구니 update ajax 통신 실패");
+                    }
+                });
+            } 
+    </script>
 </body>
 </html>

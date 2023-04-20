@@ -164,6 +164,7 @@
                     	<div><a href="<%= contextPath%>/">Cart</a></div>
                     	<div><a href="">Search</a></div>
                     <%} %>
+
                 </div>
 	        <% } %>
         </div>

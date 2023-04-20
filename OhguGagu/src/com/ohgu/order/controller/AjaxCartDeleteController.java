@@ -1,29 +1,28 @@
-package com.ohgu.product.controller;
+package com.ohgu.order.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ohgu.product.model.service.ProductService;
-import com.ohgu.product.model.vo.Product;
+import com.ohgu.member.model.vo.Member;
+import com.ohgu.order.model.service.CartService;
+import com.ohgu.order.model.vo.Cart;
 
 /**
- * Servlet implementation class ProductSearchController
+ * Servlet implementation class AjaxCartDeleteController
  */
-@WebServlet("/search.pr")
-public class ProductSearchController extends HttpServlet {
+@WebServlet("/delete.cart")
+public class AjaxCartDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductSearchController() {
+    public AjaxCartDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,19 +31,26 @@ public class ProductSearchController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int result = 0;
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
-		String keyword = request.getParameter("");
-		
-		ArrayList<Product> list = new ProductService().selectByProductName(keyword);
-		
-		if(list.isEmpty()) {
-			request.setAttribute("errorMsg", "조회된 결과가 없습니다.");
+		if (loginUser == null) {
 			
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용 가능한 서비스 입니다.");
+			
+		} else {
+			
+			int memberNo = loginUser.getMemberNo();
+			int productNo = Integer.parseInt(request.getParameter("productNo"));
+			Cart cart = new Cart(productNo, memberNo);
+			result = new CartService().deleteCart(cart);
+			
 		}
-
-		request.getRequestDispatcher("views/searchForm.jsp").forward(request, response);
-		                           
+		
+		// 결과를 보낸다.
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().print(result);
+		
 	}
 
 	/**

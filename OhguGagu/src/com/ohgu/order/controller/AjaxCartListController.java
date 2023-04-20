@@ -1,29 +1,30 @@
-package com.ohgu.product.controller;
+package com.ohgu.order.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ohgu.product.model.service.ProductService;
-import com.ohgu.product.model.vo.Product;
+import com.google.gson.Gson;
+import com.ohgu.member.model.vo.Member;
+import com.ohgu.order.model.service.CartService;
+import com.ohgu.order.model.vo.CartReturn;
 
 /**
- * Servlet implementation class ProductSearchController
+ * Servlet implementation class AjaxCartSelectController
  */
-@WebServlet("/search.pr")
-public class ProductSearchController extends HttpServlet {
+@WebServlet("/alist.cart")
+public class AjaxCartListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductSearchController() {
+    public AjaxCartListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,19 +33,23 @@ public class ProductSearchController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String keyword = request.getParameter("");
-		
-		ArrayList<Product> list = new ProductService().selectByProductName(keyword);
-		
-		if(list.isEmpty()) {
-			request.setAttribute("errorMsg", "조회된 결과가 없습니다.");
+		/* 로그인 유저 정보로 장바구니 조회*/
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		ArrayList<CartReturn> cartList = null;
+		if (loginUser == null) {
 			
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			request.getSession().setAttribute("alertMsg", "로그인 후 이용 가능한 서비스 입니다.");
+			
+		} else {
+			int memberNo = loginUser.getMemberNo();
+			cartList = new CartService().getCartList(memberNo);
+			
 		}
 
-		request.getRequestDispatcher("views/searchForm.jsp").forward(request, response);
-		                           
+		response.setContentType("application/json; charset=UTF-8");
+		
+		new Gson().toJson(cartList, response.getWriter());
+
 	}
 
 	/**

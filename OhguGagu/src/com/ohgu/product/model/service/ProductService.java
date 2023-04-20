@@ -27,11 +27,24 @@ public class ProductService {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Product> list = new ProductDao().selectByProductName(conn);
+		ArrayList<Product> list = new ProductDao().selectByProductName(conn, keyword);
 		
 		close(conn);
 		
 		return list;
+	}
+	
+	// 상품 필터링 조회(카테고리/재질/가격)
+	public ArrayList<Product> selectProductBy(String category, int price, String pMaterial) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Product> list = new ProductDao().selectProductBy(conn, category, price, pMaterial);
+		
+		close(conn);
+		
+		return list;
+		
 	}
 
 }

@@ -1,29 +1,23 @@
 package com.ohgu.product.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ohgu.product.model.service.ProductService;
-import com.ohgu.product.model.vo.Product;
-
 /**
- * Servlet implementation class ProductSearchController
+ * Servlet implementation class ProductDetailViewController
  */
-@WebServlet("/search.pr")
-public class ProductSearchController extends HttpServlet {
+@WebServlet("/detailView.pr")
+public class ProductDetailViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductSearchController() {
+    public ProductDetailViewController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +27,8 @@ public class ProductSearchController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String keyword = request.getParameter("");
+		request.getRequestDispatcher("views/product/productDetailView.jsp").forward(request, response);
 		
-		ArrayList<Product> list = new ProductService().selectByProductName(keyword);
-		
-		if(list.isEmpty()) {
-			request.setAttribute("errorMsg", "조회된 결과가 없습니다.");
-			
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-		}
-
-		request.getRequestDispatcher("views/searchForm.jsp").forward(request, response);
-		                           
 	}
 
 	/**
