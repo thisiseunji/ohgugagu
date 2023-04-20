@@ -4,7 +4,7 @@
 	<!-- Cart 관련 쿼리  -->
 	<entry key="insertCart">
 		INSERT INTO TB_CART
-		VALUES (?, ?, ?)
+		VALUES (SEQ_CRT.NEXTVAL, ?, ?, ?)
 	</entry>
 	<entry key="deleteCart">
 		DELETE FROM TB_CART
@@ -22,7 +22,7 @@
 		AND PRODUCT_NO = ?
 	</entry>
 	<entry key="selectCart">
-		SELECT PRODUCT_NO, FILE_NAME, PRODUCT_NAME, P_COLOR, AMOUNT, PRICE, DISCOUNT_RATE
+		SELECT CART_NO, PRODUCT_NO, FILE_NAME, PRODUCT_NAME, P_COLOR, AMOUNT, PRICE, DISCOUNT_RATE
 		FROM TB_CART
 		JOIN TB_PRODUCT USING (PRODUCT_NO)
 		JOIN TB_IMAGE USING (PRODUCT_NO)

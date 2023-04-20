@@ -157,7 +157,7 @@
 	                </div>
 	                <div class="button">
 	                    <button style="margin-right:5px;">계속 쇼핑하기</button>
-	                    <button style="margin-left:5px;" type="submit" id="order" onclick="">선택상품 주문하기</button>
+	                    <button style="margin-left:5px;" type="submit" id="order">선택상품 주문하기</button>
 	                </div>
                 </form>
                 
@@ -189,7 +189,6 @@
 
             });
 
-
             // 카트 삭제
             $(document).on("click", "#close_icon", function() {
                 deleteCart();
@@ -202,8 +201,11 @@
 						url : "alist.cart",
 						type : "get",
 						success : function(list) {
-							let result = '<tr><td style="height:50px" align="center" colspan=8>장바구니에 담긴 상품이 없습니다.<td><tr>';
 							
+							let result = '';
+							if (list.length == 0) {
+								result = '<tr><td style="height:50px" align="center" colspan=8>장바구니에 담긴 상품이 없습니다.<td><tr>';
+							}
 							let totalPrice = 0;
 
 							for(let i in list) {
@@ -211,24 +213,35 @@
                                 let discountPrice = (list[i].discountRate/100)*price;
                                 let point = (list[i].pointRate/100)*discountPrice;
 								
-                                result = '<tr>'
+                                result += '<tr>'
                                         + '<td rowspan="2"><input type="checkbox" name="cart_check" id="cart_check" checked></td>'
                                         + '<td rowspan="2" align="right" style="width:160px"><img id="thumbnail_img" src="' + list[i].fileName + '"></td>'
                                         + '<td align="left" style="padding-left:5px; vertical-align:bottom;">'+ list[i].productName +'</td>'
-                                        + '<td style="vertical-align:bottom;"><input style="width:25px; vertical-align:bottom;" type="text" value='+ list[i].amount +' maxlength="2" id="amount"> 개</td>'
+                                        + '<td style="vertical-align:bottom;"><input style="width:25px; vertical-align:bottom;" type="text" value='+ list[i].amount +' maxlength="2" id="amount'+i+'"> 개</td>'
                                         + '<td rowspan="2">'+ price +'원</td>'
                                         + '<td style="vertical-align:bottom; color: rgb(167,0,0)"><b>-'+ discountPrice +'원</b></td>'
                                         + '<td rowspan="2">'+ (price-discountPrice) +'원</td>'
                                         // 클릭 이벤트 줘야함
-                                        + '<td rowspan="3"><div id="close_icon"><img src="https://static.thenounproject.com/png/102781-200.png" alt=""></div></td>'
+                                        + '<td rowspan="2"><div id="close_icon" onClick="delete('+ i +');"><img src="https://static.thenounproject.com/png/102781-200.png" alt=""></div></td>'
                                         + '</tr>'
                                         + '<tr>'
                                         + '<td align="left" style="padding-left:5px; vertical-align:top;">'+ list[i].pColor +'</td>'
                                         // 업데이트 이벤트 줘야함
-                                        + '<td><button onclick="setAmountCart();" type="button" style="vertical-align:top; background-color:#ccc; border:none; font-size: 12px; border-radius: 3px;">수량변경</button></td>'
-                                        + '<td style="vertical-align:top; font-size: 12px;" rowspan="2"><b>적립 : '+ point +'원</b></td>'
-                                        + '</tr>';
+                                        + '<td><button onclick="setAmountCart('+ i +');" type="button" style="vertical-align:top; background-color:#ccc; border:none; font-size: 12px; border-radius: 3px;">수량변경</button></td>'
+                                        + '<td style="vertical-align:top; font-size: 12px;"><b>적립 : '+ point +'원</b></td>'
+                                        + '</tr>'
+                                   
                                totalPrice += (price-discountPrice);
+                                        
+                                result += '<input type="hidden" name="fileName" value='+ list[i].fileName +'>'
+                                    + '<input type="hidden" name="productName" value='+ list[i].productName +'>'
+                                    + '<input type="hidden" name="pColor" value='+ list[i].pColor +'>'
+                                    + '<input type="hidden" name="amount" value='+ list[i].amount +'>'
+                                    + '<input type="hidden" name="price" value='+ price +'>'
+                                    + '<input type="hidden" name="discountPrice" value='+ discountPrice +'>'
+                                    + '<input type="hidden" name="point" value='+ point +'>'//적립금
+                                    + '<input type="hidden" name="realPrice" value='+ (price-discountPrice) +'>'//합계금액
+                                    + '<input type="hidden" name="listLength" value='+ list.length +'>';// 총 상품 가지수
 							}
                             
                             let result1 = '<tr>'
@@ -261,8 +274,12 @@
 									   + '<td>'+ totalPrice +' 원</td>'
 									   + '<td>'+ deliveryFee +' 원</td>'
 									   + '</tr>';
+									   
+							   result += '<input type="hidden" name="deliveryFee" value='+ deliveryFee +'>'// 배송비
+                        			  + '<input type="hidden" name="lastPrice" value='+ (totalPrice+deliveryFee) +'>';// 결제예정금액   
 							}				
 	                            
+						
 						$(".cart_list tbody").html(result);
 						$(".total_price>table").html(result1);
 						},
@@ -272,13 +289,15 @@
 						}
 					});
             }
-
-            function setAmountCart() {
+        
+            function setAmountCart(i) {
+            	console.log($("#amount"+i).val())
                 $.ajax({
                     url : "setAmount.cart",
                     type : "post",
                     data : {
-                        amount : $("#amount").val(),
+                    	idx : i,
+                        amount : $("#amount"+i).val(),
                         productNo : <%=p.getProductNo()%>
                     },
                     success : function(result) {
@@ -314,6 +333,9 @@
                     }
                 });
             } 
+            $(function() {
+    			console.log(document.querySelector("#amout1"));
+                       });
     </script>
 </body>
 </html>
