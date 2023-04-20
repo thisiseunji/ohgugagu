@@ -128,36 +128,39 @@
                 <div>
                     <%@ include file="../common/myPageSidebar.jsp" %>
                 </div>
-                <div class="cart_list_box">
-                    <b style="margin-left: 5px; font-size:20px">장바구니</b>
-                    <div class="cart_list_area">
-                        <table class="cart_list">
-                            <thead>
-                                <tr>
-                                    <td><input type="checkbox" name="cart_check_all" id="cart_check_all" checked></td>
-                                    <td colspan="2">상품명/옵션</td>
-                                    <td>수량</td>
-                                    <td>상품 가격</td>
-                                    <td>할인/적립</td>
-                                    <td>합계 금액</td>
-                                    <td><div>   </div></td>
-                                </tr>
-                            </thead>
-                            <tbody> 
-                            	<!-- ajax -->
-                            </tbody>
-                        </table>
-                    </div> 
-                </div>
-                <div class="total_price">
-                    <table>
-  						<!-- ajax -->
-                    </table>
-                </div>
-                <div class="button">
-                    <button style="margin-right:5px;">계속 쇼핑하기</button>
-                    <button style="margin-left:5px;" type="submit">선택상품 주문하기</button>
-                </div>
+                <form id="order-form" action="<%= contextPath %>/insert.pay" method="post">
+	                <div class="cart_list_box">
+	                    <b style="margin-left: 5px; font-size:20px">장바구니</b>
+	                    <div class="cart_list_area">
+	                        <table class="cart_list">
+	                            <thead>
+	                                <tr>
+	                                    <td><input type="checkbox" name="cart_check_all" id="cart_check_all" checked></td>
+	                                    <td colspan="2">상품명/옵션</td>
+	                                    <td>수량</td>
+	                                    <td>상품 가격</td>
+	                                    <td>할인/적립</td>
+	                                    <td>합계 금액</td>
+	                                    <td><div>   </div></td>
+	                                </tr>
+	                            </thead>
+	                            <tbody> 
+	                            	<!-- ajax -->
+	                            </tbody>
+	                        </table>
+	                    </div> 
+	                </div>
+	                <div class="total_price">
+	                    <table>
+	  						<!-- ajax -->
+	                    </table>
+	                </div>
+	                <div class="button">
+	                    <button style="margin-right:5px;">계속 쇼핑하기</button>
+	                    <button style="margin-left:5px;" type="submit" id="order" onclick="">선택상품 주문하기</button>
+	                </div>
+                </form>
+                
             </div>
         </div>
         <footer>

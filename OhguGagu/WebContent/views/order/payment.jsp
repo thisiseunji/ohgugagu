@@ -5,6 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>오구가구>결제</title>
+
+<!-- 아임포트 주문관리 -->
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
 <style>
 	#wrap{
 		min-height: 100vh;
@@ -355,12 +362,44 @@
                             </tr>
                         </table>
                     </div>
-                    <button class="payment_btn">결제하기</button>
+                    <button class="payment_btn" onclick="requestPay()">결제하기</button>
                 </div>
             </div>
             <footer>
                 <%@ include file="../common/footer.jsp" %>
             </footer>
         </div>
+        
+        
+	<script>
+		// 최초 1회만 되어야 함
+		$(document).ready(function(){
+		  const IMP = window.IMP; // 생략 가능
+		  IMP.init("imp02576572"); // 예: imp00000000a
+		});
+
+
+	  function requestPay() {
+	    IMP.request_pay({
+	      pg: "kakaopay.TC0ONETIME",
+	      pay_method: "kakaopay",
+	      merchant_uid: "ORD20180131-0000011",   // 주문번호(고유값으로 채번, 결제 완료이후 위변조검증시 필요하므로 디비에 잘 저자)
+	      name: "노르웨이 회전 의자",
+	      amount: 64900,                         // 숫자 타입
+	      buyer_email: "gildong@gmail.com",
+	      buyer_name: "홍길동",
+	      buyer_tel: "010-4242-4242",
+	      buyer_addr: "서울특별시 강남구 신사동",
+	      buyer_postcode: "01181"
+	    }, function (rsp) { // callback
+	      if (rsp.success) {
+	       	console.log("결제테스트 성공")
+	      } else {
+	        console.log("결제테스트 실패")
+	      }
+	    });
+	  }
+	</script>
+	
 </body>
 </html>
