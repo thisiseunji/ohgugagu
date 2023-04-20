@@ -28,6 +28,7 @@ public class Cart {
 		this.memberNo = memberNo;
 		this.amount = amount;
 	}
+	
 
 	public int getCartNo() {
 		return cartNo;
@@ -60,14 +61,11 @@ public class Cart {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Cart [cartNo=" + cartNo + ", productNo=" + productNo + ", memberNo=" + memberNo + ", amount=" + amount
 				+ "]";
 	}
-	
-	
-	
 	
 }

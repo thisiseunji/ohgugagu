@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.ohgu.order.model.dao.CartDao;
 import com.ohgu.order.model.vo.Cart;
+import com.ohgu.order.model.vo.CartReturn;
 
 public class CartService {
 	// 장바구니에 상품 추가
@@ -57,6 +58,34 @@ public class CartService {
 		close(conn);
 		
 		return result;
+	}
+	
+	public int setAmountCart(Cart cart) {
+		Connection conn = getConnection();
+		
+		int result = new CartDao().setAmountCart(conn, cart);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+
+	// 멤버 장바구니 조회
+	public ArrayList<CartReturn> getCartList(int memberNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<CartReturn> cartList = new CartDao().selectCart(conn, memberNo);
+		
+		close(conn);
+		
+		return cartList;
 	}
 	
 }

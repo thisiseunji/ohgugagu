@@ -12,16 +12,16 @@ import com.ohgu.order.model.service.CartService;
 import com.ohgu.order.model.vo.Cart;
 
 /**
- * Servlet implementation class AjaxCartUpdateController
+ * Servlet implementation class AjaxCartSetAmountCart
  */
-@WebServlet("/update.cart")
-public class AjaxCartUpdateController extends HttpServlet {
+@WebServlet("/setAmount.cart")
+public class AjaxCartSetAmountCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxCartUpdateController() {
+    public AjaxCartSetAmountCart() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,13 +40,15 @@ public class AjaxCartUpdateController extends HttpServlet {
 			
 		} else {
 			int productNo = Integer.parseInt(request.getParameter("productNo"));
+			
+			System.out.println(loginUser.getMemberNo());
+			System.out.println(request.getParameter("amount"));
 			Cart cart = new Cart(productNo, loginUser.getMemberNo(), Integer.parseInt(request.getParameter("amount")));
-			result = new CartService().updateCart(cart);
+			result = new CartService().setAmountCart(cart);
 		}
 		
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().print(result);
-
 	}
 
 	/**

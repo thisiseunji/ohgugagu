@@ -42,7 +42,7 @@ public class AjaxCartInsertController extends HttpServlet {
 		} else {
 			
 			int productNo = Integer.parseInt(request.getParameter("productNo"));
-			Cart cart = new Cart(productNo, Integer.parseInt(loginUser.getMemberId()), Integer.parseInt(request.getParameter("amount")));
+			Cart cart = new Cart(productNo, loginUser.getMemberNo(), Integer.parseInt(request.getParameter("amount")));
 			result = new CartService().insertCart(cart);
 			
 		}

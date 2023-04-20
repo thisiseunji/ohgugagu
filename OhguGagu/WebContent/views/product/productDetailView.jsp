@@ -490,11 +490,11 @@
 	<script>
 		function updateCart() {
 			$.ajax({
-				url : "update.cart",
+				url : "<%= contextPath %>/update.cart",
 				type : "post",
 				data : {
 					amount : $("#num").val(),
-					pno : <%=p.getProductNo()%>
+					productNo : <%=p.getProductNo()%>
 				},
 				success : function(result) {
 					if(result > 0) { // 업데이트 성공
@@ -511,11 +511,11 @@
 		
 		function insertCart() {
 			$.ajax({
-				url : "insert.cart",
+				url : "<%= contextPath %>/insert.cart",
 				type : "post",
 				data : {
 					amount : $("#num").val(),
-					pno : <%=p.getProductNo()%>
+					productNo : <%=p.getProductNo()%>
 				},
 				success: function(result) {
 					if (result > 0) {
@@ -530,6 +530,6 @@
 			});	
 		}
 	</script>
-
+</div>
 </body>
 </html>

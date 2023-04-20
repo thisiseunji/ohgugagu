@@ -1,27 +1,30 @@
 package com.ohgu.order.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.ohgu.member.model.vo.Member;
 import com.ohgu.order.model.service.CartService;
-import com.ohgu.order.model.vo.Cart;
+import com.ohgu.order.model.vo.CartReturn;
 
 /**
- * Servlet implementation class AjaxCartUpdateController
+ * Servlet implementation class AjaxCartSelectController
  */
-@WebServlet("/update.cart")
-public class AjaxCartUpdateController extends HttpServlet {
+@WebServlet("/alist.cart")
+public class AjaxCartListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxCartUpdateController() {
+    public AjaxCartListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,22 +33,22 @@ public class AjaxCartUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/* 상품 상세 페이지에서 -> 상품 no, memberId 가져오기 */
-		int result = 0;
+		/* 로그인 유저 정보로 장바구니 조회*/
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		
+		ArrayList<CartReturn> cartList = null;
 		if (loginUser == null) {
 			
 			request.getSession().setAttribute("alertMsg", "로그인 후 이용 가능한 서비스 입니다.");
 			
 		} else {
-			int productNo = Integer.parseInt(request.getParameter("productNo"));
-			Cart cart = new Cart(productNo, loginUser.getMemberNo(), Integer.parseInt(request.getParameter("amount")));
-			result = new CartService().updateCart(cart);
+			int memberNo = loginUser.getMemberNo();
+			cartList = new CartService().getCartList(memberNo);
+			
 		}
+
+		response.setContentType("application/json; charset=UTF-8");
 		
-		response.setContentType("text/html; charset=UTF-8");
-		response.getWriter().print(result);
+		new Gson().toJson(cartList, response.getWriter());
 
 	}
 

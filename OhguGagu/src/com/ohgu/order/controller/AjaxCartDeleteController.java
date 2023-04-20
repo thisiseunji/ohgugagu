@@ -40,7 +40,7 @@ public class AjaxCartDeleteController extends HttpServlet {
 			
 		} else {
 			
-			int memberNo = Integer.parseInt(loginUser.getMemberId());
+			int memberNo = loginUser.getMemberNo();
 			int productNo = Integer.parseInt(request.getParameter("productNo"));
 			Cart cart = new Cart(productNo, memberNo);
 			result = new CartService().deleteCart(cart);

@@ -156,7 +156,7 @@
                 <div class="login">
                     <div><a href="<%= contextPath %>/myPage.me">MyPage</a></div>
                     <div><a href="<%= contextPath %>/logout.me">logout</a></div>
-                    <div><a href="<%= contextPath%>/">Cart</a></div>
+                    <div><a href="<%= contextPath %>/list.cart">Cart</a></div>
                     <div><a href="">Search</a></div>
                 </div>
 	        <% } %>
