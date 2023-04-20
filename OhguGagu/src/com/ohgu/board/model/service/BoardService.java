@@ -7,8 +7,6 @@ import com.ohgu.board.model.dao.BoardDao;
 import com.ohgu.board.model.vo.Board;
 import com.ohgu.common.JDBCTemplate;
 import com.ohgu.common.model.vo.PageInfo;
-import com.ohgu.notice.model.dao.NoticeDao;
-import com.ohgu.notice.model.vo.Notice;
 
 public class BoardService {
 	
@@ -46,7 +44,29 @@ public class BoardService {
 		JDBCTemplate.close(conn);
 		
 		return list;
-		
 	}
+	
+	public Board selectBoard(int boardNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Board b = new BoardDao().selectBoard(conn, boardNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return b;
+	}
+	
+	public int deleteBoard(int boardNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new BoardDao().deleteBoard(conn, boardNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
 
 }

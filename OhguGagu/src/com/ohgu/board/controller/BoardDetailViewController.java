@@ -12,16 +12,16 @@ import com.ohgu.board.model.service.BoardService;
 import com.ohgu.board.model.vo.Board;
 
 /**
- * Servlet implementation class BoardInsertController
+ * Servlet implementation class BoardDetailViewController
  */
-@WebServlet("/insert.bo")
-public class BoardInsertController extends HttpServlet {
+@WebServlet("/detail.bo")
+public class BoardDetailViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardInsertController() {
+    public BoardDetailViewController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,27 +31,12 @@ public class BoardInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8");
+		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		
-		int productNo = Integer.parseInt(request.getParameter("productNo"));
-		int orderNo = Integer.parseInt(request.getParameter("orderNo"));
-		String boardTitle = request.getParameter("title");
-		String boardContent = request.getParameter("content");
-		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
-
-		Board b = new Board();
-		b.setProductNo(productNo);
-		b.setBoardTitle(boardTitle);
-		b.setBoardContent(boardContent);
-		b.setMemberNo(memberNo);
-		b.setOrderNo(orderNo);
+		Board b = new BoardService().selectBoard(boardNo);
 		
-		int result = new BoardService().insertBoard(b);
-		
-		if(result>0) {
-			request.getSession().setAttribute("alertMsg", "1:1문의 등록 성공");
-			response.sendRedirect(request.getContextPath() + "/enrollForm.bo");
-		}
+		request.setAttribute("b", b);
+		request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
 		
 	}
 
