@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.ohgu.product.model.vo.Product"%>
+<%
+	Product p = new Product(
+			  2
+		     , "침대"
+		     , "흰색철제침대"
+		     , 200000
+		     , 30
+		     , "WHITE"
+		     , "100*1000*100"
+		     , "STEEL"
+		     , null
+		     , 10
+		     );
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -305,7 +319,7 @@
                     </div>
                     <div class="bottom">
                         <button type="button" id="order_btn">주문하기</button>
-                        <button type="button" id="cart_btn">장바구니</button>
+                        <button type="button" id="cart_btn" onclick="updateCart();">장바구니</button>
                         <button type="button" id="like_btn">찜하기</button>
                     </div>
                 </div>
@@ -458,15 +472,61 @@
                     <!-- // 상품문의 -->
                 </div>
 
-
             </div>
-                
 
-        <footer>
-            <%@ include file="../common/footer.jsp" %>
-        </footer>
-    </div>
-	
+	        <footer>
+	            <%@ include file="../common/footer.jsp" %>
+	        </footer>
+	    </div>
+	</div>
+	<!-- 
+		cart insert/update 용 함수 작성 
+		product 정보가 변수 p에 담겨있다고 가정
+		p.getProductNo();
+	 -->
+	<script>
+		function updateCart() {
+			$.ajax({
+				url : "<%= contextPath %>/update.cart",
+				type : "post",
+				data : {
+					amount : $("#num").val(),
+					productNo : <%=p.getProductNo()%>
+				},
+				success : function(result) {
+					if(result > 0) { // 업데이트 성공
+						alert("장바구니에 추가되었습니다.");
+					} else {
+						insertCart();
+					}
+				},
+				error : function() {
+					console.log("장바구니 update ajax 통신 실패");
+				}
+			});
+		}
+		
+		function insertCart() {
+			$.ajax({
+				url : "<%= contextPath %>/insert.cart",
+				type : "post",
+				data : {
+					amount : $("#num").val(),
+					productNo : <%=p.getProductNo()%>
+				},
+				success: function(result) {
+					if (result > 0) {
+						alert("장바구니에 추가 되었습니다.");
+					} else{
+						alert("장바구니에 추가 실패");
+					}
+				},
+				error : function() {
+					console.log("장바구니 insert ajax 통신 실패");
+				}
+			});	
+		}
+	</script>
 
 </body>
 </html>
