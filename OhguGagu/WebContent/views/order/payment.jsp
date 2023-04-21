@@ -13,7 +13,7 @@
 	String[] realPriceList = request.getParameterValues("realPrice"); // (원가 - 할인금액) = 실제 지불 금액
 	int listLength = cartCheckList.length; // 상품개수	// 고정된 가격으로 넘어오면 안된다. 실제 지불금액,기준으로 여기서 계산되어야 함.
 	// int lastPrice = Integer.parseInt(request.getParameter("lastPrice")); // 총 구매금액 + 배송비
-	int totalprice = 0; // 10만원 이상이면 10%  // 총 구매금액
+	int totalprice = 0; // 배송비는 10만원 이상이면 10%  // 총 구매금액
 	int deliveryFee = 0; // 10만원 미만이면, 5000원
 	
 
@@ -166,7 +166,7 @@
     .outer_tb {
         margin-left: 150px;
         margin-top: 10px;
-        width: 70%;
+        width: 80%;
     }
 
     .inner_tb * {
@@ -238,7 +238,7 @@
 		</header>
         <div class="container1">
                 <div class="cart_list_area">
-                    <b class="thic_black title">주문서 작성 / 결제</b>
+                    <b class="thic_black title">주문서 작성/결제</b>
                     <table class="cart_list">
                         <thead>
                             <tr>
@@ -297,7 +297,8 @@
                             <td rowspan=2 class="thic_black">+</td>
                             <td class="small_black" ><b>배송비</b></td>
                             <td rowspan=2 class="thic_black">=</td>
-                            <td rowspan=2><b class="thic_red"><%= totalprice + deliveryFee %></b><b style="font-size: 15px;">원</b></td>
+                            <td rowspan=2><b class="thic_red"><%= totalprice + deliveryFee %></b><b style="font-size: 15px;">원</b></td> 
+                            <!-- 지불 가격 -->
                         </tr>
                         <tr>
                             <td><%= totalprice %>원</td>
@@ -347,7 +348,7 @@
                 <br>
                 <br>
                 <div class="payment_area">
-                    <b class="thic_black title">포인트적용 / 결제</b>
+                    <b class="thic_black title">포인트적용</b>
                     <div class="addr_list point">
                         <table class="outer_tb">
                             <tr>
@@ -360,8 +361,9 @@
                                         </tr>
                                         <tr class="inner_tb_tr inner_tb_tr2 using_point">
                                             <td>사용</td>
-                                            <td><input name="usePoint" type="number" required style="width: 100px;" min="0" max="<%=loginUser.getPoint()%>">원</td>
-                                            <td style="text-align:left; padding-left:15px;"><button type="button" onclick="useAllPoint();" class="red_btn allpoint_btn">전액사용</button></td>
+                                            <!-- 사용자가 사용할 포인트를 입력 -->
+                                            <td><input name="usePoint" type="number" required style="width: 100px;" min="0" max="<%=loginUser.getPoint()%>" value=0 onchange="checkPoint()">원</td>
+                                            <td style="text-align:left; padding-left:15px;"><button type="button" class="red_btn" id="allpoint_btn">전액사용</button></td>
                                         </tr>
                                     </table>
                                 </td>
@@ -379,20 +381,20 @@
                                 <td>
                                     <table class="inner_tb payment_tb">
                                         <tr class="inner_tb_tr inner_tb_tr2">
-                                            <td>상품금액</td>
-                                            <td>157,800원</td>
+                                            <td>구매 금액</td>
+                                            <td><%= totalprice %>원</td>
                                         </tr>
                                         <tr class="inner_tb_tr inner_tb_tr2">
                                             <td>배송비</td>
-                                            <td>20,000원</td>
+                                            <td><%= deliveryFee %>원</td>
                                         </tr>
                                         <tr class="inner_tb_tr inner_tb_tr2" style="margin-bottom: 100px;">
-                                            <td>할인/포인트</td>
-                                            <td>-20,000원</td>
+                                            <td>포인트 적용</td>
+                                            <td>-<div style="display:inline-block;"; id="applyPoint">0</div>원</td>
                                         </tr>
                                         <tr class="inner_tb_tr inner_tb_tr2" style="margin-top: 10px; border-top: 1px solid rgb(145, 145, 145);">
                                             <td class="thic_black" style="font-size: 27px;">합계</td>
-                                            <td class="thic_red" style="font-size: 27px;">170,000원</td>
+                                            <td class="thic_red" style="font-size: 27px;"><div style="display:inline-block;"; id="lastPrice">0</div>원</td>
                                         </tr>
                                     </table>
                                 </td>
@@ -415,15 +417,9 @@
 		  IMP.init("imp02576572"); // 예: imp00000000a
 		  
 		  selectAddr();
-		  
-		  $(document).on("click", ".allPoint_btn", function() {
-              if($("#cart_check_all").is(":checked")) 
-                  $("input[name=cart_check]").prop("checked", true);
-              else 
-                  $("input[name=cart_check]").prop("checked", false);
-          });
-		  
+
 		});
+
 
 	  // 외부 API
 	  function requestPay() {
@@ -495,17 +491,64 @@
    			});
    	   }
    	   
-   	   function useAllPoint() {
-   		   console.log(<%=loginUser.getPoint()%>); // 콘솔은 요청시마다 찍힘.
-   		   $("input[name=usePoint]").attr("value", <%=loginUser.getPoint()%>);
+   	   // 포인트 전액적용 버튼 클릭시 
+   	   $("#allpoint_btn").click(function () {
+   			// 포인트를 다 쓸 수 있다면(주문금액 > 포인트 전액)
+			if (<%=totalprice + deliveryFee%> > <%=loginUser.getPoint()%>) {
+				$("input[name=usePoint]").val(<%=loginUser.getPoint()%>);
+				$("div[id='applyPoint']").text(<%=loginUser.getPoint()%>);
+   				$("div[id='lastPrice']").text(<%=totalprice + deliveryFee - loginUser.getPoint()%>);
+			} else {
+				$("input[name=usePoint]").val(lastPrice);
+   	   			$("div[id='applyPoint']").text(<%=totalprice + deliveryFee%>);
+   	   			$("div[id='lastPrice']").text(0);
+			}
+   		 
+   	   });
+   	   
+   	   // 포인트 변경시
+   	   $("input[name=usePoint]").change(function () {
+   		   // $(this).val() 은 적용포인트
+   		   if ($(this).val() < 0) {
+   			   
+   			   alert("0보다 큰 값만 입력 가능합니다.");
+   			   
+   			   $(this).val(0);
+   			   $("div[id='applyPoint']").text(0);
+   			   $("div[id='lastPrice']").text(<%= totalprice + deliveryFee%>);
+   			   
+   			// 주문금액보다 크거나, 사용가능 금액을 초과했을 때,   		  
+   		   } else if ($(this).val() > <%=loginUser.getPoint()%> || <%=loginUser.getPoint()%> > <%=totalprice + deliveryFee%>) {
+   			   
+   				alert("사용 가능 금액을 초과했습니다.");
+   				console.log(<%=totalprice + deliveryFee%>); // 여기까지 ok
+   				
+   				// 포인트를 다 쓸 수 있다면(주문금액 > 포인트 전액)
+   				if (<%=totalprice + deliveryFee%> > <%=loginUser.getPoint()%>) {
+   					$(this).val(<%=loginUser.getPoint()%>);
+   	   				$("div[id='applyPoint']").text(<%=loginUser.getPoint()%>);
+   	   				$("div[id='lastPrice']").text(<%=totalprice + deliveryFee - loginUser.getPoint()%>);
+   	   				
+   	   			// (주문금액 < 포인트 전액)
+   				} else {
+   					$(this).val(lastPrice);
+   	   				$("div[id='applyPoint']").text(<%=totalprice + deliveryFee%>);
+   	   				$("div[id='lastPrice']").text(0);
+   				}
+   			// 정상적으로 적용 가능한 경우
+   		   } else {
+   				$("div[id='applyPoint']").text($(this).val());
+   				$("div[id='lastPrice']").text(<%=totalprice + deliveryFee%>-$(this).val());
+   		   }
+   	   });
+   	   
+   	   function checkPoint() {
+   		   console.log($(this).val());
+   		   if ($(this).val() < 0) {
+   			   alert("0원 이상만 입력 가능합니다.");
+   		   }
    	   }
-   	   
-   	   
 
-	  
-	  
-	  
-	  
 	</script>
 	
 </body>
