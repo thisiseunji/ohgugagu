@@ -1,4 +1,4 @@
-package com.ohgu.product.controller;
+package com.ohgu.admin.controller;
 
 import java.io.IOException;
 
@@ -8,20 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ohgu.product.model.service.ProductService;
-import com.ohgu.product.model.vo.Product;
+import com.google.gson.Gson;
+import com.ohgu.board.model.service.BoardService;
 
 /**
- * Servlet implementation class ProductDetailViewController
+ * Servlet implementation class adminAnswerController
  */
-@WebServlet("/detailView.pr")
-public class ProductDetailViewController extends HttpServlet {
+@WebServlet("/answer.do")
+public class adminAnswerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductDetailViewController() {
+    public adminAnswerController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +31,17 @@ public class ProductDetailViewController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int productNo = Integer.parseInt(request.getParameter("pNo"));
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		String answer = request.getParameter("answer");
 		
-		Product p = new ProductService().insertProduct(productNo);
+		System.out.println(boardNo);
+		System.out.println(answer);
 		
-		request.setAttribute("p", p);
+		int result = new BoardService().insertAnswer(boardNo, answer);
 		
-		request.getRequestDispatcher("views/product/productDetailView.jsp").forward(request, response);
+		response.setContentType("application/json; charset=UTF-8"); 
+		
+		new Gson().toJson(result, response.getWriter());
 		
 	}
 

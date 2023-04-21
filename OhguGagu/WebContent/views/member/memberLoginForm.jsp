@@ -61,7 +61,7 @@
 						<h4>오구가구 신규 회원가입</h4>
 						<br>
 						오구가구 온라인몰 회원가입 후 다양한 혜택과 소식을 만나보세요.<br>
-						<a href="<%= contextPath %>/enrollForm.me" class="btn btn-outline-danger btn-block">회원가입</a>
+							<a href="<%= contextPath %>/enrollForm.me" class="btn btn-outline-danger" style="width: 100%;">회원가입</a>
 						<br>
 						<h4>아이디/비밀번호 찾기</h4>
 						<br>

@@ -63,6 +63,62 @@ public class BoardService {
 		
 		int result = new BoardDao().deleteBoard(conn, boardNo);
 		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	public int adminSelectListCount() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new BoardDao().adminSelectListCount(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	public ArrayList<Board> adminSelectBoardList(PageInfo pi){
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Board> list = new BoardDao().adminSelectBoardList(conn, pi);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+	
+	public Board selectAdminBoard(int boardNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Board b = new BoardDao().selectAdminBoard(conn, boardNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return b;
+	}
+	
+	public int insertAnswer(int boardNo, String answer) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new BoardDao().insertAnswer(conn, boardNo, answer);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
 		JDBCTemplate.close(conn);
 		
 		return result;

@@ -19,7 +19,7 @@ public class CartDao {
 	private Properties prop = new Properties();
 	
 	public CartDao() {
-		String filename = CartDao.class.getResource("/sql/order/order-mapper.xml").getPath();
+		String filename = CartDao.class.getResource("/sql/xml/order-mapper.xml").getPath();
 		try {
 			prop.loadFromXML(new FileInputStream(filename));
 		} catch (IOException e) {
