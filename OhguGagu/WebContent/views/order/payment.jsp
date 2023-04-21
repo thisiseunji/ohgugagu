@@ -1,5 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+	String[] cartCheckList = request.getParameterValues("cart_check");
+	String[] fileNameList = request.getParameterValues("fileName");
+	String[] productNoList = request.getParameterValues("productNo");
+	String[] productNameList = request.getParameterValues("productName");
+	String[] pColorList = request.getParameterValues("pColor");
+	String[] amountList = request.getParameterValues("amount");
+	String[] priceList = request.getParameterValues("price"); // 원가
+	String[] discountPriceList = request.getParameterValues("discountPrice");// 할인 금액 왜 이걸 가격이라고 썼을까?
+	String[] pointList = request.getParameterValues("point"); // 상품별 적립 포인트
+	String[] realPriceList = request.getParameterValues("realPrice"); // (원가 - 할인금액) = 실제 지불 금액
+	int listLength = cartCheckList.length; // 상품개수	// 고정된 가격으로 넘어오면 안된다. 실제 지불금액,기준으로 여기서 계산되어야 함.
+	// int lastPrice = Integer.parseInt(request.getParameter("lastPrice")); // 총 구매금액 + 배송비
+	int totalprice = 0; // 10만원 이상이면 10%  // 총 구매금액
+	int deliveryFee = 0; // 10만원 미만이면, 5000원
+	
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -187,9 +205,10 @@
     .last_payment {
         border: 1px solid rgb(145, 145, 145);
         border-radius: 3px;
-        width: 15%;
+        width: 25%;
         display: inline-block;
-        margin: -700px 100px 150px 2300px;
+        /*margin: -700px 100px 150px 2300px;*/
+        margin: -700px 100px 150px 1220px;
         display: fixed;
         padding: 10px;
 
@@ -231,18 +250,41 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td rowspan="2" align="right" style="width:200px"><img id="thumbnail_img" src="https://colimg2.godohosting.com//goods/21/05/19/1000006431/1000006431_detail_092.jpg" alt="탁자"></td>
-                                <td align="left" style="width:200px; padding-left:5px; vertical-align:bottom;">접이식 탁자</td>
-                                <td rowspan="2">1개</td>
-                                <td rowspan="2">120,000원</td>
-                                <td style="vertical-align:bottom; color: rgb(167,0,0)"><b>-20,000원</b></td>
-                                <td rowspan="2">100,000원</td>
-                            </tr>
-                            <tr>
-                                <td align="left" style="padding-left:5px; vertical-align:top;">검정</td>
-                                <td style="vertical-align:top; font-size: 12px; " rowspan="2"><b>적립 : 1080원</b></td>
-                            </tr> 
+                            <!-- 변수로 대체되어야 하는 부분 / 빈 리스트는 넘어오지 않는다.고 가정 -->
+                            <%
+                            	System.out.println(111);
+                            	System.out.println(listLength);
+                            	
+                            	for(int i=0 ; i < listLength ; i++) {
+                            		// checked인지 확인 => 체크되지 않았으면 다음으로 넘어간다.
+                            		if (Boolean.parseBoolean(cartCheckList[i])) {
+                            			Boolean.parseBoolean(cartCheckList[i]);
+                            			continue;
+                            		} else {
+                            		System.out.println(i);
+                            %>
+	                            	<tr>
+	                            		<!-- 파일이름 경로를 통일할 것, -->
+	                            		<td rowspan="2" align="right" style="width:200px"><img id="thumbnail_img" src="<%= fileNameList[i]%>"></td>
+	                            		<td align="left" style="width:200px; padding-left:5px; vertical-align:bottom;"><%= productNameList[i]%></td>
+	                            		<td rowspan="2"><%= amountList[i] %>개</td>
+	                            		<td rowspan="2"><%= priceList[i] %>원</td>
+	                            		<td style="vertical-align:bottom; color: rgb(167,0,0)"><b>-<%= discountPriceList[i] %>원</b></td>
+	                            		<td rowspan="2"><%= realPriceList[i] %>원</td>
+	                            	</tr>
+	                            	<tr>
+		                            	<td align="left" style="padding-left:5px; vertical-align:top;"><%= pColorList[i] %></td>
+		                                <td style="vertical-align:top; font-size: 12px; " rowspan="2"><b>적립 : <%= pointList[i] %>원</b></td>
+                            <%			totalprice += (Integer.parseInt(priceList[i])-Integer.parseInt(discountPriceList[i]));
+                            		} 
+                            	} 
+                            	
+                            	if (totalprice < 100000) {
+                            		deliveryFee = 5000;
+                            	} else {
+                            		deliveryFee = (int)Math.round(totalprice*0.1);
+                            	}
+                            %>
                         </tbody>
                     </table>
                 </div> 
@@ -251,15 +293,15 @@
                 <div class="total_price">
                     <table>
                         <tr>
-                            <td class="small_black"><b>총 2개의 상품금액</b></td>
+                            <td class="small_black"><b>총 <%= listLength %>개의 상품금액</b></td>
                             <td rowspan=2 class="thic_black">+</td>
                             <td class="small_black" ><b>배송비</b></td>
                             <td rowspan=2 class="thic_black">=</td>
-                            <td rowspan=2><b class="thic_red">177,000</b><b style="font-size: 15px;">원</b></td>
+                            <td rowspan=2><b class="thic_red"><%= totalprice + deliveryFee %></b><b style="font-size: 15px;">원</b></td>
                         </tr>
                         <tr>
-                            <td>157,000원</td>
-                            <td>20,000원</td>
+                            <td><%= totalprice %>원</td>
+                            <td><%= deliveryFee %>원</td>
                         </tr>
                     </table>
                 </div>
