@@ -360,8 +360,8 @@
                                         </tr>
                                         <tr class="inner_tb_tr inner_tb_tr2 using_point">
                                             <td>사용</td>
-                                            <td><input type="number" required style="width: 100px;" value="0" min="0" max="<%=loginUser.getPoint()%>">원</td>
-                                            <td style="text-align:left; padding-left:15px;"><button onclick="" class="red_btn">전액사용</button></td>
+                                            <td><input name="usePoint" type="number" required style="width: 100px;" min="0" max="<%=loginUser.getPoint()%>">원</td>
+                                            <td style="text-align:left; padding-left:15px;"><button type="button" onclick="useAllPoint();" class="red_btn allpoint_btn">전액사용</button></td>
                                         </tr>
                                     </table>
                                 </td>
@@ -415,6 +415,14 @@
 		  IMP.init("imp02576572"); // 예: imp00000000a
 		  
 		  selectAddr();
+		  
+		  $(document).on("click", ".allPoint_btn", function() {
+              if($("#cart_check_all").is(":checked")) 
+                  $("input[name=cart_check]").prop("checked", true);
+              else 
+                  $("input[name=cart_check]").prop("checked", false);
+          });
+		  
 		});
 
 	  // 외부 API
@@ -486,6 +494,12 @@
 				}
    			});
    	   }
+   	   
+   	   function useAllPoint() {
+   		   console.log(<%=loginUser.getPoint()%>); // 콘솔은 요청시마다 찍힘.
+   		   $("input[name=usePoint]").attr("value", <%=loginUser.getPoint()%>);
+   	   }
+   	   
    	   
 
 	  
