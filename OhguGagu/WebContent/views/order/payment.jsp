@@ -309,7 +309,6 @@
                 <br>
                 <br>
                 <br>
-                <!-- 여기까지 OK -->
                 <div class="addr_area">
                     <b class="thic_black title">배송 정보</b>
                     <select name="address" id="address" onchange="changeAddr();" style="width:150px;">
@@ -342,6 +341,7 @@
                         </table>
                     </div>
                 </div>
+                <!-- 여기까지 OK -->
                 <br>
                 <br>
                 <br>
@@ -352,15 +352,15 @@
                         <table class="outer_tb">
                             <tr>
                                 <td>
-                                    <table class="inner_tb" style="width:500px;">
+                                    <table class="inner_tb about_point" style="width:500px;">
                                         <tr class="inner_tb_tr inner_tb_tr2">
                                             <td>보유</td>
-                                            <td>4,173원</td>
+                                            <td><%= loginUser.getPoint() %>원</td>
                                             <td></td>
                                         </tr>
-                                        <tr class="inner_tb_tr inner_tb_tr2">
+                                        <tr class="inner_tb_tr inner_tb_tr2 using_point">
                                             <td>사용</td>
-                                            <td><input type="text" required style="width: 100px;">원</td>
+                                            <td><input type="number" required style="width: 100px;" value="0" min="0" max="<%=loginUser.getPoint()%>">원</td>
                                             <td style="text-align:left; padding-left:15px;"><button onclick="" class="red_btn">전액사용</button></td>
                                         </tr>
                                     </table>
@@ -417,7 +417,7 @@
 		  selectAddr();
 		});
 
-
+	  // 외부 API
 	  function requestPay() {
 	    IMP.request_pay({
 	      pg: "kakaopay.TC0ONETIME",
@@ -448,7 +448,7 @@
 					let result = '<option value="-1" selected>직접입력</option>';
 					for (let i in list) {
 						// value에 addr의 id 값이 담긴다. 
-						result += '<option class="" value="'+ list[i].addressNo + '">'+ list[i].receiver +'</option>'
+						result += '<option class="" value="'+ list[i].receiver + '">'+ list[i].receiver +'</option>'
 					}
 					$(".addr_area select").html(result);				
 				},
@@ -470,19 +470,23 @@
 		   				$("input[name=addr_detail]").attr("value","");
 		   				return;
 		   			} else {
-		   				let idx = $("select[name=address] > option:selected").val();
-		   				$("input[name=receiver]").attr("value", list[idx].receiver);
-		   				$("input[name=phone]").attr("value", list[idx].phone);
-		   				$("input[name=addr]").attr("value",list[idx].addr);
-		   				$("input[name=addr_detail]").attr("value",list[idx].addrDetail);
+		   				for(let i in list) { // 주소값이 전부 있음
+		   					if($("select[name=address] > option:selected").val() == list[i].receiver){
+		   						$("input[name=receiver]").attr("value", list[i].receiver);
+				   				$("input[name=phone]").attr("value", list[i].phone);
+				   				$("input[name=addr]").attr("value",list[i].addr);
+				   				$("input[name=addr_detail]").attr("value",list[i].addrDetail);
+		   					}
+		   				}
+
 		   			}
 				},
 				error : function() {
 					console.log("배송지 변경용 ajax 통신 실패!");	
 				}
    			});
-   			
    	   }
+   	   
 
 	  
 	  
