@@ -46,7 +46,7 @@
 		    <div><b>회원정보</b></div>
 		    <a href="">회원정보 변경</a><br><br>
 		    <a href="<%=request.getContextPath() %>/deleteForm.me">회원탈퇴</a><br><br>
-			<a href="">배송지 관리</a><br>
+			<a href="<%=request.getContextPath() %>/list.ad">배송지 관리</a><br>
 	    </div>
 	    <div>
 		    <div><b>나의 활동 정보</b></div>
