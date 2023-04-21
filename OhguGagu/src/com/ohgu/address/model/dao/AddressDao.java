@@ -69,13 +69,11 @@ public class AddressDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			
+			pstmt.setInt(1, )
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
 		
 	}
 	
