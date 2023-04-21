@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.text.SimpleDateFormat, java.util.Base64" %>
 <% 
 	String[] cartCheckList = request.getParameterValues("cart_check");
 	String[] fileNameList = request.getParameterValues("fileName");
@@ -15,7 +15,12 @@
 	// int lastPrice = Integer.parseInt(request.getParameter("lastPrice")); // 총 구매금액 + 배송비
 	int totalprice = 0; // 배송비는 10만원 이상이면 10%  // 총 구매금액
 	int deliveryFee = 0; // 10만원 미만이면, 5000원
+	int appliedPoint = 0;
 	
+	// 겹치지 않는 주문번호 값 생성 및 할당
+	String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+	timeStamp += productNoList.toString();
+	String orderName = Base64.getEncoder().encodeToString(timeStamp.getBytes());
 
 %>
 <!DOCTYPE html>
@@ -24,11 +29,6 @@
 <meta charset="UTF-8">
 <title>오구가구>결제</title>
 
-<!-- 아임포트 주문관리 -->
-<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-
-<!-- iamport.payment.js -->
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 <style>
 	#wrap{
@@ -310,6 +310,7 @@
                 <br>
                 <br>
                 <br>
+                <form id=payment-form" action="<%= contextPath %>/request.pm" method="post">
                 <div class="addr_area">
                     <b class="thic_black title">배송 정보</b>
                     <select name="address" id="address" onchange="changeAddr();" style="width:150px;">
@@ -394,16 +395,23 @@
                                         </tr>
                                         <tr class="inner_tb_tr inner_tb_tr2" style="margin-top: 10px; border-top: 1px solid rgb(145, 145, 145);">
                                             <td class="thic_black" style="font-size: 27px;">합계</td>
-                                            <td class="thic_red" style="font-size: 27px;"><div style="display:inline-block;"; id="lastPrice">0</div>원</td>
+                                            <td class="thic_red" style="font-size: 27px;"><div style="display:inline-block;"; id="lastPrice"><%= totalprice + deliveryFee %></div>원</td>
+                                            <input type="hidden" name="orderName" value="<%=orderName%>"/>
+                                            <input type="hidden" name="impName" value="<%=productNameList[0]%> 등 <%= listLength%>"/>
+                                            <input type="hidden" name="totalPrice" value="<%=totalprice%>"/>
+                                            <input type="hidden" name="deliveryFee" value="<%=deliveryFee%>"/>
+                                            <input type="hidden" name="lastPoint" value="0"/>
                                         </tr>
                                     </table>
                                 </td>
                             </tr>
                         </table>
                     </div>
-                    <button class="payment_btn" onclick="requestPay()">결제하기</button>
+                    <button class="payment_btn" type="submit">결제하기</button>
+                    <!-- <button class="payment_btn" onclick="requestPay()">결제하기</button> -->
                 </div>
             </div>
+            </form>
             <footer>
                 <%@ include file="../common/footer.jsp" %>
             </footer>
@@ -415,25 +423,25 @@
 		$(document).ready(function(){
 		  const IMP = window.IMP; // 생략 가능
 		  IMP.init("imp02576572"); // 예: imp00000000a
-		  
-		  selectAddr();
-
 		});
 
+		$(document).ready(function() {
+			  selectAddr();
+		});
 
 	  // 외부 API
 	  function requestPay() {
 	    IMP.request_pay({
 	      pg: "kakaopay.TC0ONETIME",
 	      pay_method: "kakaopay",
-	      merchant_uid: "ORD20180131-0000011",   // 주문번호(고유값으로 채번, 결제 완료이후 위변조검증시 필요하므로 디비에 잘 저자)
-	      name: "노르웨이 회전 의자",
-	      amount: 64900,                         // 숫자 타입
-	      buyer_email: "gildong@gmail.com",
-	      buyer_name: "홍길동",
-	      buyer_tel: "010-4242-4242",
-	      buyer_addr: "서울특별시 강남구 신사동",
-	      buyer_postcode: "01181"
+	      merchant_uid: "<%=orderName%>",   // 주문번호(고유값으로 채번, 결제 완료이후 위변조검증시 필요하므로 디비에 저장)
+	      name: "<%=productNameList[0]%> 등 <%= listLength%>개",
+	      amount: 123, // 숫자 타입
+	      buyer_email: "<%= loginUser.getEmail()%>",
+	      buyer_name: "<%= loginUser.getMemberName()%>",
+	      buyer_tel: "<%= loginUser.getPhone()%>",
+	      buyer_addr: "강남구",
+	      buyer_postcode: "00000"
 	    }, function (rsp) { // callback
 	      if (rsp.success) {
 	       	console.log("결제테스트 성공")
@@ -482,7 +490,6 @@
 				   				$("input[name=addr_detail]").attr("value",list[i].addrDetail);
 		   					}
 		   				}
-
 		   			}
 				},
 				error : function() {
@@ -515,6 +522,7 @@
    			   
    			   $(this).val(0);
    			   $("div[id='applyPoint']").text(0);
+   			   $("input[name='lastPoint']").val(0);
    			   $("div[id='lastPrice']").text(<%= totalprice + deliveryFee%>);
    			   
    			// 주문금액보다 크거나, 사용가능 금액을 초과했을 때,   		  
@@ -527,17 +535,19 @@
    				if (<%=totalprice + deliveryFee%> > <%=loginUser.getPoint()%>) {
    					$(this).val(<%=loginUser.getPoint()%>);
    	   				$("div[id='applyPoint']").text(<%=loginUser.getPoint()%>);
+   	   				$("input[name='lastPoint']").val(<%=loginUser.getPoint()%>);
    	   				$("div[id='lastPrice']").text(<%=totalprice + deliveryFee - loginUser.getPoint()%>);
-   	   				
    	   			// (주문금액 < 포인트 전액)
    				} else {
    					$(this).val(lastPrice);
    	   				$("div[id='applyPoint']").text(<%=totalprice + deliveryFee%>);
+   	   				$("input[name='lastPoint']").val(totalprice + deliveryFee);
    	   				$("div[id='lastPrice']").text(0);
    				}
    			// 정상적으로 적용 가능한 경우
    		   } else {
    				$("div[id='applyPoint']").text($(this).val());
+   				$("input[name='lastPoint']").val($(this).val());
    				$("div[id='lastPrice']").text(<%=totalprice + deliveryFee%>-$(this).val());
    		   }
    	   });
