@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import com.ohgu.common.JDBCTemplate;
 import com.ohgu.product.model.vo.Like;
+import com.ohgu.common.model.vo.PageInfo;
 import com.ohgu.product.model.vo.Product;
 
 public class ProductDao {
@@ -28,7 +29,7 @@ public class ProductDao {
 	}
 	
 	// 상품 전체 조회
-	public ArrayList<Product> selectProductList(Connection conn) {
+	public ArrayList<Product> selectProductList(Connection conn, PageInfo pi) {
 		
 		ArrayList<Product> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -38,6 +39,12 @@ public class ProductDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -104,8 +111,7 @@ public class ProductDao {
 		
 		return list;
 	}
-	
-	
+
 	public Product insertProduct(Connection conn, int productNo) {
 		
 		Product p = null;
@@ -149,7 +155,6 @@ public class ProductDao {
 
 	}
 	
-	
 	public int insertLike(Connection conn, Like l) {
 		
 		int result = 0;
@@ -165,10 +170,6 @@ public class ProductDao {
 			
 			result = pstmt.executeUpdate();
 			
-
-			
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -180,29 +181,32 @@ public class ProductDao {
 		return result;
 	}
 	
-	/*
-	// 상품 필터링 조회(카테고리/재질/가격)
-	public ArrayList<Product> selectProductBy(Connection conn, String category, int price, String pMaterial) {
+public int selectListCount(Connection conn) {
 		
-		ArrayList<Product> list = new ArrayList();
-		
+		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectProductBy");
+		String sql = prop.getProperty("selectListCount");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, category);
-			
 			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				listCount = rset.getInt("COUNT"); // 별칭으로도 데이터 뽑기 가능
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
 		}
 		
-	}*/
-	
+		return listCount;
+	}
 	
 }
