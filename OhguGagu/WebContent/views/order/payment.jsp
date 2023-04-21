@@ -309,16 +309,11 @@
                 <br>
                 <br>
                 <br>
-                
+                <!-- 여기까지 OK -->
                 <div class="addr_area">
                     <b class="thic_black title">배송 정보</b>
-                    <select name="address" id="address" onchange="this.form.submit()" style="width:150px;">
-                        <option value="none">직접입력</option>
-                        <option value="1">전주집</option>
-                        <option value="2">외가집</option>
-                        <option value="3">태희네</option>
-                        <option value="4">도레기네</option> 
-                        <!-- 저장된 배송지 수 만큼 만들어져야겠다. -->
+                    <select name="address" id="address" onchange="changeAddr();" style="width:150px;">
+                        <!-- 옵션이 채워져야한다. -->
                     </select>
                     <div class="addr_list">
                         <table class="outer_tb">
@@ -327,19 +322,19 @@
                                     <table class="inner_tb">
                                         <tr class="inner_tb_tr">
                                             <td>수령인</td>
-                                            <td><input type="text" required></td>
+                                            <td><input name="receiver" type="text" required></td>
                                         </tr>
                                         <tr class="inner_tb_tr">
                                             <td>연락처</td>
-                                            <td><input type="text" required></td>
+                                            <td><input name="phone" type="text" required></td>
                                         </tr>
                                         <tr class="inner_tb_tr">
                                             <td>주소</td>
-                                            <td><input type="text" required></td>
+                                            <td><input name="addr" type="text" required></td>
                                         </tr>
                                         <tr class="inner_tb_tr">
                                             <td>상세주소</td>
-                                            <td><input type="text"></td>
+                                            <td><input name="addr_detail" type="text"></td>
                                         </tr>
                                     </table>
                                 </td>
@@ -414,10 +409,12 @@
         
         
 	<script>
-		// 최초 1회만 되어야 함
+		// 페이지가 로드될 때, 최초 1회 초기화,
 		$(document).ready(function(){
 		  const IMP = window.IMP; // 생략 가능
 		  IMP.init("imp02576572"); // 예: imp00000000a
+		  
+		  selectAddr();
 		});
 
 
@@ -441,6 +438,56 @@
 	      }
 	    });
 	  }
+	  
+   	   function selectAddr() {
+   		   $.ajax({
+	   			url : "alist.addr",
+				type : "get",
+				success : function(list) {
+					
+					let result = '<option value="-1" selected>직접입력</option>';
+					for (let i in list) {
+						// value에 addr의 id 값이 담긴다. 
+						result += '<option class="" value="'+ list[i].addressNo + '">'+ list[i].receiver +'</option>'
+					}
+					$(".addr_area select").html(result);				
+				},
+				error : function() {
+					console.log("배송지 조회용 ajax 통신 실패!");	
+				}
+   		   });
+   	   }
+   	   
+   	   function changeAddr() {
+	   		$.ajax({
+	   			url : "alist.addr",
+				type : "get",
+				success : function(list) {
+		  			if ($("select[name=address] > option:selected").val() == -1) {
+		  				$("input[name=receiver]").attr("value", "");
+		   				$("input[name=phone]").attr("value", "");
+		   				$("input[name=addr]").attr("value", "");
+		   				$("input[name=addr_detail]").attr("value","");
+		   				return;
+		   			} else {
+		   				let idx = $("select[name=address] > option:selected").val();
+		   				$("input[name=receiver]").attr("value", list[idx].receiver);
+		   				$("input[name=phone]").attr("value", list[idx].phone);
+		   				$("input[name=addr]").attr("value",list[idx].addr);
+		   				$("input[name=addr_detail]").attr("value",list[idx].addrDetail);
+		   			}
+				},
+				error : function() {
+					console.log("배송지 변경용 ajax 통신 실패!");	
+				}
+   			});
+   			
+   	   }
+
+	  
+	  
+	  
+	  
 	</script>
 	
 </body>

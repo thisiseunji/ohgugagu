@@ -290,7 +290,7 @@
 						},
 						
 						error : function() {
-							console.log("댓글리스트 조회용 ajax 통신 실패!");
+							console.log("장바구니  조회용 ajax 통신 실패!");
 						}
 					});
             }

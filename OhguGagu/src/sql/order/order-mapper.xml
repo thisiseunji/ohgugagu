@@ -39,4 +39,8 @@
 		WHERE MEMBER_NO = ?
 		AND PRODUCT_NO = ?
 	</entry>
+	<entry key="selectAddress">
+		SELECT * FROM TB_ADDRESS
+		WHERE MEMBER_NO = ?
+	</entry>
 </properties>
