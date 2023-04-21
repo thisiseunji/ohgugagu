@@ -1,4 +1,4 @@
-package com.ohgu.product.controller;
+package com.ohgu.admin.controller;
 
 import java.io.IOException;
 
@@ -8,20 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ohgu.product.model.service.ProductService;
-import com.ohgu.product.model.vo.Product;
+import com.ohgu.board.model.service.BoardService;
+import com.ohgu.board.model.vo.Board;
 
 /**
- * Servlet implementation class ProductDetailViewController
+ * Servlet implementation class adminBoardDetailViewController
  */
-@WebServlet("/detailView.pr")
-public class ProductDetailViewController extends HttpServlet {
+@WebServlet("/adminDetail.bo")
+public class adminBoardDetailViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductDetailViewController() {
+    public adminBoardDetailViewController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,14 +31,12 @@ public class ProductDetailViewController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int productNo = Integer.parseInt(request.getParameter("pNo"));
+		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		
-		Product p = new ProductService().insertProduct(productNo);
+		Board b = new BoardService().selectAdminBoard(boardNo);
 		
-		request.setAttribute("p", p);
-		
-		request.getRequestDispatcher("views/product/productDetailView.jsp").forward(request, response);
-		
+		request.setAttribute("b", b);
+		request.getRequestDispatcher("views/admin/adminBoardDetailView.jsp").forward(request, response);
 	}
 
 	/**

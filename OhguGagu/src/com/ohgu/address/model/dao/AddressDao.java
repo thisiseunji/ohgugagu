@@ -58,23 +58,4 @@ public class AddressDao {
 		return list;
 	}
 	
-	// 배송지 작성용 서비스
-	public int insertAddress(Connection conn, Address a) {
-		
-		int result = 0;
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("insertAddress");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, )
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
 }

@@ -22,24 +22,6 @@ public class AddressService {
 		return list;
 	}
 
-	// 배송지 작성용 서비스
-	public int insertAddress(Address a) {
-		
-		Connection conn = getConnection();
-		
-		int result = new AddressDao().insertAddress(conn, a);
-		
-		if(result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		
-		close(conn);
-		
-		return result;
-	}
-
 	
 	
 }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.ohgu.common.JDBCTemplate;
+import com.ohgu.product.model.vo.Like;
 import com.ohgu.common.model.vo.PageInfo;
 import com.ohgu.product.model.vo.Product;
 
@@ -18,7 +19,7 @@ public class ProductDao {
 	private Properties prop = new Properties();
 	
 	public ProductDao() {
-		String fileName = ProductDao.class.getResource("/sql/product/product-mapper.xml").getPath();
+		String fileName = ProductDao.class.getResource("/sql/xml/product-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(fileName));
@@ -110,8 +111,77 @@ public class ProductDao {
 		
 		return list;
 	}
+
+	public Product insertProduct(Connection conn, int productNo) {
+		
+		Product p = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("insertProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, productNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				p = new Product(rset.getInt("PRODUCT_NO")
+						   , rset.getString("CATEGORY")
+						   , rset.getString("PRODUCT_NAME")
+						   , rset.getInt("PRICE")
+						   , rset.getString("P_COLOR")
+						   , rset.getString("P_SIZE")
+						   , rset.getString("P_MATERIAL")
+						   , rset.getString("P_DETAIL")
+						   , rset.getInt("DISCOUNT_RATE")
+						   , rset.getString("FILE_NAME"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return p;
+
+	}
 	
-	public int selectListCount(Connection conn) {
+	public int insertLike(Connection conn, Like l) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, l.getMemberNo());
+			
+			pstmt.setInt(2, l.getProductNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		
+			JDBCTemplate.close(pstmt);
+			
+		}
+	
+		return result;
+	}
+	
+public int selectListCount(Connection conn) {
 		
 		int listCount = 0;
 		PreparedStatement pstmt = null;
@@ -138,9 +208,5 @@ public class ProductDao {
 		
 		return listCount;
 	}
-	
-	// 상품 필터링 조회(카테고리/재질/가격)
-	
-	
 	
 }

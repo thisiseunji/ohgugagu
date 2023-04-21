@@ -4,17 +4,40 @@ import java.sql.Date;
 
 public class Board {
 	
-	public int boardNo;			//	BOARD_NO	NUMBER
-	public String boardTitle;	//	BOARD_TITLE	VARCHAR2(200 BYTE)
-	public String boardContent;	//	BOARD_CONTENT	VARCHAR2(2000 BYTE)
-	public Date createdAt;		//	CREATED_AT	DATE
-	public String answer;		//	ANSWER	VARCHAR2(1000 BYTE)
-	public Date updatedAt;		//	UPDATED_AT	DATE
-	public int memberNo;		//	MEMBER_NO	NUMBER
-	public int orderNo;			//	ORDER_NO	NUMBER
-	public int productNo; 		// PRODUCT_NO	NUMBER
+	private int boardNo;			//	BOARD_NO	NUMBER
+	private String boardTitle;	//	BOARD_TITLE	VARCHAR2(200 BYTE)
+	private String boardContent;	//	BOARD_CONTENT	VARCHAR2(2000 BYTE)
+	private Date createdAt;		//	CREATED_AT	DATE
+	private String answer;		//	ANSWER	VARCHAR2(1000 BYTE)
+	private Date updatedAt;		//	UPDATED_AT	DATE
+	private String status;
+	private int memberNo;		//	MEMBER_NO	NUMBER
+	private int orderNo;			//	ORDER_NO	NUMBER
+	private int productNo; 		// PRODUCT_NO	NUMBER
+	private String memberName;
+	private String productName;
+	private String fileName;
 	
 	public Board() {}
+
+	public Board(int boardNo, String boardTitle, String boardContent, Date createdAt, String answer, Date updatedAt,
+			String status, int memberNo, int orderNo, int productNo, String memberName, String productName) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.createdAt = createdAt;
+		this.answer = answer;
+		this.updatedAt = updatedAt;
+		this.status = status;
+		this.memberNo = memberNo;
+		this.orderNo = orderNo;
+		this.productNo = productNo;
+		this.memberName = memberName;
+		this.productName = productName;
+	}
+	
+	
 
 	public Board(int boardNo, String boardTitle, String boardContent, Date createdAt, String answer, Date updatedAt,
 			int memberNo, int orderNo, int productNo) {
@@ -36,6 +59,75 @@ public class Board {
 		this.orderNo = orderNo;
 		this.boardTitle = boardTitle;
 		this.createdAt = createdAt;
+	}
+	
+
+	public Board(int boardNo, String boardTitle, String boardContent, Date createdAt, String status, int orderNo,
+			String memberName, String productName) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.createdAt = createdAt;
+		this.status = status;
+		this.orderNo = orderNo;
+		this.memberName = memberName;
+		this.productName = productName;
+	}
+	
+	
+
+	
+	
+	public Board(int boardNo, String boardTitle, String boardContent, Date createdAt, String answer, Date updatedAt,
+			String status, int memberNo, int orderNo, int productNo, String memberName, String productName,
+			String fileName) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.createdAt = createdAt;
+		this.answer = answer;
+		this.updatedAt = updatedAt;
+		this.status = status;
+		this.memberNo = memberNo;
+		this.orderNo = orderNo;
+		this.productNo = productNo;
+		this.memberName = memberName;
+		this.productName = productName;
+		this.fileName = fileName;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 	public int getProductNo() {
@@ -113,8 +205,9 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
-				+ ", createdAt=" + createdAt + ", answer=" + answer + ", updatedAt=" + updatedAt + ", memberNo="
-				+ memberNo + ", orderNo=" + orderNo + "]";
+				+ ", createdAt=" + createdAt + ", answer=" + answer + ", updatedAt=" + updatedAt + ", status=" + status
+				+ ", memberNo=" + memberNo + ", orderNo=" + orderNo + ", productNo=" + productNo + ", memberName="
+				+ memberName + ", productName=" + productName + "]";
 	}
 
 }

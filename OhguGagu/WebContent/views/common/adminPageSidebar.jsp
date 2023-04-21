@@ -51,7 +51,7 @@
 	    </div>
 	    <div>
 		    <div><b>1:1 문의 관리</b></div>
-		    <a href="">문의글 전체조회</a><br><br>
+		    <a href="<%=request.getContextPath()%>/adminList.bo?currentPage=1">문의글 전체조회</a><br><br>
 	    </div>
     </div>
 </body>

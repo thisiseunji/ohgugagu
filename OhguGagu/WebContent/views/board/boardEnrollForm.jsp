@@ -91,7 +91,7 @@
 						<table style="height: 200px;">
 							<tr>
 								<td style="height: 20%; width: 100px;">주문번호</td>
-								<td colspan="2"><input type="text" name="orderNo" value="" style="width: 310px;" id="q_orderNo" required></td>
+								<td colspan="2"><input type="text" name="orderNo" value="" style="width: 310px;" id="q_orderNo"></td>
 								<td><button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#orderNoForm" onclick="orderNoSearch();">조회</button></td>
 							</tr>
 							<tr>
