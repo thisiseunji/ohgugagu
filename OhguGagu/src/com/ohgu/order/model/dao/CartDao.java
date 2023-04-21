@@ -95,7 +95,6 @@ public class CartDao {
 	}
 	
 	public int setAmountCart(Connection conn, Cart cart) {
-		System.out.println();
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("setAmountCart");
@@ -109,7 +108,6 @@ public class CartDao {
 			pstmt.setInt(3, cart.getProductNo());
 			
 			result = pstmt.executeUpdate();
-			System.out.println(result);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

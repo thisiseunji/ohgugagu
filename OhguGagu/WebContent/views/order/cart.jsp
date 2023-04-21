@@ -111,7 +111,7 @@
         height: 35px;
     }
 
-    #close_icon>img {
+    .close_icon>img {
         width: 12px;
         height: 12px;
         cursor:pointer;
@@ -190,10 +190,16 @@
             });
 
             // 카트 삭제
-            $(document).on("click", "#close_icon", function() {
-                deleteCart();
-            })
-
+            $(document).on("click", ".close_icon", function() {
+            	let str = $(this).attr("id");
+                deleteCart(str.substring(str.lastIndexOf("n") + 1));
+            });
+			
+            // 카트 set amount
+           	$(document).on("click", ".setAmount_btn", function() {
+           		let str = $(this).attr("id");
+           		setAmountCart(str.substring(str.lastIndexOf("n") + 1));
+            });
         });
 
         function selectCart() {
@@ -218,22 +224,24 @@
                                         + '<td rowspan="2" align="right" style="width:160px"><img id="thumbnail_img" src="' + list[i].fileName + '"></td>'
                                         + '<td align="left" style="padding-left:5px; vertical-align:bottom;">'+ list[i].productName +'</td>'
                                         + '<td style="vertical-align:bottom;"><input style="width:25px; vertical-align:bottom;" type="text" value='+ list[i].amount +' maxlength="2" id="amount'+i+'"> 개</td>'
+                                        //+ '<td style="vertical-align:bottom;"><input style="width:25px; vertical-align:bottom;" type="text" value='+ list[i].amount +' maxlength="2" id="'+i+'"> 개</td>'
                                         + '<td rowspan="2">'+ price +'원</td>'
                                         + '<td style="vertical-align:bottom; color: rgb(167,0,0)"><b>-'+ discountPrice +'원</b></td>'
                                         + '<td rowspan="2">'+ (price-discountPrice) +'원</td>'
                                         // 클릭 이벤트 줘야함
-                                        + '<td rowspan="2"><div id="close_icon" onClick="delete('+ i +');"><img src="https://static.thenounproject.com/png/102781-200.png" alt=""></div></td>'
+                                        + '<td rowspan="2"><div class="close_icon" id="close_icon'+ i +'" onClick="delete('+i+');"><img src="https://static.thenounproject.com/png/102781-200.png" alt=""></div></td>'
                                         + '</tr>'
                                         + '<tr>'
                                         + '<td align="left" style="padding-left:5px; vertical-align:top;">'+ list[i].pColor +'</td>'
                                         // 업데이트 이벤트 줘야함
-                                        + '<td><button onclick="setAmountCart('+ i +');" type="button" style="vertical-align:top; background-color:#ccc; border:none; font-size: 12px; border-radius: 3px;">수량변경</button></td>'
+                                        + '<td><button class="setAmount_btn" id="setAmount_btn' + i + '" type="button" style="vertical-align:top; background-color:#ccc; border:none; font-size: 12px; border-radius: 3px;">수량변경</button></td>'
                                         + '<td style="vertical-align:top; font-size: 12px;"><b>적립 : '+ point +'원</b></td>'
                                         + '</tr>'
                                    
                                totalPrice += (price-discountPrice);
                                         
                                 result += '<input type="hidden" name="fileName" value='+ list[i].fileName +'>'
+                                	+ '<input type="hidden" id="productNo'+ i +'" name=productNo value='+ list[i].productNo +'>'
                                     + '<input type="hidden" name="productName" value='+ list[i].productName +'>'
                                     + '<input type="hidden" name="pColor" value='+ list[i].pColor +'>'
                                     + '<input type="hidden" name="amount" value='+ list[i].amount +'>'
@@ -290,15 +298,15 @@
 					});
             }
         
+			// 버튼 적용이 이상하게 됨  => 가장 위에 있는 애만 됩니다.
             function setAmountCart(i) {
-            	console.log($("#amount"+i).val())
                 $.ajax({
                     url : "setAmount.cart",
                     type : "post",
                     data : {
-                    	idx : i,
                         amount : $("#amount"+i).val(),
-                        productNo : <%=p.getProductNo()%>
+                        //amount : $(i).val(),
+                        productNo : $("#productNo"+i).val()
                     },
                     success : function(result) {
                         if(result > 0) { // 수량 업데이트 성공
@@ -313,13 +321,12 @@
                 });
             }
 
-            function deleteCart() {
+            function deleteCart(i) {
                 $.ajax({
                     url : "delete.cart",
                     type : "post",
                     data : {
-                        amount : $("#amount").val(),
-                        productNo : <%= p.getProductNo() %>
+                        productNo : $("#productNo"+i).val()
                     },
                     success : function(result) {
                         if(result > 0) { // 삭제 성공
@@ -333,9 +340,6 @@
                     }
                 });
             } 
-            $(function() {
-    			console.log(document.querySelector("#amout1"));
-                       });
     </script>
 </body>
 </html>

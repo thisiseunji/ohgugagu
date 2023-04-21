@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="com.ohgu.product.model.vo.Product"%>
 <%
 	Product p = new Product(
-			 3
+			 4
 		     , "침대"
 		     , "흰색철제침대"
 		     , 200000

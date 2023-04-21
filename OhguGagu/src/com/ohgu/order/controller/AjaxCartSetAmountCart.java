@@ -39,7 +39,8 @@ public class AjaxCartSetAmountCart extends HttpServlet {
 			request.getSession().setAttribute("alertMsg", "로그인 후 이용 가능한 서비스 입니다.");
 			
 		} else {
-			
+			System.out.println(request.getParameter("productNo"));
+			System.out.println(request.getParameter("amount"));
 			int productNo = Integer.parseInt(request.getParameter("productNo"));
 			Cart cart = new Cart(productNo, loginUser.getMemberNo(), Integer.parseInt(request.getParameter("amount")));
 			result = new CartService().setAmountCart(cart);
