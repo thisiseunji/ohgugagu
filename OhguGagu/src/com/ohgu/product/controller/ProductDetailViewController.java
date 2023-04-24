@@ -33,6 +33,8 @@ public class ProductDetailViewController extends HttpServlet {
 		
 		int productNo = Integer.parseInt(request.getParameter("pNo"));
 		
+		System.out.println(productNo);
+		
 		Product p = new ProductService().insertProduct(productNo);
 		
 		request.setAttribute("p", p);
