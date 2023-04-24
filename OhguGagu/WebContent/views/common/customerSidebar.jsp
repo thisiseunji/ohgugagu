@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.ohgu.member.model.vo.Member"%>
+<%
+	Member login_User = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +43,11 @@
 	    <div>
 		    <div><a href="<%=request.getContextPath()%>/customerForm.cu">고객센터</a></div>
 		    <a href="<%=request.getContextPath()%>/list.no?currentPage=1">공지사항</a><br><br>
-		    <a href="<%=request.getContextPath()%>/enrollForm.bo">1:1 문의</a><br><br>
+		    <%if(login_User != null){ %>
+		    	<a href="<%=request.getContextPath()%>/enrollForm.bo">1:1 문의</a><br><br>
+		    <%}else{ %>
+		    	<a href="<%=request.getContextPath()%>/loginform.me">1:1 문의</a><br><br>
+		    <%} %>
 			<a href="<%=request.getContextPath()%>/list.fa">FAQ</a><br>
 	    </div>
     </div>

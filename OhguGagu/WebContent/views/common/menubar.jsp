@@ -148,7 +148,7 @@
                 		<div><a href="<%= contextPath %>/logout.me">logout</a></div>
                 		<div style="margin-right: 30px;"><a href="">Search</a></div>
                 	<%}else{ %>
-                    	<div><a href="<%= contextPath %>/myPage.me">MyPage</a></div>
+                    	<div><a href="<%= contextPath %>/myPage.me?mno=<%=loginUser.getMemberNo()%>">MyPage</a></div>
                     	<div><a href="<%= contextPath %>/logout.me">logout</a></div>
                     	<div><a href="<%= contextPath%>/">Cart</a></div>
                     	<div><a href="">Search</a></div>

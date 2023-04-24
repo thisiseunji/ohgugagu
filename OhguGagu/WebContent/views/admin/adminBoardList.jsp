@@ -27,7 +27,7 @@
 		height: 100%;
 		position: relative;
 	}
-	.box{
+	.container{
 		display: grid;
 		grid-template-columns: 200px auto;
 		margin: 0;
@@ -90,7 +90,7 @@
         <div class="header">
 			<%@ include file="../common/menubar.jsp" %>
 		</div>
-		<div class="box">
+		<div class="container">
 			<div class="left">
 				<%@ include file="../common/adminPageSidebar.jsp" %>
 			</div>

@@ -1,7 +1,6 @@
-package com.ohgu.customer.controller;
+package com.ohgu.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ohgu.notice.model.service.NoticeService;
-import com.ohgu.notice.model.vo.Notice;
+import com.ohgu.member.model.service.MemberService;
 
 /**
- * Servlet implementation class customerForm
+ * Servlet implementation class AjaxIdCheckController
  */
-@WebServlet("/customerForm.cu")
-public class CustomerFormController extends HttpServlet {
+@WebServlet("/idCheck.me")
+public class AjaxIdCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CustomerFormController() {
+    public AjaxIdCheckController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,11 +30,15 @@ public class CustomerFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Notice> list = new NoticeService().minSelectNotice();
+		String checkId = request.getParameter("checkId");
 		
-		request.setAttribute("list", list);
+		int result = new MemberService().idCheck(checkId);
 		
-		request.getRequestDispatcher("views/customer/customerCenter.jsp").forward(request, response);
+		if(result>0) {
+			response.getWriter().print("Y");
+		}else {
+			response.getWriter().print("N");
+		}
 		
 	}
 

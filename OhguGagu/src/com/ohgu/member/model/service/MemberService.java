@@ -47,5 +47,17 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	
+	public int idCheck(String checkId) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().idCheck(conn, checkId);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+		
+	}
 
 }

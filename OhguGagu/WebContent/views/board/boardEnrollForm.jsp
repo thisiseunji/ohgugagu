@@ -92,7 +92,7 @@
 							<tr>
 								<td style="height: 20%; width: 100px;">주문번호</td>
 								<td colspan="2"><input type="text" name="orderNo" value="" style="width: 310px;" id="q_orderNo"></td>
-								<td><button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#orderNoForm" onclick="orderNoSearch();">조회</button></td>
+								<td><button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#orderNoForm" onclick="orderNoSearch();">조회</button></td>
 							</tr>
 							<tr>
 								<td></td>
@@ -140,7 +140,7 @@
 	</div>
 
 	<!-- The Modal -->
-	<div class="modal" id="orderNoForm">
+	<div class="modal fade" id="orderNoForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 	
@@ -168,10 +168,9 @@
 			</div>
 			<!-- Modal footer -->
 			<div align="center" style="margin: 30px; border-top: 1px solid lightgray;">
-			<button type="button" class="btn btn-danger" data-dismiss="modal" style="margin:20px;">취소</button>
-			<button type="button" class="btn btn-outline-danger" data-dismiss="modal" style="margin:20px;">선택하기</button>
+				<button type="button" class="btn btn-danger" id="selectBtn">선택</button>
+				<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">닫기</button>
 			</div>
-	
 		</div>
 		</div>
 	</div>
@@ -209,13 +208,19 @@
 						let orderedAt = $(this).parent().siblings().eq(3).text();
 						let productNo = $(this).parent().siblings().eq(4).children().val();
 						
-						
-						$("#q_productName").text(productName);
-						$("#q_orderNo").val(orderNo);
-						$("#q_fileName").html("<img style='width: 100px; height: 120px;' src=" + fileName + ">");
-						$("#q_productNo").val(productNo);
-					});
 
+
+
+						$("#selectBtn").click(function(){
+							
+							$("#q_productName").text(productName);
+							$("#q_orderNo").val(orderNo);
+							$("#q_fileName").html("<img style='width: 100px; height: 120px;' src=" + fileName + ">");
+							$("#q_productNo").val(productNo);
+
+							$("#orderNoForm").modal("hide");
+						});
+					});
 				},
 				error : function(){
 					console.log("조회실패");

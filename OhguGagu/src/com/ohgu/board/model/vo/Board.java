@@ -53,12 +53,13 @@ public class Board {
 		this.productNo = productNo;
 	}
 
-	public Board(int boardNo, int orderNo, String boardTitle, Date createdAt) {
+	public Board(int boardNo, int orderNo, String boardTitle, Date createdAt, String answer) {
 		super();
 		this.boardNo = boardNo;
 		this.orderNo = orderNo;
 		this.boardTitle = boardTitle;
 		this.createdAt = createdAt;
+		this.answer = answer;
 	}
 	
 

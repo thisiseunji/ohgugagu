@@ -17,7 +17,7 @@
 	<entry key="selectBoardList">
 		SELECT *
 		FROM ( SELECT ROWNUM RNUM, A.*
-       		   FROM (SELECT BOARD_NO, ORDER_NO, BOARD_TITLE, CREATED_AT
+       		   FROM (SELECT BOARD_NO, ORDER_NO, BOARD_TITLE, CREATED_AT, ANSWER
                		 FROM TB_BOARD
                		 WHERE MEMBER_NO = ?
                		 AND STATUS = 'Y'

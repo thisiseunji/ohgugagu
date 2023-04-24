@@ -27,4 +27,10 @@
 		 WHERE MEMBER_ID = ?
 		   AND MEMBER_PWD = ?
 	</entry>
+	
+	<entry key="idCheck">
+		SELECT COUNT(*)
+		FROM TB_MEMBER
+		WHERE MEMBER_ID = ?
+	</entry>
 </properties>

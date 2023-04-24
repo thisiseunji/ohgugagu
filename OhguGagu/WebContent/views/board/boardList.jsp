@@ -104,6 +104,7 @@
 									<td width="70">주문번호</td>
 									<td>제목</td>
 									<td width="100">작성일</td>
+									<td width="100">답변여부</td>
 								</tr>
 							</thead>
 							<tbody>
@@ -118,6 +119,13 @@
 											<td><%= b.getOrderNo() %></td>
 											<td><%= b.getBoardTitle() %></td>
 											<td><%= b.getCreatedAt() %></td>
+											<td>
+												<% if(b.getAnswer() == null){ %>
+													미답변
+												<%}else{ %>
+													답변완료
+												<%} %>
+											</td>
 										</tr>
 									<%} %>
 								<%} %>

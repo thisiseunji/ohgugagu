@@ -10,30 +10,26 @@
 <title>오구가구>마이페이지</title>
 <style>
 	.outer{
+        width: 100%;
+        height: auto;
+		min-height: 100%;
+    }
+	.left{
+		width: 200px;
+	}
+	.footer{
+		height: 100%;
 		position: relative;
-		height : 1000px;
 	}
-	footer{
-		z-index: 1;
+    .box{
+		display: grid;
+		grid-template-columns: 200px auto;
+		margin: 0;
 	}
-	header{
-		z-index: 2;
-	}
-	.mainview {
-		position: relative; 
-		height : 60%;
-	}
-    .mainview>div {
-		float : left;
-		height : 100%;
-	}
-
-    div[class="side"]{position: absolute;}
-
+    
     .order_info_area {
 		width: 100%;
     }
-
     .member_info_box {
         width: 800px;
 		height: 140px;
@@ -121,17 +117,16 @@
 
 <body>	
     <div class="outer">
-        <header>
+        <div class="header">
 			<%@ include file="../common/menubar.jsp" %>
-		</header>
+		</div>
 
-        <div class="mainview">
-
+        <div class="box">
+            <div class="left">
+                <%@ include file="../common/myPageSidebar.jsp" %>
+            </div>
         
             <div class="order_info_area">
-                <div>
-                    <%@ include file="../common/myPageSidebar.jsp" %>
-                </div>
                 <div class="member_info_box">
                     <table class="member_info">
                         <tr >
@@ -237,9 +232,9 @@
             </div>
 
         </div>
-        <footer>
-			<%@ include file="../common/footer.jsp" %>
-		</footer>
+    </div>
+    <div class="footer">
+        <%@ include file="../common/footer.jsp" %>
     </div>
 </body>
 </html>

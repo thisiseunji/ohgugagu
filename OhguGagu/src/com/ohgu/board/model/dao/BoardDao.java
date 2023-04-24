@@ -96,7 +96,8 @@ Properties prop = new Properties();
 				list.add(new Board(rset.getInt("BOARD_NO")
 								 , rset.getInt("ORDER_NO")
 								 , rset.getString("BOARD_TITLE")
-								 , rset.getDate("CREATED_AT")));
+								 , rset.getDate("CREATED_AT")
+								 , rset.getString("ANSWER")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

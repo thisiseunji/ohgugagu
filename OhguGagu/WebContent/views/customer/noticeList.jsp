@@ -16,37 +16,28 @@
 <title>오구가구>고객센터>공지사항</title>
 <Style>
 	.outer{
+        width: 100%;
+        height: auto;
+		min-height: 100%;
+    }
+	.left{
+		width: 200px;
+	}
+	.footer{
+		height: 100%;
 		position: relative;
-		height : 1500px;
 	}
-	footer{
-		z-index: 1;
-	}
-	header{
-		z-index: 2;
-	}
-	.mainview {
-		position: relative; 
-		height : 60%;
-	}
-	
-	.mainview>div {
-		float : left;
-		height : 100%;
-	}
-	
-	div[class="side"]{position: absolute;}
-	
-	.qbox {
-		padding-left: 200px;
-		width: 100%;
+	.box{
+		display: grid;
+		grid-template-columns: 200px auto;
+		margin: 0;
 	}
 	.noticeList{
 		width: 1000px;
 		margin-left: 80px;
 		margin-top: 50px;
 	}
-	.noticeList table{
+	#noticeTable{
 		width: 100%;
 		height: 100%;
 		text-align: center;
@@ -55,18 +46,18 @@
 		background-color: #f2f2f2;
 		height: 70px;
 	}
-	table tr {
+	#noticeTable tr {
 		height: 50px;
 		border-bottom: 1px solid #ccc;
 	}
-	table>tbody>tr:hover{
+	#noticeTable>tbody>tr:hover{
 		background-color: #f2f2f2;
 		cursor: pointer;
 	}
 	.paging-bar{
 		width: 1000px;
-		margin-left: 80px;
 		margin-top: 30px;
+		margin-bottom: 30px;
 	}
 	.paging-bar button{
 		border: 1px solid #ccc;
@@ -83,52 +74,50 @@
 </head>
 <body>
 	<div class="outer">
-		<header>
+		<div class="header">
 			<%@ include file="../common/menubar.jsp" %>
-		</header>
-		<div class="mainview">
-			<div>
+		</div>
+		<div class="box">
+			<div class="left">
 				<%@ include file="../common/customerSidebar.jsp" %>
 			</div>
-			<div class="qbox">
-				<div class="noticeList">
-					<h3  style="margin-left: 40px;"><b>공지사항</b></h3>
-					<div align="right">
-						<%if(loginUser != null && loginUser.getMemberId().equals("admin")){ %>
-						<a href="<%= contextPath %>/enrollForm.no" class="btn btn-danger btn-sm">글쓰기</a>
-						<%} %>
-					</div>
-					<hr style="margin-bottom: 0;">
-					<div>
-						<table>
-							<thead>
-								<tr>
-									<td width="70">글번호</td>
-									<td>제목</td>
-									<td width="100">작성자</td>
-									<td width="100">작성일</td>
-								</tr>
-							</thead>
-							<tbody>
-								<% if(list.isEmpty()){ %>
-									<tr>
-										<td colspan="4">게시글이 존재하지 않습니다.</td>
-									</tr>
-								<%}else{ %>
-									<% for(Notice n : list){ %>
-										<tr>
-											<td><%= n.getNoticeNo() %></td>
-											<td><%= n.getNoticeTitle() %></td>
-											<td>관리자</td>
-											<td><%= n.getCreateDate() %></td>
-										</tr>
-									<%} %>
-								<%} %>
-							</tbody>
-						</table>
-					</div>
+			<div class="noticeList">
+				<h3  style="margin-left: 40px;"><b>공지사항</b></h3>
+				<div align="right">
+					<%if(loginUser != null && loginUser.getMemberId().equals("admin")){ %>
+					<a href="<%= contextPath %>/enrollForm.no" class="btn btn-danger btn-sm">글쓰기</a>
+					<%} %>
 				</div>
-				
+				<hr style="margin-bottom: 0;">
+				<div>
+					<table id="noticeTable">
+						<thead>
+							<tr>
+								<td width="70">글번호</td>
+								<td>제목</td>
+								<td width="100">작성자</td>
+								<td width="100">작성일</td>
+							</tr>
+						</thead>
+						<tbody>
+							<% if(list.isEmpty()){ %>
+								<tr>
+									<td colspan="4">게시글이 존재하지 않습니다.</td>
+								</tr>
+							<%}else{ %>
+								<% for(Notice n : list){ %>
+									<tr>
+										<td><%= n.getNoticeNo() %></td>
+										<td><%= n.getNoticeTitle() %></td>
+										<td>관리자</td>
+										<td><%= n.getCreateDate() %></td>
+									</tr>
+								<%} %>
+							<%} %>
+						</tbody>
+					</table>
+				</div>
+
 				<!-- 페이징 바 -->
 				
 				<div align="center" class="paging-bar">
@@ -140,11 +129,14 @@
 						<%} %>
 					<% } %>
 				</div>
+
 			</div>
+				
+			
 		</div>
-		<footer>
+		<div class="footer">
 			<%@ include file="../common/footer.jsp" %>
-		</footer>
+		</div>
 	</div>
 
 	<script>

@@ -96,5 +96,16 @@ public class NoticeService {
 		
 		return result;
 	}
+	
+	public ArrayList<Notice> minSelectNotice(){
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Notice> list = new NoticeDao().minSelectNotice(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
 
 }
