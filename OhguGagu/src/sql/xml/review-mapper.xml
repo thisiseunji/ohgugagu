@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="insertReview">
+		INSERT INTO TB_REVIEW (REVIEW_NO
+							 , CONTENT
+							 , CREATED_AT
+							 , FILE_NAME
+							 , STATUS
+							 , ORDER_NO
+							 , PRODUCT_NO)
+    	VALUES(SEQ_RV.NEXTVAL
+         , ?
+         , SYSDATE
+         , ?
+         , DEFAULT
+         , NULL
+         , ?)
+						  
+	</entry>
+	
+	<entry key="insertImage">
+		INSERT INTO TB_IMAGE(IMG_NO
+		                     , FILE_NAME
+		                     , IS_THUMBNAIL)
+	                VALUES(SEQ_IMG.NEXTVAL
+	                     , ?
+	                     , 'N')
+	</entry>
+	
+
+	
+	<entry key="selectReview">
+		SELECT * 
+		FROM (SELECT ROWNUM RNUM, A.*
+		        FROM (SELECT REVIEW_NO, CONTENT, CREATED_AT, FILE_NAME
+		                FROM TB_REVIEW
+		               WHERE PRODUCT_NO = ?
+		               AND STATUS = 'Y'
+		               ORDER BY REVIEW_NO DESC)A
+		      )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		  FROM TB_REVIEW
+		 WHERE PRODUCT_NO = ?
+		 AND STATUS = 'Y'
+	</entry>
+	
+
+
+
+</properties>

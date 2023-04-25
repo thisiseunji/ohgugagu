@@ -13,9 +13,14 @@
         /*border: 1px solid black;*/
     }
     .footerWrapper{
-        display: flex;
+        display: block;
+        width : 100%;
+        height : 350px;
         background-color: lightgray;
         margin: auto;
+    }
+    .footerWrapper>div {
+    	float : left;
     }
     .footerLogo{
     	width: 150px;
@@ -25,7 +30,7 @@
         margin: auto;
     }
     .footer1{
-        width: 40%;
+        width: 30%;
         padding: 40px;
     }
     .footer2{

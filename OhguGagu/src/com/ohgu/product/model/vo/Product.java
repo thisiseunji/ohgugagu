@@ -13,6 +13,8 @@ public class Product {
 	private String pDetail;				//	P_DETAIL	VARCHAR2(500 BYTE)
 	private int discountRate;			//	DISCOUNT_RATE	NUMBER
 	
+	private String thumbnail;			// 썸네일이미지
+	
 	public Product() { }
 
 	public Product(int productNo, String category, String productName, int price, int stock, String pColor,
@@ -28,6 +30,23 @@ public class Product {
 		this.pMaterial = pMaterial;
 		this.pDetail = pDetail;
 		this.discountRate = discountRate;
+	}
+	
+	// 전체조회용 생성자 (썸네일경로포함)
+	public Product(int productNo, String category, String productName, int price, int stock, String pColor,
+			String pSize, String pMaterial, String pDetail, int discountRate, String thumbnail) {
+		super();
+		this.productNo = productNo;
+		this.category = category;
+		this.productName = productName;
+		this.price = price;
+		this.stock = stock;
+		this.pColor = pColor;
+		this.pSize = pSize;
+		this.pMaterial = pMaterial;
+		this.pDetail = pDetail;
+		this.discountRate = discountRate;
+		this.thumbnail = thumbnail;
 	}
 
 	public int getProductNo() {
@@ -109,12 +128,21 @@ public class Product {
 	public void setDiscountRate(int discountRate) {
 		this.discountRate = discountRate;
 	}
+	
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
 
 	@Override
 	public String toString() {
 		return "Product [productNo=" + productNo + ", category=" + category + ", productName=" + productName
 				+ ", price=" + price + ", stock=" + stock + ", pColor=" + pColor + ", pSize=" + pSize + ", pMaterial="
-				+ pMaterial + ", pDetail=" + pDetail + ", discountRate=" + discountRate + "]";
+				+ pMaterial + ", pDetail=" + pDetail + ", discountRate=" + discountRate + ", thumbnail=" + thumbnail
+				+ "]";
 	}
-	
 }

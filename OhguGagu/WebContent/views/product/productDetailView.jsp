@@ -1,5 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.sql.Date"%>
+    
+<%@ page import="com.ohgu.common.model.vo.PageInfo, java.util.ArrayList, com.ohgu.product.model.vo.*" %>
+
+ <%
+ 	
+ 	ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
+ 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+	int pno = (int)request.getAttribute("pno");
+	
+	Product p = (Product)request.getAttribute("p");
+	ArrayList<Image> imageList = (ArrayList<Image>)request.getAttribute("imageList");
+	
+	System.out.println(imageList);
+ %>
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -199,7 +219,7 @@
             border-bottom: 1px solid #ddd;
             border-top: 1px solid #ddd;
             width: 1040.89px;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
         .board_top h3 {
             font-size: 24px;
@@ -258,7 +278,37 @@
             border-bottom: 1px solid #ddd; 
         }
 
+        thead {
+        	height: 60px;
+        }
         
+        thead>tr>th {
+        	text-align: center;
+        	font-weight: bold;
+        }
+        
+		tbody>tr>td>img {
+			width: 100px;
+			height: 100px;
+		}
+		
+		
+		.paging-bar{
+		width: 1000px;
+		margin-left: 80px;
+		margin-top: 30px;
+		}
+		.paging-bar button{
+			border: 1px solid #ccc;
+			background-color: #fff;
+			padding: 5px 10px;
+			margin: 0 5px;
+			border-radius: 10px;
+		}
+		.paging-bar button:hover{
+			background-color: #f2f2f2;
+			cursor: pointer;
+		}
         
     </style>
 </head>
@@ -276,37 +326,37 @@
 
             <main id="order_wrap">
                 <div class="left">
-                    <img src="https://www.pngarts.com/files/7/Modern-Furniture-PNG-Pic.png"> 
+                    <img src="<%= p.getThumbnail() %>"> 
                     <!-- <img src="https://cdn-pro-web-151-250.cdn-nhncommerce.com/younhyun_godomall_com/data/goods/23/03/12/1000002833/1000002833_detail_090.jpg"> -->
                 </div>
                 <div class="right">
                     <div class="top">
-                        <h1 id="title">SILKY STONE <span style="font-size: medium; color: #868686;">GREIGE</span></h1>
-                        <p>실키 스톤 그레이지</p>
+                        <h1 id="title"><%= p.getProductName() %> <span style="font-size: medium; color: #868686;"><%= p.getpColor() %></span></h1>
+                        <p><%= p.getProductName() %></p>
                         <dl>
                             <dt>판매가격</dt>
-                            <dd class="price">3,000원</dd>
+                            <dd class="price"><%= p.getPrice() %></dd>
                             <dt>적립금</dt>
                             <dd>1%</dd>
                             <dt>원산지</dt>
                             <dd>대한민국</dd>
                         </dl>
                         <div class="number">
-                            <p class="order_name">앵무새 인테리어 포스터(1번/썬코발)</p>
+                            <p class="order_name"><%= p.getProductName() %></p>
                             <div class="order_number">
-                                <input type="number" name="num" id="num" value="1">
-                                <span class="number_price">3,000원</span>
+                                <input type="number" name="num" id="num" value="1" onchange="setResultPrice(this);">
+                                <span class="number_price"><%= p.getPrice() %></span>
                             </div>
-                        </div>
+                        </div>      
                         <div class="total_price">
                             <p>총 상품 금액</p>
-                            <p class="result_price">3,000원</p>
+                            <p class="result_price"></p>
                         </div>
                     </div>
                     <div class="bottom">
                         <button type="button" id="order_btn">주문하기</button>
                         <button type="button" id="cart_btn">장바구니</button>
-                        <button type="button" id="like_btn">찜하기</button>
+                        <button type="button" id="like_btn"><a href="<%=request.getContextPath()%>/" onclick="zzim(); return false;">찜하기</a></button>
                     </div>
                 </div>
             </main>
@@ -315,55 +365,19 @@
 		        <div class="box">
 		            <nav class="tab_type1">
 		                <ul>
-		                    <li><a href="#a">제품소개</a></li>
-		                    <li><a href="#a" class="on">상세정보</a></li>
-		                    <li><a href="#a" >유의사항</a></li>
-		                    <li><a href="#a" >고객후기/문의</a></li>
+		                    <li><a href="#position1">제품소개</a></li>
+		                    <li><a href="#position2" class="on">상세정보</a></li>
+		                    <li><a href="#position3" >유의사항</a></li>
+		                    <li><a href="#position4" >고객후기/문의</a></li>
 		                </ul>
 		            </nav>  
 		            <div class="clear"></div>
 		
-		            <ul class="items" style="margin-bottom: 100px;">
-		                <li><img src="<%=contextPath %>/resources/image/image1.jpg"></li>
-		            </ul>
-		
-		            <ul class="items" style="margin-bottom: 100px;">
-		                <li><img src="<%=contextPath %>/resources/image/image2.jpg"></li>
-		            </ul>
-		
-		            <ul class="items" style="margin-bottom: 100px;">
-		                <li><img src="<%=contextPath %>/resources/image/image3.jpg"></li>
-		            </ul>
-		
-		            <ul class="items" style="margin-bottom: 100px;">
-		                <li><img src="<%=contextPath %>/resources/image/image4.jpg"></li>
-		            </ul>
-		            <ul class="items" style="margin-bottom: 100px;">
-		                <li><img src="<%=contextPath %>/resources/image/subscribe.png"></li>
-		            </ul>
-		            <ul class="items" style="margin-bottom: 100px;">
-		                <li><img style="width: 700px; margin-left: 310px;" src="<%=contextPath %>/resources/image/subscribe2.png"></li>
-		            </ul>
-		
-		            <ul class="items" style="margin-bottom: 100px;">
-		                <li><img src="<%=contextPath %>/resources/image/image5.jpg"></li>
-		            </ul>
-		
-		            <ul class="items" style="margin-bottom: 100px;">
-		                <li><img src="<%=contextPath %>/resources/image/image6.jpg"></li>
-		            </ul>
-		
-		            <ul class="items" style="margin-bottom: 100px;">
-		                <li><img src="<%=contextPath %>/resources/image/image7.jpg"></li>
-		            </ul>
-		
-		            <ul class="items" style="margin-bottom: 100px;">
-		                <li><img src="<%=contextPath %>/resources/image/image8.jpg"></li>
-		            </ul>
-		
-		            <ul class="items" style="margin-bottom: 100px;">
-		                <li><img src="<%=contextPath %>/resources/image/image9.jpg"></li>
-		            </ul>
+					<% for(Image i : imageList) { %>
+			            <ul class="items" id="position1" style="margin-bottom: 100px;">
+			                <li><img src="<%=contextPath %>/<%= i.getFileName() %>"></li>
+			            </ul>
+		            <% } %>
 		            
 		        </div>
 
@@ -372,46 +386,120 @@
             <div class="review_qna">
                 <!-- 상품후기 -->
                 <div class="review_box">
-        
-                    <div class="reviews_content">
+                    <div class="reviews_content" id="position4" >
                         <div class="board_top">
                             <h3>상품후기 <span>0</span></h3>
                             <p class="txt">
-                                상품과 직접 관련이 없는 내용은 동의 없이 담당 게시판으로 이동될 수 있습니다.<br>
-                                배송, 구매 관련 내용은 고객센터 해당 게시판을 이용해주세요.							
-                            </p>
-                            <div class="btn_reviews_box">
-                                <a href="../board/list.php?bdId=goodsreview" class="btn btn-outline-dark">전체보기</a>
-                                <a href="javascript:gd_open_write_popup('goodsreview', '1000002833')" class="btn_reviews_write btn btn-dark">후기작성</a>
-                            </div>
-        
-        
+				                                상품과 직접 관련이 없는 내용은 동의 없이 담당 게시판으로 이동될 수 있습니다.<br>
+				                                배송, 은 고객센터 해당 구매 관련 내용시판을 이용해주세요.							
+                            </p>  
+                           	<div class="btn_reviews_box">
+                               	<a href="<%=request.getContextPath()%>/enrollForm.rv" class="btn btn-outline-dark">전체보기</a>
+                               	<a class="btn_reviews_write btn btn-dark" onclick="goEnrollPage();">후기작성</a>
+                          		</div>
                         </div>
                         <div id="review-list">
                             <div class="reviews_detail">
                                 <table class="reviews_table">
+                                	
                                     <colgroup>
-                                        <col width="13%">
-                                        <col>
-                                        <col width="100%">
-                                        <col width="13%">
+                                   		<col width="30%"> 
+                                        <col width="30%"> 
+                                        <col width="30%">
+                                        <col width="30%">
                                     </colgroup>
-                                    <thead style="display: none;">
+                                    
+                                    <thead>
                                         <tr>
-                                            <th>평점</th>
-                                            <th>제목</th>
-                                            <th>작성자</th>
+                                        	<th>사진</th>
+                                        	<th>글번호</th> 
+                                            <th>내용</th>
                                             <th>작성일</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="4" class="no_data">등록된 상품후기가 없습니다.</td>
-                                        </tr>
+                                    <tbody>    
+                            			<% for(Review r : list) { %>
+                                            <tr>
+                                           		<td><img src="<%=r.getFileName()%>"></td>
+                                                <td><%= r.getReviewNo() %></td>
+                                                <td><%= r.getReviewContent() %></td>
+                                                <td><%= r.getCreatedAt() %></td>
+                                            </tr>
+                            			<% } %>
+                                        
                                     </tbody>
                                 </table>
+   
+				                <div align="center" class="paging-bar">
+				                	<%if(currentPage != 1){ %>
+				                		<button onclick="location.href='<%=contextPath%>/detailView.pr?currentPage=<%=currentPage - 1%>&pno=<%=pno%>';">&lt;</button>
+				                	<%} %>
+									<% for (int i = startPage; i <= endPage; i++){ %>
+										<%if(i != currentPage){ %>
+											<button onclick="location.href='<%=contextPath%>/detailView.pr?currentPage=<%=i%>&pno=<%=pno%>';"><%= i %></button>
+										<%}else{ %>
+											<button disabled><%=i %></button>
+										<%} %>
+									<% } %>
+									<%if(currentPage != maxPage){%>
+										<button onclick="location.href='<%=contextPath%>/detailView.pr?currentPage=<%=currentPage + 1%>&pno=<%=pno%>';">&gt;</button>
+									<%} %>
+				            	</div>
+                                
+                                <script>
+                                	function zzim() {
+                                		
+                                		<% if(loginUser != null) { %>
+                                		
+	                                		$.ajax({
+	                                            url : "<%= contextPath %>/like",
+	                                            type : "post",
+	                                            
+	                                            data : {
+	                                                pNo : <%=p.getProductNo()%>,
+	                                            	mNo : <%= loginUser.getMemberNo() %>
+	                                            },
+	                                            success : function(result) {
+	                                                if(result > 0) { // 업데이트 성공
+	                                                    alert("찜목록에 추가되었습니다.");
+	                                                	// 찜하기 버튼모양 바꾸기
+	                                                	$("#like_btn").css("bakcground-color", "red");
+	                                                	$("#like_btn").css("color", "black");
+	                                                	
+	                                                	
+	                                                } else {
+	                                                    alert("찜목록에 추가 실패");
+	                                                }
+	                                            },
+	                                            error : function() {
+	                                                console.log("찜목록 ajax 통신 실패");
+	                                            }
+	                                        });
+	                                		
+	                                	<% } %>
+                                	}
+                                	
+                                	function setResultPrice(el) {
+                                		
+                                		let amount = Number(el.value);
+                                		
+                                		$("#order_wrap .result_price").text(amount * <%= p.getPrice() %>);	
+                                	}
+                                	
+                                	function goEnrollPage() {
+                                		
+                                		<% if(loginUser != null) { %>
+                                			location.href = "<%=request.getContextPath()%>/enrollForm.rv?pno=<%= pno %>";
+                                			return true;
+                                		<% } else { %>
+                                			alert("로그인 후 이용 가능합니다.");
+                                			return fasle;
+                                		<% } %>
+                                	}
+                                	
+                                </script>
+
                             </div>
-                            <div class="pagination"><ul></ul></div>
                         </div>
                     </div>
                 </div>
@@ -423,8 +511,8 @@
                         <div class="board_top">
                             <h3>상품문의 <span>0</span></h3>
                             <div class="btn_qna_box">
-                                <a href="../board/list.php?bdId=goodsqa" class="btn btn-outline-dark">전체보기</a>
-                                <a href="javascript:gd_open_write_popup('goodsqa', '1000002833')" class="btn btn-dark">문의작성</a>
+                                <!-- <a href="" class="btn btn-outline-dark">전체보기</a> -->
+                                <a href="" class="btn btn-dark">문의작성</a>
                             </div>
                         </div>
     

@@ -305,53 +305,12 @@
 					<p class="eng">Recommended</p>
 					<p class="kor">
 						금주의 오구가구
-						<span>오만 구천원으로 봄 맞이 인테리어 하기</span>
+						<span>봄 맞이 인테리어 하기</span>
 						<a class="more" href="...오구가구모음으로가기(상품리스트+오구할인인것만)">더보기<ion-icon name="chevron-forward-outline"></ion-icon></a>
 					</p>				
 				</div>
-				<div class="ohgu_sale_box w-100">
-					<div class="ohgu_sale_prod">
-						<a href="<%=request.getContextPath()%>/detailView.pr"><img class="ohgu_img" src="https://www.pngarts.com/files/7/Modern-Furniture-PNG-Pic.png" alt=""></a>						
-						<div class="ohgu_info">
-							<span class="ohgu_prod_name">소파</span>
-							<sapn class="ohgu_orign_price">90,000 원</sapn>
-							<span class="ohgu_sale_price">59,000 원</span>
-						</div>
-					</div>
-					<div class="ohgu_sale_prod">
-						<img class="ohgu_img"src="https://bucketplace-v2-development.s3.amazonaws.com/uploads/product_category/163669805956534581.png" alt="">
-						<div class="ohgu_info">
-							<span class="ohgu_prod_name">화장대</span>
-							<sapn class="ohgu_orign_price">200,000 원</sapn>
-							<span class="ohgu_sale_price">59,000 원</span>
-						</div>
-					</div>
-					<div class="ohgu_sale_prod">
-						<img class="ohgu_img"src="https://bucketplace-v2-development.s3.amazonaws.com/uploads/product_category/163669805553651444.png" alt="">
-						<div class="ohgu_info">
-							<span class="ohgu_prod_name">식탁의자</span>
-							<sapn class="ohgu_orign_price">90,000 원</sapn>
-							<span class="ohgu_sale_price">59,000 원</span>
-						</div>
-					</div>
-					<div class="ohgu_sale_prod">
-						<img class="ohgu_img"src="https://bucketplace-v2-development.s3.amazonaws.com/uploads/product_category/163669805553651444.png" alt="">
-						<div class="ohgu_info">
-							<span class="ohgu_prod_name">식탁의자</span>
-							<sapn class="ohgu_orign_price">90,000 원</sapn>
-							<span class="ohgu_sale_price">59,000 원</span>
-						</div>
-					</div>
-					<div class="ohgu_sale_prod">
-						<img class="ohgu_img"src="https://bucketplace-v2-development.s3.amazonaws.com/uploads/product_category/163669805553651444.png" alt="">
-						<div class="ohgu_info">
-							<span class="ohgu_prod_name">식탁의자</span>
-							<sapn class="ohgu_orign_price">90,000 원</sapn>
-							<span class="ohgu_sale_price">59,000 원</span>
-						</div>
-					</div>
+				<div class="ohgu_sale_box w-100" id="thisWeek">
 				</div>
-
 
 				 <!-- 광고용 가로 베너 -->
 				 <div id="advertisement-banner">
@@ -452,6 +411,39 @@
 							el.appendChild(cloneChild.children[0])
 							next = next.nextElementSibling
 						}
+					});
+					
+					$(function() {
+						
+						$.ajax({
+							url : "productTopN.pr",
+							success : function(result) {
+								
+								console.log(result);
+								
+								let str = "";
+								for(let i = 0; i < result.length; i++) {
+									
+									str += '<div class="ohgu_sale_prod">'
+											 + '<a href="<%=contextPath%>/detailView.pr?currentPage=1&pno=1"><img class="ohgu_img" src="' + result[i].thumbnail + '" alt=""></a>'				
+											 + '<div class="ohgu_info">'
+													 + '<span class="ohgu_prod_name">' + result[i].productName + '</span>'
+												 	+ '<span class="ohgu_sale_price">' + result[i].price + '원</span>'
+											 + '</div>'
+										 + '</div>'
+								}
+								
+								console.log(str);
+								
+								
+								$("#thisWeek").html(str);
+								
+								
+							}, 
+							error : function() {
+								console.log("topN 분석용 ajax 통신 실패!");
+							}
+						});
 					});
 				</script>
 				

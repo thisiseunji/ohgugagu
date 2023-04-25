@@ -2,8 +2,19 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="selectProductList">
-		SELECT *
-		  FROM TB_PRODUCT
+		SELECT PRODUCT_NO
+		     , CATEGORY
+		     , PRODUCT_NAME
+		     , PRICE
+		     , STOCK
+		     , P_COLOR
+		     , P_SIZE
+		     , P_MATERIAL
+		     , P_DETAIL
+		     , DISCOUNT_RATE
+		     , FILE_NAME
+		FROM TB_PRODUCT
+		LEFT JOIN TB_IMAGE USING (PRODUCT_NO)
 	</entry>
 	
 	<entry key="selectByProductName">
@@ -11,4 +22,48 @@
 		  FROM TB_PRODUCT
 		 WHERE PRODUCT_NAME LIKE '%?%'
 	</entry>
+	
+		
+	<entry key="selectProduct">
+		SELECT PRODUCT_NO
+		     , CATEGORY
+		     , PRODUCT_NAME
+		     , PRICE
+		     , STOCK
+		     , P_COLOR
+		     , P_SIZE
+		     , P_MATERIAL
+		     , P_DETAIL
+		     , DISCOUNT_RATE
+		     , FILE_NAME
+		FROM TB_PRODUCT
+		JOIN TB_IMAGE USING (PRODUCT_NO)
+		WHERE PRODUCT_NO = ?
+	</entry>
+	
+	<entry key="selectImgs">
+		SELECT FILE_NAME
+		FROM TB_IMAGE
+		WHERE PRODUCT_NO = ?
+		  AND IS_THUMBNAIL = 'N'
+	</entry>
+	
+	<entry key="selectTopNProduct">
+		SELECT PRODUCT_NO
+		     , CATEGORY
+		     , PRODUCT_NAME
+		     , PRICE
+		     , STOCK
+		     , P_COLOR
+		     , P_SIZE
+		     , P_MATERIAL
+		     , P_DETAIL
+		     , DISCOUNT_RATE
+		     , FILE_NAME
+		FROM TB_PRODUCT
+		JOIN TB_IMAGE USING (PRODUCT_NO)
+		WHERE PRODUCT_NO BETWEEN 1 AND 5
+	</entry>
+	
+	
 </properties>

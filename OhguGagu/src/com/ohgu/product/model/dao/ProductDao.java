@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.ohgu.common.JDBCTemplate;
+import com.ohgu.product.model.vo.Image;
 import com.ohgu.product.model.vo.Product;
 
 public class ProductDao {
@@ -51,7 +52,8 @@ public class ProductDao {
 								   , rset.getString("P_SIZE")
 								   , rset.getString("P_MATERIAL")
 								   , rset.getString("P_DETAIL")
-								   , rset.getInt("DISCOUNT_RATE")));
+								   , rset.getInt("DISCOUNT_RATE")
+								   , rset.getString("FILE_NAME")));
 			}
 			
 		} catch (SQLException e) {
@@ -121,10 +123,125 @@ public class ProductDao {
 			
 			rset = pstmt.executeQuery();
 			
+			while(rset.next()) {
+				
+				list.add(new ~~~);
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
+		return list;
+		
+	}
+
+	public Product selectProduct(Connection conn, int productNo) {
+
+		Product p = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, productNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				p = new Product();
+				p.setProductNo(rset.getInt("PRODUCT_NO"));
+				p.setCategory(rset.getString("CATEGORY"));
+				p.setProductName(rset.getString("PRODUCT_NAME"));
+				p.setPrice(rset.getInt("PRICE"));
+				p.setStock(rset.getInt("STOCK"));
+				p.setpColor(rset.getString("P_COLOR"));
+				p.setpSize(rset.getString("P_SIZE"));
+				p.setpMaterial(rset.getString("P_MATERIAL"));
+				p.setpDetail(rset.getString("P_DETAIL"));
+				p.setDiscountRate(rset.getInt("DISCOUNT_RATE"));
+				p.setThumbnail(rset.getString("FILE_NAME"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return p;
+	}
+
+	public ArrayList<Image> selectImgs(Connection conn, int productNo) {
+		ArrayList<Image> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectImgs");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, productNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				list.add(new Image(rset.getString("FILE_NAME")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Product> selectTopNProduct(Connection conn) {
+
+		ArrayList<Product> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectTopNProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				list.add(new Product(rset.getInt("PRODUCT_NO")
+								   , rset.getString("CATEGORY")
+								   , rset.getString("PRODUCT_NAME")
+								   , rset.getInt("PRICE")
+								   , rset.getInt("STOCK")
+								   , rset.getString("P_COLOR")
+								   , rset.getString("P_SIZE")
+								   , rset.getString("P_MATERIAL")
+								   , rset.getString("P_DETAIL")
+								   , rset.getInt("DISCOUNT_RATE")
+								   , rset.getString("FILE_NAME")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return list;
 	}
 	
 	

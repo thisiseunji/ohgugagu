@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.ohgu.product.model.dao.ProductDao;
+import com.ohgu.product.model.vo.Image;
 import com.ohgu.product.model.vo.Product;
 
 public class ProductService {
@@ -45,6 +46,39 @@ public class ProductService {
 		
 		return list;
 		
+	}
+
+	public Product selectProduct(int productNo) {
+		
+		Connection conn = getConnection();
+		
+		Product p = new ProductDao().selectProduct(conn, productNo);
+		
+		close(conn);
+		
+		return p;
+	}
+
+	public ArrayList<Image> selectImgs(int productNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Image> list = new ProductDao().selectImgs(conn, productNo);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Product> selectTopNProduct() {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Product> list = new ProductDao().selectTopNProduct(conn);
+		
+		close(conn);
+		
+		return list;
 	}
 
 }

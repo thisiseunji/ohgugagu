@@ -216,10 +216,10 @@
                                         120,000 원 / 1개
                                      </td>
                                      <td rowspan="2">
-                                        결제 완료
+                                                                                          결제 완료
                                      </td>
                                      <td rowspan="2">
-                                        <a>리뷰작성</a>
+                                        <a href="<%=request.getContextPath()%>/delete.rv">리뷰작성</a>
                                      </td>
                                 </tr>
                                 <tr>

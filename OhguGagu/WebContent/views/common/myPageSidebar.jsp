@@ -54,7 +54,7 @@
 	    </div>
 	    <div>
 		    <div><b>나의 활동 정보</b></div>
-		    <a href="">나의 상품 리뷰</a>
+		    <a href="<%=request.getContextPath() %>/list.rv">나의 상품 리뷰</a>
 	    </div>
     </div>
 </body>

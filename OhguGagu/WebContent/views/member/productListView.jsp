@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.ohgu.product.model.vo.Product"%>
+<%
+	ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,15 +55,21 @@
         }
         .box {
             width: 1320px;
+            height : 1800px;
             margin: 0 auto; 
         }
-        #content_box .box .clear {
+        .box .clear {
             height: 80px;
+            both : clear;
         }
         #content_box {
             padding-top: 80px;
         }
        
+       .items:hover {
+       		opacity : 0.8;
+       		cursor : pointer;
+       }
     </style>
 </head>
 
@@ -78,73 +87,32 @@
 			<section id="content_box">
 		        <div class="box"> 
                     <div class="clear"></div>    
-                    <ul class="items" style="margin-bottom: 100px;">
-                        <li><img src="img/image1.jpg"></li>
-                        <li class="a">NST IVORY</li>
-                        <li class="c">엔에스티 아이보리</li>
-                        <li class="b">9,880원 <span>24%</span></li>
-                        <li class="d">리뷰 <span>2</span> 평점 · <span>4.5/5</span></li>
-                    </ul>
-                    <ul class="items" style="margin-bottom: 100px;">
-                        <li><img src="img/image2.jpg"></li>
-                        <li class="a">NST IVORY</li>
-                        <li class="c">엔에스티 아이보리</li>
-                        <li class="b">9,880원 <span>24%</span></li>
-                        <li class="d">리뷰 <span>2</span> 평점 · <span>4.5/5</span></li>
-                    </ul>
-                    <ul class="items" style="margin-bottom: 100px;">
-                        <li><img src="img/image3.jpg"></li>
-                        <li class="a">NST IVORY</li>
-                        <li class="c">엔에스티 아이보리</li>
-                        <li class="b">9,880원 <span>24%</span></li>
-                        <li class="d">리뷰 <span>2</span> 평점 · <span>4.5/5</span></li>
-                    </ul>
-                    <ul class="items" style="margin-bottom: 100px;">
-                        <li><img src="img/image4.jpg"></li>
-                        <li class="a">NST IVORY</li>
-                        <li class="c">엔에스티 아이보리</li>
-                        <li class="b">9,880원 <span>24%</span></li>
-                        <li class="d">리뷰 <span>2</span> 평점 · <span>4.5/5</span></li>
-                    </ul>
-                    <ul class="items" style="margin-bottom: 100px;">
-                        <li><img src="img/image5.jpg"></li>
-                        <li class="a">NST IVORY</li>
-                        <li class="c">엔에스티 아이보리</li>
-                        <li class="b">9,880원 <span>24%</span></li>
-                        <li class="d">리뷰 <span>2</span> 평점 · <span>4.5/5</span></li>
-                    </ul>
-                    <ul class="items" style="margin-bottom: 100px;">
-                        <li><img src="img/image6.jpg"></li>
-                        <li class="a">NST IVORY</li>
-                        <li class="c">엔에스티 아이보리</li>
-                        <li class="b">9,880원 <span>24%</span></li>
-                        <li class="d">리뷰 <span>2</span> 평점 · <span>4.5/5</span></li>
-                    </ul>
-                    <ul class="items" style="margin-bottom: 100px;">
-                        <li><img src="img/image7.jpg"></li>
-                        <li class="a">NST IVORY</li>
-                        <li class="c">엔에스티 아이보리</li>
-                        <li class="b">9,880원 <span>24%</span></li>
-                        <li class="d">리뷰 <span>2</span> 평점 · <span>4.5/5</span></li>
-                    </ul>
-                    <ul class="items" style="margin-bottom: 100px;">
-                        <li><img src="img/image8.jpg"></li>
-                        <li class="a">NST IVORY</li>
-                        <li class="c">엔에스티 아이보리</li>
-                        <li class="b">9,880원 <span>24%</span></li>
-                        <li class="d">리뷰 <span>2</span> 평점 · <span>4.5/5</span></li>
-                    </ul>
-                    <ul class="items" style="margin-bottom: 100px;">
-                        <li><img src="img/image9.jpg"></li>
-                        <li class="a">NST IVORY</li>
-                        <li class="c">엔에스티 아이보리</li>
-                        <li class="b">9,880원 <span>24%</span></li>
-                        <li class="d">리뷰 <span>2</span> 평점 · <span>4.5/5</span></li>
-                    </ul>            
+                    <% for(Product p : list) { %>
+	                    <ul class="items" style="margin-bottom: 100px;">
+	                        <li><img src="<%= p.getThumbnail() %>" width="300" height="250"></li>
+	                        <li class="a">No. <span id="<%= p.getProductNo() %>"><%= p.getProductNo() %></span></li>
+	                        <li class="c"><%= p.getProductName() %></li>
+	                        <li class="b"><%= p.getPrice() %>원 <span><%= p.getDiscountRate() %>%</span></li>
+	                        <li class="d">color. <span><%= p.getpColor() %></span> Category. <span><%= p.getCategory() %></span></li>
+	                    </ul>
+                    <% } %>
+                    
+                    <div class="clear"></div>   
                 </div>
     		</section>
 
-            </div>
+        </div>
+        
+        <script>
+        	$(function() {
+        		$(".items").click(function() {
+        			
+        			let pno = $(this).children().eq(1).children().eq(0).text();
+
+        			location.href = "<%= contextPath %>/detailView.pr?currentPage=1&pno=" + pno;
+        		});
+        	});
+        </script>
             
 
         <footer>
