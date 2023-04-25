@@ -40,9 +40,6 @@ public class AjaxCartSetAmountCart extends HttpServlet {
 			
 		} else {
 			int productNo = Integer.parseInt(request.getParameter("productNo"));
-			
-			System.out.println(loginUser.getMemberNo());
-			System.out.println(request.getParameter("amount"));
 			Cart cart = new Cart(productNo, loginUser.getMemberNo(), Integer.parseInt(request.getParameter("amount")));
 			result = new CartService().setAmountCart(cart);
 		}

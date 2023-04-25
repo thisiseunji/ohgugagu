@@ -16,28 +16,37 @@
 <title>오구가구>고객센터>공지사항</title>
 <Style>
 	.outer{
-        width: 100%;
-        height: auto;
-		min-height: 100%;
-    }
-	.left{
-		width: 200px;
-	}
-	.footer{
-		height: 100%;
 		position: relative;
+		height : 1500px;
 	}
-	.box{
-		display: grid;
-		grid-template-columns: 200px auto;
-		margin: 0;
+	footer{
+		z-index: 1;
+	}
+	header{
+		z-index: 2;
+	}
+	.mainview {
+		position: relative; 
+		height : 60%;
+	}
+	
+	.mainview>div {
+		float : left;
+		height : 100%;
+	}
+	
+	div[class="side"]{position: absolute;}
+	
+	.qbox {
+		padding-left: 200px;
+		width: 100%;
 	}
 	.noticeList{
 		width: 1000px;
 		margin-left: 80px;
 		margin-top: 50px;
 	}
-	#noticeTable{
+	.noticeList table{
 		width: 100%;
 		height: 100%;
 		text-align: center;
@@ -46,18 +55,18 @@
 		background-color: #f2f2f2;
 		height: 70px;
 	}
-	#noticeTable tr {
+	table tr {
 		height: 50px;
 		border-bottom: 1px solid #ccc;
 	}
-	#noticeTable>tbody>tr:hover{
+	table>tbody>tr:hover{
 		background-color: #f2f2f2;
 		cursor: pointer;
 	}
 	.paging-bar{
 		width: 1000px;
+		margin-left: 80px;
 		margin-top: 30px;
-		margin-bottom: 30px;
 	}
 	.paging-bar button{
 		border: 1px solid #ccc;
@@ -74,56 +83,55 @@
 </head>
 <body>
 	<div class="outer">
-		<div class="header">
+		<header>
 			<%@ include file="../common/menubar.jsp" %>
-		</div>
-		<div class="box">
-			<div class="left">
+		</header>
+		<div class="mainview">
+			<div>
 				<%@ include file="../common/customerSidebar.jsp" %>
 			</div>
-			<div class="noticeList">
-				<h3  style="margin-left: 40px;"><b>공지사항</b></h3>
-				<div align="right">
-					<%if(loginUser != null && loginUser.getMemberId().equals("admin")){ %>
-					<a href="<%= contextPath %>/enrollForm.no" class="btn btn-danger btn-sm">글쓰기</a>
-					<%} %>
-				</div>
-				<hr style="margin-bottom: 0;">
-				<div>
-					<table id="noticeTable">
-						<thead>
-							<tr>
-								<td width="70">글번호</td>
-								<td>제목</td>
-								<td width="100">작성자</td>
-								<td width="100">작성일</td>
-							</tr>
-						</thead>
-						<tbody>
-							<% if(list.isEmpty()){ %>
+			<div class="qbox">
+				<div class="noticeList">
+					<h3  style="margin-left: 40px;"><b>공지사항</b></h3>
+					<div align="right">
+						<%if(loginUser != null && loginUser.getMemberId().equals("admin")){ %>
+						<a href="<%= contextPath %>/enrollForm.no" class="btn btn-danger btn-sm">글쓰기</a>
+						<%} %>
+					</div>
+					<hr style="margin-bottom: 0;">
+					<div>
+						<table>
+							<thead>
 								<tr>
-									<td colspan="4">게시글이 존재하지 않습니다.</td>
+									<td width="70">글번호</td>
+									<td>제목</td>
+									<td width="100">작성자</td>
+									<td width="100">작성일</td>
 								</tr>
-							<%}else{ %>
-								<% for(Notice n : list){ %>
+							</thead>
+							<tbody>
+								<% if(list.isEmpty()){ %>
 									<tr>
-										<td><%= n.getNoticeNo() %></td>
-										<td><%= n.getNoticeTitle() %></td>
-										<td>관리자</td>
-										<td><%= n.getCreateDate() %></td>
+										<td colspan="4">게시글이 존재하지 않습니다.</td>
 									</tr>
+								<%}else{ %>
+									<% for(Notice n : list){ %>
+										<tr>
+											<td><%= n.getNoticeNo() %></td>
+											<td><%= n.getNoticeTitle() %></td>
+											<td>관리자</td>
+											<td><%= n.getCreateDate() %></td>
+										</tr>
+									<%} %>
 								<%} %>
-							<%} %>
-						</tbody>
-					</table>
+							</tbody>
+						</table>
+					</div>
 				</div>
-
+				
 				<!-- 페이징 바 -->
 				
 				<div align="center" class="paging-bar">
-					<%if(currentPage != 1){ %>
-                		<button onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage - 1%>';">&lt;</button>
-                	<%} %>
 					<% for (int i = startPage; i <= endPage; i++){ %>
 						<%if(i != currentPage){ %>
 							<button onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=i%>';"><%= i %></button>
@@ -131,18 +139,12 @@
 							<button disabled><%=i %></button>
 						<%} %>
 					<% } %>
-					<%if(currentPage != maxPage){%>
-						<button onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage + 1%>';">&gt;</button>
-					<%} %>
 				</div>
-
 			</div>
-				
-			
 		</div>
-		<div class="footer">
+		<footer>
 			<%@ include file="../common/footer.jsp" %>
-		</div>
+		</footer>
 	</div>
 
 	<script>

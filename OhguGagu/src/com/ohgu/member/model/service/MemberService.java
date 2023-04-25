@@ -5,6 +5,7 @@ import java.sql.Connection;
 import com.ohgu.common.JDBCTemplate;
 import com.ohgu.member.model.dao.MemberDao;
 import com.ohgu.member.model.vo.Member;
+import com.ohgu.member.model.vo.MemberGrade;
 
 public class MemberService {
 	
@@ -47,17 +48,15 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
-	
-	public int idCheck(String checkId) {
+
+	// order.jsp에서 사용함
+	public MemberGrade getMemberGrade(int totalPay) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = new MemberDao().idCheck(conn, checkId);
+		MemberGrade memberGrade = new MemberDao().getMemberGrade(conn, totalPay);
 		
-		JDBCTemplate.close(conn);
-		
-		return result;
-		
+		return memberGrade;
 	}
 
 }

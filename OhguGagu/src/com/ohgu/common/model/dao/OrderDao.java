@@ -67,8 +67,7 @@ Properties prop = new Properties();
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Order(rset.getInt("PRODUCT_NO")
-								 , rset.getString("PRODUCT_NAME")
+				list.add(new Order(rset.getString("PRODUCT_NAME")
 								 , rset.getInt("ORDER_NO")
 								 , rset.getDate("ORDERED_AT")
 								 , rset.getString("FILE_NAME")));

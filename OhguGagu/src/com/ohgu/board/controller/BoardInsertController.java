@@ -33,14 +33,13 @@ public class BoardInsertController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		int productNo = Integer.parseInt(request.getParameter("productNo"));
 		int orderNo = Integer.parseInt(request.getParameter("orderNo"));
 		String boardTitle = request.getParameter("title");
 		String boardContent = request.getParameter("content");
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 
+		
 		Board b = new Board();
-		b.setProductNo(productNo);
 		b.setBoardTitle(boardTitle);
 		b.setBoardContent(boardContent);
 		b.setMemberNo(memberNo);

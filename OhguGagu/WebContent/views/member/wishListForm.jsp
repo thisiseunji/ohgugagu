@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.ohgu.product.model.vo.Product" %>
-<%
-	Product p = (Product)request.getAttribute("p");
-%>    
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,12 +64,12 @@
 						<img src="resources/">
 						<a href="">구매 이용 조건 안내 전체보기 ></a>
 						<br>
-						<%= p.getProductName() %>
+						<%= productName %>
 						<br>
-						<%= p.getPrice() %>원
+						<%= price() %>원
 					</td>
 					<td width="150">
-						<%= p.getPrice() %>원 / BOX <br>
+						<%= price %>원 / <%= amount %>BOX <br>
 						<button type="submit">옵션/수량변경</button>
 					</td>
 					<td width="150">
