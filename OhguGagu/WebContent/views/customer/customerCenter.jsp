@@ -80,7 +80,11 @@
 						<td rowspan="2">
 							<h3><b>찾으시는 질문이 없다면?</b></h3><br>
 							1:1 문의로 바로 답변을 받아보세요! <br>
+							<% if(loginUser == null){  %>
+							<a href="<%= contextPath %>/loginform.me" class="btn btn-danger" style="margin-top: 10px;">1:1 문의하기</a>
+							<%}else{ %>
 							<a href="<%= contextPath %>/enrollForm.bo" class="btn btn-danger" style="margin-top: 10px;">1:1 문의하기</a>
+							<%} %>
 						</td>
 					</tr>
 					<tr>

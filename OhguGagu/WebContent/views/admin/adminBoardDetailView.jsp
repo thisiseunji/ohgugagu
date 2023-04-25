@@ -73,7 +73,11 @@
 						</tr>
 						<tr>
 							<td>답변내용</td>
-							<td colspan="4"><textarea id="answer1" style="width: 100%; height: 150px; resize: none;" readonly><%=b.getAnswer()%></textarea></td>
+							<%if(b.getAnswer() == null){ %>
+								<td colspan="4"><textarea id="answer1" style="width: 100%; height: 150px; resize: none;" readonly></textarea></td>
+							<%}else{ %>
+								<td colspan="4"><textarea id="answer1" style="width: 100%; height: 150px; resize: none;" readonly><%=b.getAnswer()%></textarea></td>
+							<%} %>
 						</tr>
 						<tr>
 							<td>답변</td>

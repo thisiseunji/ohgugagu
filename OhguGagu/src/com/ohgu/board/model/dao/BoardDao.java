@@ -128,9 +128,12 @@ Properties prop = new Properties();
 							, rset.getDate("CREATED_AT")
 							, rset.getString("ANSWER")
 							, rset.getDate("UPDATED_AT")
+							, rset.getString("STATUS")
 							, rset.getInt("MEMBER_NO")
 							, rset.getInt("ORDER_NO")
-							, rset.getInt("PRODUCT_NO")); 
+							, rset.getInt("PRODUCT_NO")
+							, rset.getString("PRODUCT_NAME")
+							, rset.getString("FILE_NAME")); 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -121,6 +121,9 @@
 				<!-- 페이징 바 -->
 				
 				<div align="center" class="paging-bar">
+					<%if(currentPage != 1){ %>
+                		<button onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage - 1%>';">&lt;</button>
+                	<%} %>
 					<% for (int i = startPage; i <= endPage; i++){ %>
 						<%if(i != currentPage){ %>
 							<button onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=i%>';"><%= i %></button>
@@ -128,6 +131,9 @@
 							<button disabled><%=i %></button>
 						<%} %>
 					<% } %>
+					<%if(currentPage != maxPage){%>
+						<button onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage + 1%>';">&gt;</button>
+					<%} %>
 				</div>
 
 			</div>

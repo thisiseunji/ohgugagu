@@ -76,10 +76,7 @@ public class Board {
 		this.productName = productName;
 	}
 	
-	
 
-	
-	
 	public Board(int boardNo, String boardTitle, String boardContent, Date createdAt, String answer, Date updatedAt,
 			String status, int memberNo, int orderNo, int productNo, String memberName, String productName,
 			String fileName) {
@@ -98,6 +95,7 @@ public class Board {
 		this.productName = productName;
 		this.fileName = fileName;
 	}
+	
 
 	public String getFileName() {
 		return fileName;

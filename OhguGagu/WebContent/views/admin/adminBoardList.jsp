@@ -27,7 +27,7 @@
 		height: 100%;
 		position: relative;
 	}
-	.container{
+	.box{
 		display: grid;
 		grid-template-columns: 200px auto;
 		margin: 0;
@@ -70,19 +70,6 @@
 		background-color: #f2f2f2;
 		cursor: pointer;
 	}
-
-	.toggleSwitch {
-	width: 100px;
-	height: 50px;
-	display: block;
-	position: relative;
-	border-radius: 30px;
-	background-color: #fff;
-	box-shadow: 0 0 16px 3px rgba(0 0 0 / 15%);
-	cursor: pointer;
-	margin: 30px;
-	}
-
 </style>
 </head>
 <body>
@@ -90,7 +77,7 @@
         <div class="header">
 			<%@ include file="../common/menubar.jsp" %>
 		</div>
-		<div class="container">
+		<div class="box">
 			<div class="left">
 				<%@ include file="../common/adminPageSidebar.jsp" %>
 			</div>
@@ -112,22 +99,31 @@
 							</tr>
 						</thead>
 						<tbody>
-							<% for(Board b : list){ %>
-							<tr>
-								<td><%=b.getBoardNo()%></td>
-								<td><%=b.getBoardTitle()%></td>
-								<td><%=b.getCreatedAt()%></td>
-								<td><%=b.getStatus()%></td>
-								<td><%=b.getOrderNo()%></td>
-								<td><%=b.getMemberName()%></td>
-								<td><%=b.getProductName()%></td>
-							</tr>
-							<%}%>
+							<% if(list.isEmpty()){ %>
+									<tr>
+										<td colspan="7">게시글이 존재하지 않습니다.</td>
+									</tr>
+							<%}else{ %>
+								<% for(Board b : list){ %>
+								<tr>
+									<td><%=b.getBoardNo()%></td>
+									<td><%=b.getBoardTitle()%></td>
+									<td><%=b.getCreatedAt()%></td>
+									<td><%=b.getStatus()%></td>
+									<td><%=b.getOrderNo()%></td>
+									<td><%=b.getMemberName()%></td>
+									<td><%=b.getProductName()%></td>
+								</tr>
+								<%}%>
+							<%} %>
 						</tbody>
 					</table>
 				</div>
 
 				<div align="center" class="paging-bar">
+					<%if(currentPage != 1){ %>
+                		<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage - 1%>';">&lt;</button>
+                	<%} %>
 					<% for (int i = startPage; i <= endPage; i++){ %>
 						<%if(i != currentPage){ %>
 							<button onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=i%>';"><%= i %></button>
@@ -135,6 +131,9 @@
 							<button disabled><%=i %></button>
 						<%} %>
 					<% } %>
+					<%if(currentPage != maxPage){%>
+						<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage + 1%>';">&gt;</button>
+					<%} %>
             	</div>
 
 			</div>

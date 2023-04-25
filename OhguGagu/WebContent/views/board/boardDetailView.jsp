@@ -48,12 +48,16 @@
 			<div class="detailView">
 				<h2>1:1 문의</h2>
 				<div style="display: flex; margin: 20px">
-					<h1 style="width: 70%;"><%= b.getBoardTitle() %></h1>
-					<div style="width: 15%;">작성일 : <%= b.getCreatedAt() %></div>
+					<h1 style="width: 80%;"><%= b.getBoardTitle() %></h1>
+					<div style="width: 18;">작성일 : <%= b.getCreatedAt() %></div>
 				</div>
 				<hr style="margin-top: 0">
-				<div style="height: 200px; margin: 20px">
-					<p><%= b.getBoardContent() %></p>
+				<div style="height: 200px; margin: 20px; display: flex;">
+					<div>
+						<img src="<%=b.getProductName() %>" style="width: 150px; height: 150px;">
+						<div align="center" style="margin-top: 20px;"><%=b.getMemberName() %></div>
+					</div>
+					<div><p style="margin-left: 50px;"><%= b.getBoardContent() %></p></div>
 				</div>
 				<%if(b.getAnswer() != null){ %>
 				<div style="height: 400px; padding: 20px; border-top: 1px solid lightgray;">

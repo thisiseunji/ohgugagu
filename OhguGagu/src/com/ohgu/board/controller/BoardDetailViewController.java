@@ -36,6 +36,7 @@ public class BoardDetailViewController extends HttpServlet {
 		Board b = new BoardService().selectBoard(boardNo);
 		
 		request.setAttribute("b", b);
+		
 		request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
 		
 	}

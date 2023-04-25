@@ -34,9 +34,6 @@ public class adminAnswerController extends HttpServlet {
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		String answer = request.getParameter("answer");
 		
-		System.out.println(boardNo);
-		System.out.println(answer);
-		
 		int result = new BoardService().insertAnswer(boardNo, answer);
 		
 		response.setContentType("application/json; charset=UTF-8"); 
