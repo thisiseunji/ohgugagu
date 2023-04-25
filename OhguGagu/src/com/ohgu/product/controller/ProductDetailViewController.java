@@ -16,6 +16,9 @@ import com.ohgu.product.model.vo.Image;
 import com.ohgu.product.model.vo.Product;
 import com.ohgu.product.model.vo.Review;
 
+import com.ohgu.product.model.service.ProductService;
+import com.ohgu.product.model.vo.Product;
+
 /**
  * Servlet implementation class ProductDetailViewController
  */
@@ -35,7 +38,7 @@ public class ProductDetailViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		// 상품 한개 정보 조회해오기
 		int productNo = Integer.parseInt(request.getParameter("pno"));
 		
@@ -76,7 +79,7 @@ public class ProductDetailViewController extends HttpServlet {
 		request.setAttribute("pi", pi);
 		request.setAttribute("p", p);
 		request.setAttribute("imageList", imageList);
-		
+
 		request.getRequestDispatcher("views/product/productDetailView.jsp").forward(request, response);
 		
 	}

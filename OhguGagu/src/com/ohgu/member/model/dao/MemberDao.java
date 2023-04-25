@@ -10,6 +10,8 @@ import java.util.Properties;
 
 import com.ohgu.common.JDBCTemplate;
 import com.ohgu.member.model.vo.Member;
+import com.ohgu.member.model.vo.MemberGrade;
+
 
 public class MemberDao {
 	
@@ -114,5 +116,59 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	// id 체크
+	public int idCheck(Connection conn, String checkId) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("idCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, checkId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
+	}
 
+	// order.jsp에서 사용하는 MemberGrade
+	public MemberGrade getMemberGrade(Connection conn, int totalPay) {
+		
+		MemberGrade memberGrade = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getMemberGrade");
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, totalPay);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				memberGrade = new MemberGrade(rset.getString("GRADE_NAME"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return memberGrade;
+	}
 }

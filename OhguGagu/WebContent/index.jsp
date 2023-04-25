@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.ohgu.product.model.vo.Product" %>
+<%
+	Product p = (Product)request.getAttribute("P");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,13 +13,6 @@
 <title>오구가구</title>
 <style>
 
-	/* 
-		index.html blocker : 
-		1. 할인 슬라이드를 제외한 모든 요소가 너무 크다 -> 현재가 100이라면 약 80% 정도으 사이즈로 변경이 필요하다.
-		2. 할인 슬라이드는 너무 작다 => 보통 전체 화면의 가로 기준 너비가 100이라면 얘는 약 60 정도 된는 것 같다. 
-		3. 화면이 아래로 스크롤 될 때, 첫번째 슬라이드 위의 글씨가 타이틀 로고를 침범한다. z index나 position 적용해봤지만 뭘 잘못했는지 적용 안된다. 
-		.. 혹시 위 문제들에 대한 해결책을 알고있거나 시도하며 궁금한 점이 있다면 김은지에게 말해주세요!
-	*/
 	#wrap{
 		min-height: 100vh;
 		position: relative;
@@ -310,6 +307,47 @@
 					</p>				
 				</div>
 				<div class="ohgu_sale_box w-100" id="thisWeek">
+
+					<div class="ohgu_sale_prod">
+						<a href="<%=request.getContextPath()%>/detailView.pr?pNo=1"><img class="ohgu_img" src="https://www.pngarts.com/files/7/Modern-Furniture-PNG-Pic.png" alt=""></a>						
+						<div class="ohgu_info">
+							<span class="ohgu_prod_name">소파</span>
+							<sapn class="ohgu_orign_price">90,000 원</sapn>
+							<span class="ohgu_sale_price">59,000 원</span>
+						</div>
+					</div>
+					<div class="ohgu_sale_prod">
+						<img class="ohgu_img"src="https://bucketplace-v2-development.s3.amazonaws.com/uploads/product_category/163669805956534581.png" alt="">
+						<div class="ohgu_info">
+							<span class="ohgu_prod_name">화장대</span>
+							<sapn class="ohgu_orign_price">200,000 원</sapn>
+							<span class="ohgu_sale_price">59,000 원</span>
+						</div>
+					</div>
+					<div class="ohgu_sale_prod">
+						<img class="ohgu_img"src="https://bucketplace-v2-development.s3.amazonaws.com/uploads/product_category/163669805553651444.png" alt="">
+						<div class="ohgu_info">
+							<span class="ohgu_prod_name">식탁의자</span>
+							<sapn class="ohgu_orign_price">90,000 원</sapn>
+							<span class="ohgu_sale_price">59,000 원</span>
+						</div>
+					</div>
+					<div class="ohgu_sale_prod">
+						<img class="ohgu_img"src="https://bucketplace-v2-development.s3.amazonaws.com/uploads/product_category/163669805553651444.png" alt="">
+						<div class="ohgu_info">
+							<span class="ohgu_prod_name">식탁의자</span>
+							<sapn class="ohgu_orign_price">90,000 원</sapn>
+							<span class="ohgu_sale_price">59,000 원</span>
+						</div>
+					</div>
+					<div class="ohgu_sale_prod">
+						<img class="ohgu_img"src="https://bucketplace-v2-development.s3.amazonaws.com/uploads/product_category/163669805553651444.png" alt="">
+						<div class="ohgu_info">
+							<span class="ohgu_prod_name">식탁의자</span>
+							<sapn class="ohgu_orign_price">90,000 원</sapn>
+							<span class="ohgu_sale_price">59,000 원</span>
+						</div>
+					</div>
 				</div>
 
 				 <!-- 광고용 가로 베너 -->

@@ -51,5 +51,15 @@
 		 WHERE NOTICE_NO = ?
 	</entry>
 	
+	<entry key="minSelectNotice">
+		SELECT *
+		FROM ( SELECT ROWNUM RNUM, A.*
+		       FROM (SELECT NOTICE_NO, NOTICE_TITLE, CREATED_AT
+		             FROM TB_NOTICE
+		              WHERE STATUS = 'Y'
+		              ORDER BY NOTICE_NO DESC)A
+		    )
+		WHERE RNUM BETWEEN 1 AND 5
+	</entry>
 	
 </properties>

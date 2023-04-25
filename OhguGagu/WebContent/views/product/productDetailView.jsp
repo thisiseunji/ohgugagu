@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.sql.Date"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.sql.Date"%>
     
 <%@ page import="com.ohgu.common.model.vo.PageInfo, java.util.ArrayList, com.ohgu.product.model.vo.*" %>
 
@@ -15,11 +14,9 @@
 	
 	Product p = (Product)request.getAttribute("p");
 	ArrayList<Image> imageList = (ArrayList<Image>)request.getAttribute("imageList");
-	
-	System.out.println(imageList);
+
  %>
-    
-    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -336,6 +333,7 @@
                         <dl>
                             <dt>판매가격</dt>
                             <dd class="price"><%= p.getPrice() %></dd>
+
                             <dt>적립금</dt>
                             <dd>1%</dd>
                             <dt>원산지</dt>
@@ -351,12 +349,14 @@
                         <div class="total_price">
                             <p>총 상품 금액</p>
                             <p class="result_price"></p>
+
                         </div>
                     </div>
                     <div class="bottom">
                         <button type="button" id="order_btn">주문하기</button>
                         <button type="button" id="cart_btn">장바구니</button>
-                        <button type="button" id="like_btn"><a href="<%=request.getContextPath()%>/" onclick="zzim(); return false;">찜하기</a></button>
+                        <button type="button" id="like_btn"><a href="<%=request.getContextPath()%>/" onclick="like(); return false;">찜하기</a></button>
+
                     </div>
                 </div>
             </main>
@@ -447,38 +447,6 @@
 				            	</div>
                                 
                                 <script>
-                                	function zzim() {
-                                		
-                                		<% if(loginUser != null) { %>
-                                		
-	                                		$.ajax({
-	                                            url : "<%= contextPath %>/like",
-	                                            type : "post",
-	                                            
-	                                            data : {
-	                                                pNo : <%=p.getProductNo()%>,
-	                                            	mNo : <%= loginUser.getMemberNo() %>
-	                                            },
-	                                            success : function(result) {
-	                                                if(result > 0) { // 업데이트 성공
-	                                                    alert("찜목록에 추가되었습니다.");
-	                                                	// 찜하기 버튼모양 바꾸기
-	                                                	$("#like_btn").css("bakcground-color", "red");
-	                                                	$("#like_btn").css("color", "black");
-	                                                	
-	                                                	
-	                                                } else {
-	                                                    alert("찜목록에 추가 실패");
-	                                                }
-	                                            },
-	                                            error : function() {
-	                                                console.log("찜목록 ajax 통신 실패");
-	                                            }
-	                                        });
-	                                		
-	                                	<% } %>
-                                	}
-                                	
                                 	function setResultPrice(el) {
                                 		
                                 		let amount = Number(el.value);
@@ -546,15 +514,94 @@
                     <!-- // 상품문의 -->
                 </div>
 
-
             </div>
-                
 
-        <footer>
-            <%@ include file="../common/footer.jsp" %>
-        </footer>
-    </div>
-	
+	        <footer>
+	            <%@ include file="../common/footer.jsp" %>
+	        </footer>
+	    </div>
+	</div>
+	<!-- 
+		cart insert/update 용 함수 작성 
+		product 정보가 변수 p에 담겨있다고 가정
+		p.getProductNo();
+	 -->
+	<script>
+		function updateCart() {
+			$.ajax({
+				url : "<%= contextPath %>/update.cart",
+				type : "post",
+				data : {
+					amount : $("#num").val(),
+					productNo : <%=p.getProductNo()%>
+				},
+				success : function(result) {
+					if(result > 0) { // 업데이트 성공
+						alert("장바구니에 추가되었습니다.");
+					} else {
+						insertCart();
+					}
+				},
+				error : function() {
+					console.log("장바구니 update ajax 통신 실패");
+				}
+			});
+		}
+		
+		function insertCart() {
+			$.ajax({
+				url : "<%= contextPath %>/insert.cart",
+				type : "post",
+				data : {
+					amount : $("#num").val(),
+					productNo : <%=p.getProductNo()%>
+				},
+				success: function(result) {
+					if (result > 0) {
+						alert("장바구니에 추가 되었습니다.");
+					} else{
+						alert("장바구니에 추가 실패");
+					}
+				},
+				error : function() {
+					console.log("장바구니 insert ajax 통신 실패");
+				}
+			});	
+		}
+		
+		function sumprice(){
+            let price = $(".price").text();
+            let num = $("#num").val();
+
+            let sum = price * num;
+
+            $(".result_price").text(sum);
+        }
+
+        function like(){
+        	console.log("dd");
+        	console.log("<%= loginUser.getMemberNo() %>");
+            $.ajax({
+                url : "<%= contextPath %>/like",
+                type : "post",
+                data : {
+                    pNo : <%=p.getProductNo()%>,
+                	mNo : <%= loginUser.getMemberNo() %>
+                },
+                success : function(result) {
+                    if(result > 0) { // 업데이트 성공
+                        alert("찜목록에 추가되었습니다.");
+                    } else {
+                        alert("찜목록에 추가 실패");
+                    }
+                },
+                error : function() {
+                    console.log("찜목록 ajax 통신 실패");
+                }
+            });
+            };
+		
+	</script>
 
 </body>
 </html>

@@ -4,24 +4,73 @@
 	
 	<entry key="insertBoard">
 		INSERT INTO TB_BOARD
-		VALUES (SEQ_BD.NEXTVAL, ?, ?, SYSDATE, NULL, NULL, ?, ?)
+		VALUES (SEQ_BD.NEXTVAL, ?, ?, SYSDATE, NULL, NULL, DEFAULT, ?, ?, ?)
 	</entry>
 	
 	<entry key="selectListCount">
 		SELECT COUNT(*) COUNT
 		FROM TB_BOARD
 		WHERE MEMBER_NO = ?
+		AND STATUS = 'Y'
 	</entry>
 	
 	<entry key="selectBoardList">
 		SELECT *
 		FROM ( SELECT ROWNUM RNUM, A.*
-       		   FROM (SELECT ORDER_NO, BOARD_TITLE, CREATED_AT
-               FROM TB_BOARD
-               WHERE MEMBER_NO = ?
-               ORDER BY BOARD_NO DESC)A
+       		   FROM (SELECT BOARD_NO, ORDER_NO, BOARD_TITLE, CREATED_AT, ANSWER
+               		 FROM TB_BOARD
+               		 WHERE MEMBER_NO = ?
+               		 AND STATUS = 'Y'
+               		 ORDER BY BOARD_NO DESC)A
       		 )
 		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectBoard">
+		SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, CREATED_AT, ANSWER, UPDATED_AT, STATUS, MEMBER_NO, ORDER_NO, PRODUCT_NO, PRODUCT_NAME, FILE_NAME
+		  FROM TB_BOARD B
+		  JOIN TB_PRODUCT P USING (PRODUCT_NO)
+		  JOIN TB_IMAGE I USING (PRODUCT_NO)
+		 WHERE BOARD_NO = ?
+	</entry>
+	
+	<entry key="deleteBoard">
+		UPDATE TB_BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = ?
+	</entry>
+	
+	<entry key="adminSelectListCount">
+		SELECT COUNT(*) COUNT
+		FROM TB_BOARD
+	</entry>
+	
+	<entry key="adminSelectBoardList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+		      FROM ( SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, B.CREATED_AT, STATUS, ORDER_NO, MEMBER_NAME, PRODUCT_NAME
+		             FROM TB_BOARD B
+		             JOIN TB_MEMBER USING (MEMBER_NO)
+		             JOIN TB_PRODUCT USING (PRODUCT_NO)
+		             ORDER BY BOARD_NO DESC)A
+		      )
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectAdminBoard">
+		SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, B.CREATED_AT, ANSWER, UPDATED_AT, STATUS, MEMBER_NO, ORDER_NO, PRODUCT_NO, MEMBER_NAME, PRODUCT_NAME, FILE_NAME
+		FROM TB_BOARD B
+		JOIN TB_MEMBER USING (MEMBER_NO)
+		JOIN TB_PRODUCT USING (PRODUCT_NO)
+		JOIN TB_IMAGE USING (PRODUCT_NO)
+		WHERE BOARD_NO = ?
+	</entry>
+	
+	<entry key="insertAnswer">
+		UPDATE TB_BOARD
+		SET ANSWER = ?
+		  , UPDATED_AT = SYSDATE
+		WHERE BOARD_NO = ?
 	</entry>
 
 

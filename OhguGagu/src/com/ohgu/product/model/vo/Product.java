@@ -12,6 +12,8 @@ public class Product {
 	private String pMaterial;			//	P_MATERIAL	VARCHAR2(20 BYTE)
 	private String pDetail;				//	P_DETAIL	VARCHAR2(500 BYTE)
 	private int discountRate;			//	DISCOUNT_RATE	NUMBER
+	private String fileName;
+	
 	
 	private String thumbnail;			// 썸네일이미지
 	
@@ -47,6 +49,22 @@ public class Product {
 		this.pDetail = pDetail;
 		this.discountRate = discountRate;
 		this.thumbnail = thumbnail;
+	}
+
+	
+	public Product(int productNo, String category, String productName, int price, String pColor, String pSize,
+			String pMaterial, String pDetail, int discountRate, String fileName) {
+		super();
+		this.productNo = productNo;
+		this.category = category;
+		this.productName = productName;
+		this.price = price;
+		this.pColor = pColor;
+		this.pSize = pSize;
+		this.pMaterial = pMaterial;
+		this.pDetail = pDetail;
+		this.discountRate = discountRate;
+		this.fileName = fileName;
 	}
 
 	public int getProductNo() {

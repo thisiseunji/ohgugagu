@@ -50,7 +50,7 @@
 <body>
 	<div class="footerWrapper">
         <div class="footer1">
-            <img class="footerLogo" src="<%=contextPath%>/resources/image/logo.png">
+            <img class="footerLogo" src="<%=context_Path%>/resources/image/logo.png">
             <p>
                 <b>(주)오구가구 | 대표 김은지</b><br>
                                     주소 서울특별시 영등포구 선유동2로 57 이레빌딩(구관) 19F, 20F | 사업자등록번호.234-34-11234 <br>

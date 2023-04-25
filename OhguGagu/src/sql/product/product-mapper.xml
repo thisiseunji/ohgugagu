@@ -23,7 +23,6 @@
 		 WHERE PRODUCT_NAME LIKE '%?%'
 	</entry>
 	
-		
 	<entry key="selectProduct">
 		SELECT PRODUCT_NO
 		     , CATEGORY
@@ -64,6 +63,5 @@
 		JOIN TB_IMAGE USING (PRODUCT_NO)
 		WHERE PRODUCT_NO BETWEEN 1 AND 5
 	</entry>
-	
 	
 </properties>
