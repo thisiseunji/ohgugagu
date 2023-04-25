@@ -1,6 +1,7 @@
 package com.ohgu.order.model.vo;
 
 public class CartReturn {
+	private int cartNo;
 	private int productNo;
 	private String fileName;
 	private String productName;
@@ -12,9 +13,10 @@ public class CartReturn {
 	
 	public CartReturn() {}
 	
-	public CartReturn(int productNo, String fileName, String productName, String pColor, int amount, int price,
+	public CartReturn(int cartNo, int productNo, String fileName, String productName, String pColor, int amount, int price,
 			int discountRate, int pointRate) {
 		super();
+		this.cartNo = cartNo;
 		this.productNo = productNo;
 		this.fileName = fileName;
 		this.productName = productName;
@@ -25,6 +27,15 @@ public class CartReturn {
 		this.pointRate = pointRate;
 	}
 	
+	
+	public int getCartNo() {
+		return cartNo;
+	}
+
+	public void setCartNo(int cartNo) {
+		this.cartNo = cartNo;
+	}
+
 	public int getProductNo() {
 		return productNo;
 	}
@@ -78,12 +89,9 @@ public class CartReturn {
 
 	@Override
 	public String toString() {
-		return "CartReturn [productNo=" + productNo + ", fileName=" + fileName + ", productName=" + productName
-				+ ", pColor=" + pColor + ", amount=" + amount + ", price=" + price + ", discountRate=" + discountRate
-				+ ", pointRate=" + pointRate + "]";
+		return "CartReturn [cartNo=" + cartNo + ", productNo=" + productNo + ", fileName=" + fileName + ", productName="
+				+ productName + ", pColor=" + pColor + ", amount=" + amount + ", price=" + price + ", discountRate="
+				+ discountRate + ", pointRate=" + pointRate + "]";
 	}
-
-	
-
 
 }

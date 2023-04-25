@@ -127,7 +127,7 @@
                         </div>
                     </div>
                     <div class="buttonbox">
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteForm">탈퇴하기</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteForm">탈퇴하기</button>
                         <button type="button" class="btn btn-outline-danger">이전으로</button>
                     </div>
                 </div>
@@ -139,33 +139,45 @@
     </div>
 
 
-	<!-- Modal -->
-	<div class="modal fade" id="deleteForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	    
-	        <!-- Modal body -->
-        	<div class="modal-body" align="center">  	
-	            <b>
-	           	탈퇴 후 복구가 불가능합니다. <br>
-	           	정말로 탈퇴하시겠습니까? <br><br>
-	            </b>	
-	            <form action="<%= contextPath %>/delete.me" method="post">
-		            <table>
-			            <tr>
-			            	<td>비밀번호</td>
-			            	<td><input type="password" name="memberPwd" required></td>
-			            </tr>
-		            </table>	
-		            <br>		
-		            <button type="submit" class="btn btn-danger btn-block">탈퇴하기</button>
-	            </form>
+    <!-- 회원탈퇴용 모달창 (부트스트랩) -->
+    <!-- The Modal -->
+    <div class="modal" id="deleteForm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">회원탈퇴</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body" align="center">
+                	
+                	<b>
+                		탈퇴 후 복구가 불가능합니다. <br>
+                		정말로 탈퇴하시겠습니까? <br><br>
+                	</b>
+                	
+                	<form action="<%= contextPath %>/delete.me" method="post">
+                		<table>
+                			<tr>
+                				<td>비밀번호</td>
+                				<td>
+                					<input type="password" name="memberPwd" required>
+                				</td>
+                			</tr>
+                		</table>
+                		
+                		<br>
+                		
+                		<button type="submit" class="btn btn-danger btn-block">탈퇴하기</button>
+                	</form>
+                	
+                </div>
             </div>
-	      
-	      
-	    </div>
-	  </div>
-	</div>
+        </div>
+    </div>
 
 </body>
 </html>

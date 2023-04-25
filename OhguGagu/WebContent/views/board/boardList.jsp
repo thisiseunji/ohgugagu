@@ -12,16 +12,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
-<title>오구가구>고객센터>공지사항</title>
-<Style>
+<title>오구가구>마이페이지>1:1문의내역</title>
+<style>
 	.outer{
 		position: relative;
-		height : 1500px;
+		height : 1000px;
 	}
-	.footer{
+	footer{
 		z-index: 1;
-		height: 1160px;
 	}
 	header{
 		z-index: 2;
@@ -30,24 +32,72 @@
 		position: relative; 
 		height : 60%;
 	}
-	
-	.mainview>div {
+    .mainview>div {
 		float : left;
 		height : 100%;
 	}
-	
-	div[class="side"]{position: absolute;}
-	
-	.qbox {
+    div[class="side"]{position: absolute;}
+    .qbox {
 		padding-left: 200px;
 		width: 100%;
 	}
-	.boardList-area{
-		width: 1000px;
-		margin-left: 80px;
-		margin-top: 50px;
+
+
+    .textarea {
+        width: 950.88px;
+        height: 200px;
+    }
+
+    .buttondiv {
+        position: absolute; 
+        left: 273px; 
+        top: 615.188px; 
+        width: 700px; 
+        height: 41px;
+    }
+
+    .div1 {
+        position: absolute; top: 146.938px; 
+        left: 157px; 
+        width: 300px; 
+        height: 48px;
+    }
+
+    .div1-1 {
+        font-weight:bold;
+        font-size:32px;
+    }
+
+    .deletearea {
+        position: absolute; left: 146px; 
+        top: 208px; width: 954px; 
+        height: 210px;
+    }
+
+    .deletetop {
+        border-top: 2px solid lightgray;
+        position: absolute; top: 0px; 
+        left: 0px; 
+        width: 951.919px; 
+        height: 20px;
+    }
+    
+    .deletegroup {
+        position: absolute; top: 10px; 
+        left: 0px; width: 950.879px; 
+        height: 200px;
+    }
+    .qbox {
+		padding-left: 200px;
+		width: 100%;
 	}
-	.boardList-area table{
+    .boardList-area {
+		width: 1000px;
+		height: 100%;
+		margin-left: 60px;
+		margin-top: 60px;
+	}
+    .boardList-area table{
 		width: 100%;
 		height: 100%;
 		text-align: center;
@@ -80,8 +130,9 @@
 		background-color: #f2f2f2;
 		cursor: pointer;
 	}
-</Style>
+</style>
 </head>
+
 <body>	
     <div class="outer">
         <header>
@@ -100,11 +151,9 @@
 						<table>
 							<thead>
 								<tr>
-									<td width=70>글번호</td>
-									<td width="70">주문번호</td>
+									<td width="70">글번호</td>
 									<td>제목</td>
 									<td width="100">작성일</td>
-									<td width="100">답변여부</td>
 								</tr>
 							</thead>
 							<tbody>
@@ -115,17 +164,9 @@
 								<%}else{ %>
 									<% for(Board b : list){ %>
 										<tr>
-											<td><%= b.getBoardNo() %></td>
 											<td><%= b.getOrderNo() %></td>
 											<td><%= b.getBoardTitle() %></td>
 											<td><%= b.getCreatedAt() %></td>
-											<td>
-												<% if(b.getAnswer() == null){ %>
-													미답변
-												<%}else{ %>
-													답변완료
-												<%} %>
-											</td>
 										</tr>
 									<%} %>
 								<%} %>
@@ -135,9 +176,6 @@
                 </div>
                 
                 <div align="center" class="paging-bar">
-                	<%if(currentPage != 1){ %>
-                		<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage - 1%>';">&lt;</button>
-                	<%} %>
 					<% for (int i = startPage; i <= endPage; i++){ %>
 						<%if(i != currentPage){ %>
 							<button onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=i%>';"><%= i %></button>
@@ -145,24 +183,12 @@
 							<button disabled><%=i %></button>
 						<%} %>
 					<% } %>
-					<%if(currentPage != maxPage){%>
-						<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage + 1%>';">&gt;</button>
-					<%} %>
-            	</div>
+                
+            </div>
         </div>
-        <div class="footer">
+        <footer>
 			<%@ include file="../common/footer.jsp" %>
-		</div>
+		</footer>
     </div>
-
-
-    <script>
-		$("table>tbody>tr").click(function(){
-			// 리스트에 들은 orderNo를 가져와서 detail로 넘겨줌
-			let bno = $(this).children().eq(0).text();
-			location.href = "<%=contextPath%>/detail.bo?bno=" + bno;
-		});
-	</script>
-
 </body>
 </html>

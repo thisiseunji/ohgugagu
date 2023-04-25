@@ -19,7 +19,7 @@ public class CartDao {
 	private Properties prop = new Properties();
 	
 	public CartDao() {
-		String filename = CartDao.class.getResource("/sql/xml/order-mapper.xml").getPath();
+		String filename = CartDao.class.getResource("/sql/order/order-mapper.xml").getPath();
 		try {
 			prop.loadFromXML(new FileInputStream(filename));
 		} catch (IOException e) {
@@ -95,7 +95,6 @@ public class CartDao {
 	}
 	
 	public int setAmountCart(Connection conn, Cart cart) {
-		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("setAmountCart");
@@ -109,7 +108,6 @@ public class CartDao {
 			pstmt.setInt(3, cart.getProductNo());
 			
 			result = pstmt.executeUpdate();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -147,9 +145,9 @@ public class CartDao {
 				pointRate = rset2.getInt("POINT_RATE");
 			}
 			
-			CartReturn cartReturn = new CartReturn();
-			
 			while(rset1.next()) {
+				CartReturn cartReturn = new CartReturn();
+				cartReturn.setCartNo(rset1.getInt("CART_NO"));
 				cartReturn.setProductNo(rset1.getInt("PRODUCT_NO"));
 				cartReturn.setFileName(rset1.getString("FILE_NAME"));
 				cartReturn.setProductName(rset1.getString("PRODUCT_NAME"));
@@ -158,9 +156,10 @@ public class CartDao {
 				cartReturn.setPrice(rset1.getInt("PRICE"));
 				cartReturn.setDiscountRate(rset1.getInt("DISCOUNT_RATE"));
 				cartReturn.setPointRate(pointRate);
-				
+
 				cartList.add(cartReturn);
 			}
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

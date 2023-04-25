@@ -62,7 +62,6 @@ public class CartService {
 	
 	public int setAmountCart(Cart cart) {
 		Connection conn = getConnection();
-		
 		int result = new CartDao().setAmountCart(conn, cart);
 		
 		if (result > 0) {

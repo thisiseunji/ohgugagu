@@ -10,6 +10,7 @@ import java.util.Properties;
 
 import com.ohgu.common.JDBCTemplate;
 import com.ohgu.member.model.vo.Member;
+import com.ohgu.member.model.vo.MemberGrade;
 
 public class MemberDao {
 	
@@ -114,31 +115,34 @@ public class MemberDao {
 		}
 		return result;
 	}
-	
-	public int idCheck(Connection conn, String checkId) {
+
+	// order.jsp에서 사용함
+	public MemberGrade getMemberGrade(Connection conn, int totalPay) {
 		
-		int result = 0;
+		MemberGrade memberGrade = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("idCheck");
 		
+		String sql = prop.getProperty("getMemberGrade");
+	
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, checkId);
-			
+			pstmt.setInt(1, totalPay);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				result = rset.getInt("COUNT(*)");
+				System.out.println(true);
+				memberGrade = new MemberGrade(rset.getString("GRADE_NAME"));
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
-		return result;
 		
+		return memberGrade;
 	}
 
 }
