@@ -176,5 +176,31 @@ public class NoticeDao {
 		}
 		return result;
 	}
+	
+	public ArrayList<Notice> minSelectNotice(Connection conn){
+		
+		ArrayList<Notice> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("minSelectNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Notice(rset.getInt("NOTICE_NO")
+								  , rset.getString("NOTICE_TITLE")
+								  , rset.getDate("CREATED_AT")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
 
 }

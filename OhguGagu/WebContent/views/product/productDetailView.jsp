@@ -1,18 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.ohgu.product.model.vo.Product"%>
 <%
-	Product p = new Product(
-			 4
-		     , "침대"
-		     , "흰색철제침대"
-		     , 200000
-		     , 30
-		     , "WHITE"
-		     , "100*1000*100"
-		     , "STEEL"
-		     , null
-		     , 10
-		     );
+	Product p = (Product)request.getAttribute("p");
 %>
 <!DOCTYPE html>
 <html>
@@ -295,11 +284,11 @@
                 </div>
                 <div class="right">
                     <div class="top">
-                        <h1 id="title">SILKY STONE <span style="font-size: medium; color: #868686;">GREIGE</span></h1>
-                        <p>실키 스톤 그레이지</p>
+                        <h1 id="title"><%= p.getProductName() %> <span style="font-size: medium; color: #868686;">GREIGE</span></h1>
+                        <p><%= p.getpColor() %></p>
                         <dl>
                             <dt>판매가격</dt>
-                            <dd class="price">3,000원</dd>
+                            <dd class="price"><%=p.getPrice() %></dd>
                             <dt>적립금</dt>
                             <dd>1%</dd>
                             <dt>원산지</dt>
@@ -308,19 +297,19 @@
                         <div class="number">
                             <p class="order_name">앵무새 인테리어 포스터(1번/썬코발)</p>
                             <div class="order_number">
-                                <input type="number" name="num" id="num" value="1">
-                                <span class="number_price">3,000원</span>
+                                <input type="number" name="num" id="num" value="1" min="1" onclick="sumprice();">
+                                <span class="number_price"> </span>
                             </div>
                         </div>
                         <div class="total_price">
                             <p>총 상품 금액</p>
-                            <p class="result_price">3,000원</p>
+                            <p class="result_price"><%= p.getPrice() %></p>
                         </div>
                     </div>
                     <div class="bottom">
                         <button type="button" id="order_btn">주문하기</button>
                         <button type="button" id="cart_btn" onclick="updateCart();">장바구니</button>
-                        <button type="button" id="like_btn">찜하기</button>
+                        <button type="button" id="like_btn" onclick="like();">찜하기</button>
                     </div>
                 </div>
             </main>
@@ -329,15 +318,15 @@
 		        <div class="box">
 		            <nav class="tab_type1">
 		                <ul>
-		                    <li><a href="#a">제품소개</a></li>
-		                    <li><a href="#a" class="on">상세정보</a></li>
-		                    <li><a href="#a" >유의사항</a></li>
-		                    <li><a href="#a" >고객후기/문의</a></li>
+		                    <li><a href="#position1">제품소개</a></li>
+		                    <li><a href="#position2" class="on">상세정보</a></li>
+		                    <li><a href="#position3" >유의사항</a></li>
+		                    <li><a href="#position4" >고객후기/문의</a></li>
 		                </ul>
 		            </nav>  
 		            <div class="clear"></div>
 		
-		            <ul class="items" style="margin-bottom: 100px;">
+		            <ul class="items" id="position2" style="margin-bottom: 100px;">
 		                <li><img src="<%=contextPath %>/resources/image/image1.jpg"></li>
 		            </ul>
 		
@@ -352,7 +341,7 @@
 		            <ul class="items" style="margin-bottom: 100px;">
 		                <li><img src="<%=contextPath %>/resources/image/image4.jpg"></li>
 		            </ul>
-		            <ul class="items" style="margin-bottom: 100px;">
+		            <ul class="items" id="position1" style="margin-bottom: 100px;">
 		                <li><img src="<%=contextPath %>/resources/image/subscribe.png"></li>
 		            </ul>
 		            <ul class="items" style="margin-bottom: 100px;">
@@ -526,6 +515,39 @@
 				}
 			});	
 		}
+		
+		function sumprice(){
+            let price = $(".price").text();
+            let num = $("#num").val();
+
+            let sum = price * num;
+
+            $(".result_price").text(sum);
+        }
+
+        function like(){
+        	console.log("dd");
+        	console.log("<%= loginUser.getMemberNo() %>");
+            $.ajax({
+                url : "<%= contextPath %>/like",
+                type : "post",
+                data : {
+                    pNo : <%=p.getProductNo()%>,
+                	mNo : <%= loginUser.getMemberNo() %>
+                },
+                success : function(result) {
+                    if(result > 0) { // 업데이트 성공
+                        alert("찜목록에 추가되었습니다.");
+                    } else {
+                        alert("찜목록에 추가 실패");
+                    }
+                },
+                error : function() {
+                    console.log("찜목록 ajax 통신 실패");
+                }
+            });
+            };
+		
 	</script>
 
 </body>

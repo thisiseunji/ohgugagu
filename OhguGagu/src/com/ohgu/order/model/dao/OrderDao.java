@@ -25,7 +25,7 @@ public class OrderDao {
 	
 	public OrderDao() {
 		
-		String filename = OrderDao.class.getResource("/sql/order/order-mapper.xml").getPath();
+		String filename = OrderDao.class.getResource("/sql/xml/order-mapper.xml").getPath();
 		try {
 			prop.loadFromXML(new FileInputStream(filename));
 		} catch (IOException e) {
@@ -91,7 +91,7 @@ public class OrderDao {
 		Properties prop2 = new Properties();
 		
 		try {
-			prop1.loadFromXML(new FileInputStream(CartDao.class.getResource("/sql/order/order-mapper.xml").getPath()));
+			prop1.loadFromXML(new FileInputStream(CartDao.class.getResource("/sql/xml/order-mapper.xml").getPath()));
 			prop2.loadFromXML(new FileInputStream(MemberDao.class.getResource("/sql/xml/member-mapper.xml").getPath()));
 		} catch (IOException e) {
 			e.printStackTrace();

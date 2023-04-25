@@ -21,7 +21,7 @@ public class OrderService {
 		return list;
 	}
 	
-	//
+
 	public int selectListCount(int memberNo) {
 		
 		Connection conn = JDBCTemplate.getConnection();

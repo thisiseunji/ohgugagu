@@ -167,7 +167,7 @@
                         <table>
                             <tr>
                                 <td>  
-                                                                                조회기간&nbsp;&nbsp;
+                                                                                기간&nbsp;&nbsp;
                                     <!-- 
                                     	버튼이 눌릴 때 input값을 셋팅 하면 된다.
                                     	셋팅 한 후에 바로 submit을 누른 것 처럼 동작하면 됨.

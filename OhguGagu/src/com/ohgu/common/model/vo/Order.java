@@ -17,6 +17,7 @@ public class Order {
 	private int addressNo;	//	ADDRESS_NO	NUMBER
 	private String productName;
 	private String fileName;
+	private int productNo;
 	
 	
 	public Order () {}
@@ -37,8 +38,9 @@ public class Order {
 		this.addressNo = addressNo;
 	}
 
-	public Order(String productName, int orderNo, Date orderedAt, String fileName) {
+	public Order(int productNo, String productName, int orderNo, Date orderedAt, String fileName) {
 		super();
+		this.productNo = productNo;
 		this.productName = productName;
 		this.orderNo = orderNo;
 		this.orderedAt = orderedAt;
@@ -47,6 +49,14 @@ public class Order {
 	
 	
 	
+	public int getProductNo() {
+		return productNo;
+	}
+
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
+	}
+
 	public String getFileName() {
 		return fileName;
 	}

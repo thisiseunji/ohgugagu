@@ -12,6 +12,7 @@ import com.ohgu.common.JDBCTemplate;
 import com.ohgu.member.model.vo.Member;
 import com.ohgu.member.model.vo.MemberGrade;
 
+
 public class MemberDao {
 	
 	private Properties prop = new Properties();
@@ -115,8 +116,35 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	// id 체크
+	public int idCheck(Connection conn, String checkId) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("idCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, checkId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
+	}
 
-	// order.jsp에서 사용함
+	// order.jsp에서 사용하는 MemberGrade
 	public MemberGrade getMemberGrade(Connection conn, int totalPay) {
 		
 		MemberGrade memberGrade = null;
@@ -131,7 +159,6 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				System.out.println(true);
 				memberGrade = new MemberGrade(rset.getString("GRADE_NAME"));
 			}
 			
@@ -144,5 +171,4 @@ public class MemberDao {
 		
 		return memberGrade;
 	}
-
 }

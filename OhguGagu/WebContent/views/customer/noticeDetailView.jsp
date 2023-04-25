@@ -11,53 +11,39 @@
 <title>오구가구>고객센터>공지사항</title>
 <Style>
 	.outer{
-		position: relative;
-		height : 1800px;
+        width: 100%;
+        height: auto;
+		min-height: 100%;
+    }
+	.left{
+		width: 200px;
 	}
-	footer{
-		z-index: 1;
+	.footer{
+		height: 100%;
+		position: relative;
 	}
 	header{
 		z-index: 2;
 	}
-	.mainview {
-		position: relative; 
-		height : 60%;
-	}
-	
-	.mainview>div {
-		float : left;
-		height : 100%;
-	}
-	
-	div[class="side"]{position: absolute;}
-	
-	.qbox {
-		padding-left: 200px;
-		height: 100%;
-		width: 100%;
+	.box{
+		display: grid;
+		grid-template-columns: 200px auto;
+		margin: 0;
 	}
 	.detailView{
-		width: 1000px;
-		height: 100%;
-		margin-left: 40px;
-		margin-top: 50px;
-	}
-	.detailView h2{
-		margin-bottom: 50px;
+		margin: 30px;
 	}
 </Style>
 </head>
 <body>
 	<div class="outer">
-		<header>
+		<div class="header">
 			<%@ include file="../common/menubar.jsp" %>
-		</header>
-		<div class="mainview">
-			<div>
+		</div>
+		<div class="box">
+			<div class="left">
 				<%@ include file="../common/customerSidebar.jsp" %>
 			</div>
-			<div class="qbox">
 				<div class="detailView">
 					<h2>Notice</h2>
 					<div style="display: flex; margin: 20px">
@@ -66,7 +52,7 @@
 						<div style="width: 15%;">작성일 : <%= n.getCreateDate() %></div>
 					</div>
 					<hr style="margin-top: 0">
-					<div style="height: 800px; margin: 20px">
+					<div style="height: 400px; margin: 20px">
 						<p><%= n.getNoticeContent() %></p>
 					</div>
 					<div align="center">
@@ -77,11 +63,10 @@
 						<%} %>
 					</div>
 				</div>
-			</div>
 		</div>
-		<footer>
-			<%@ include file="../common/footer.jsp" %>
-		</footer>
+	</div>
+	<div class="footer" style="width: 100%;">
+		<%@ include file="../common/footer.jsp" %>
 	</div>
 </body>
 </html>

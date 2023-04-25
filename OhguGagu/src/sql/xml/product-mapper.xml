@@ -66,4 +66,12 @@
 		  )
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	
+	<entry key="selectProductByOrderNo">
+		SELECT *
+		FROM TB_PRODUCT
+		WHERE PRODUCT_NO IN (SELECT PRODUCT_NO
+							 FROM TB_ORDER_PRODUCT
+							 WHERE ORDER_NO = ?)
+	</entry>
 </properties>
